@@ -1,0 +1,13 @@
+digraph login {
+rankdir=TB;
+fontname = "SimHei";
+fontsize = 12;       
+
+present_page [label="当前页面"];
+login_page [label="登录页面"];
+logout_window [label="登出框"];
+
+present_page -> logout_window [label="点击登出"];
+logout_window -> login_page [label="确认登出"];
+logout_window -> present_page [label="取消登出"];
+}

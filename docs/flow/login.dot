@@ -1,0 +1,12 @@
+digraph login {
+rankdir=TB;
+fontname = "SimHei";
+fontsize = 12;       
+
+login_page [label="登录页面"];
+index_page [label="用户首页"];
+
+login_page -> index_page [label="登录成功"];
+login_page -> login_page [label="登录失败"];
+
+}
