@@ -301,7 +301,7 @@ content                 通知内容
 push_time               通知推送的时间
 
 
-#### notiz_to_user表
+#### notic_to_user表
 
 ID
 
