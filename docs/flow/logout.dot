@@ -1,7 +1,10 @@
-digraph login {
+digraph logout {
 rankdir=TB;
 fontname = "SimHei";
 fontsize = 12;       
+
+node [fontname = "SimHei", fontsize = 10, color="skyblue", shape="box"];
+edge [fontname = "SimHei", fontsize = 10, color="crimson", style="solid"];
 
 present_page [label="当前页面"];
 login_page [label="登录页面"];

@@ -3,6 +3,9 @@ rankdir=TB;
 fontname = "SimHei";
 fontsize = 12;       
 
+node [fontname = "SimHei", fontsize = 10, color="skyblue", shape="box"];
+edge [fontname = "SimHei", fontsize = 10, color="crimson", style="solid"];
+
 login_page [label="登录页面"];
 register_page [label="注册页面"];
 index_page [label="用户主页"];

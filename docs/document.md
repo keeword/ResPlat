@@ -46,12 +46,9 @@ LNMP——Linux,Nginx,MySQL,PHP
 
 ## 3.1 模块设计
 
-<<<<<<< HEAD
 ### 3.1.1 登录模块
 
 登录模块主要用于用户登入和登出。
-
-#### 流程图
 
 ![登入流程图](./flow/login.png)
 
@@ -61,11 +58,21 @@ LNMP——Linux,Nginx,MySQL,PHP
 
 用户模块有注册、找回密码、更改密码、更改用户信息等功能。
 
-#### 流程图
-
 ![用户注册](./flow/register.png)
 
 ![找回密码](./flow/reset_password.png)
+
+### 3.1.3 主页模块
+
+### 3.1.4 物资审核模块
+
+### 3.1.4 物资管理模块
+
+### 3.1.5 工作室审核模块
+
+### 3.1.6 工作室管理模块
+
+### 3.1.7 用户通信模块
 
 ## 3.2 数据库设计
 
@@ -89,7 +96,7 @@ photo                   头像（用存储url形式实现）
 
 reskey                  重置密码
 
-status                  判断是注册状态（registed:已注册； unregistered：未注册； deleted：已删除）
+status                  判断是注册状态（registed:已注册； unregisted：未注册； deleted：已删除）
 
 #### 角色role
 
@@ -173,9 +180,7 @@ ID
 
 from_user               来自哪个用户
 
-to_user                 外链表
-
-commentent              通知内容
+content                 通知内容
 
 push_time               通知推送的时间
 
@@ -186,7 +191,7 @@ ID
 
 notice_id               通知（notice）表的id
 
-user_id                 （接收方的id）
+user_id                 接收方的id
 
 status                  消息状态（已读、未读等）                
 
