@@ -200,19 +200,7 @@ ID
 
 username                *用户名
 
-nickname                *昵称
-
 password                *密码
-
-email                   *邮箱，可以用于找回密码
-
-phone                   *联系电话
-
-photo                   头像（用存储url形式实现）
-
-reskey                  重置密码
-
-status                  判断是注册状态（registed:已注册； unregisted：未注册； deleted：已删除）
 
 #### 角色role
 
