@@ -1,0 +1,77 @@
+digraph function_struct {
+fontname = "SimHei";
+fontsize = 10;       
+rankdir = LR;
+
+node [fontname = "SimHei", fontsize = 10, color="skyblue", shape="box"];
+edge [fontname = "SimHei", fontsize = 10, color="crimson", style="solid"];
+
+ResPlat [label="物资管理平台"];
+
+subgraph cluster_login {
+    label="用户登入/登出";
+    bgcolor="mintcream";
+    login [label="登入"];
+    logout [label="登出"];
+}
+
+subgraph cluster_user {
+    label="用户管理";
+    bgcolor="mintcream";
+    register [label="用户注册"];
+    reset_password [label="找回密码"];
+    change_password [label="修改密码"];
+    change_info [label="修改用户信息"];
+}
+
+subgraph cluster_home {
+    label="主页";
+    bgcolor="mintcream";
+    home [label="显示用户主页"];
+}
+
+subgraph cluster_material_check {
+    label="物资审核";
+    bgcolor="mintcream";
+    list [label="审核列表"];
+    detail [label="申请详情"];
+    pass [label="通过申请"];
+    refuse [label="拒绝申请"];
+}
+
+subgraph cluster_material_manage {
+    label="物资管理";
+    bgcolor="mintcream";
+    mlist [label="物资列表"];
+    add [label="添加物资"];
+    update [label="更新物资信息"];
+    del [label="删除物资"];
+    upload [label="批量添加物资"];
+    add_cat [label="添加物资分类"];
+}
+
+subgraph cluster_room_check {
+    label="工作室审核";
+    bgcolor="mintcream";
+    rlist [label="审核列表"];
+    pass [label="通过申请"];
+    refuse [label="拒绝申请"];
+}
+
+subgraph cluster_conn {
+    label="用户通信";
+    bgcolor="mintcream";
+    clist [label="消息列表"];
+    push [label="发布通告"];
+    read [label="阅读通知"];
+}
+
+ResPlat -> login;
+ResPlat -> register;
+ResPlat -> list;
+ResPlat -> clist;
+ResPlat -> rlist;
+ResPlat -> mlist;
+ResPlat -> home;
+
+}
