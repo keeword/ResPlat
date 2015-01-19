@@ -46,6 +46,7 @@ LNMP——Linux,Nginx,MySQL,PHP
 
 ## 3.1 模块设计
 
+<<<<<<< HEAD
 ### 3.1.1 登录模块
 
 登录模块主要用于用户登入和登出。
@@ -65,3 +66,127 @@ LNMP——Linux,Nginx,MySQL,PHP
 ![用户注册](./flow/register.png)
 
 ![找回密码](./flow/reset_password.png)
+
+## 3.2 数据库设计
+
+### 3.2.1 用户信息
+
+#### user表
+
+ID
+
+username                *用户名
+
+nickname                *昵称
+
+password                *密码
+
+email                   *邮箱，可以用于找回密码
+
+phone                   *联系电话
+
+photo                   头像（用存储url形式实现）
+
+reskey                  重置密码
+
+status                  判断是注册状态（registed:已注册； unregistered：未注册； deleted：已删除）
+
+#### 角色role
+
+admin                   管理员，相当于超级管理员状态，拥有除审核外的所有权限
+
+checker                 审核员，拥有普通用户和审核的权限
+
+user                    普通用户，拥有申请物资，浏览物资等基本功能
+
+### 3.2.2 物资信息
+
+#### material物资表
+
+ID
+
+name                    物资名称
+
+number                  序号？？？（建议去掉）
+
+type                    物资分类
+
+sum_n                   物资数量（总数）
+
+left_n                  该项物资余数（可去？？）
+
+borrow_n                物资借出数量
+
+create_time             物资生成时间
+
+update_time             物资更新的时间
+
+description             对物资的描述（备注）
+
+status                  （留用）
+
+comment                 （留用）
+
+### 3.2.3 申请/审核表
+
+#### check表
+
+ID
+
+user_id                 用户id
+
+checker_id              审核者id
+
+reason                  申请原因/审核原因
+
+request_time            申请时间
+
+response_time           审核时间（即为审核员回应的时间）
+
+borrow_time             借出时间（或预计借出时间）
+
+return_time             归还时间（预计归还时间）
+
+status                  物资状态（pass：审核通过； refuse：拒绝通过；  waiting：未审核 ）
+
+#### apply_resouce表
+
+ID
+
+apply_id
+
+resource_id             物资的id号
+
+number                  数量
+
+comment                 备注
+
+### 3.2.4 工作室/会议室表
+
+和物资的表可重用
+
+### 3.2.5 通知信息
+
+#### notice表
+
+ID
+
+from_user               来自哪个用户
+
+to_user                 外链表
+
+commentent              通知内容
+
+push_time               通知推送的时间
+
+
+#### notiz_to_user表
+
+ID
+
+notice_id               通知（notice）表的id
+
+user_id                 （接收方的id）
+
+status                  消息状态（已读、未读等）                
+
