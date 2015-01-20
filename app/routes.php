@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function()
-{
-    return View::make('auth/login');
-});
+Route::get('/', array('as' => 'home', 'uses' =>
+    'App\Controllers\HomeController@getIndex')
+);
 
 Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')

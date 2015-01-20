@@ -85,15 +85,23 @@ LNMP——Linux,Nginx,MySQL,PHP
 
 ### 3.3.2 用户模块
 
-用户模块有注册、找回密码、更改密码、更改用户信息等功能。
+用户模块有添加帐号、更改密码、删除账号、修改用户信息等功能。
 
-#### 用户注册
+#### 添加帐号
 
-![用户注册](./flow/register.png)
+只有管理员可以向系统添加帐号，不予注册。
 
-#### 找回密码
+#### 更改密码
 
-![找回密码](./flow/reset_password.png)
+只有管理员可以更改密码，用户不可以。
+
+#### 删除帐号
+
+管理员可以删除其他帐号。
+
+#### 更改用户信息
+
+管理员可以更改用户的权限、昵称等信息。
 
 ### 3.3.3 主页模块
 
@@ -218,13 +226,9 @@ ID
 
 name                    物资名称
 
-number                  序号？？？（建议去掉）
-
 type                    物资分类
 
 sum_n                   物资数量（总数）
-
-left_n                  该项物资余数（可去？？）
 
 borrow_n                物资借出数量
 
@@ -312,7 +316,7 @@ status                  消息状态（已读、未读等）
 #### 登入
 
 在URL 'http://example.com/login.php' 填写以下表单，
-提交到 'http://example.com/login.php'
+`POST` 到 'http://example.com/login.php'
 
 - username
 - password
@@ -330,7 +334,71 @@ status                  消息状态（已读、未读等）
 
 ```php
 interface AuthInterface {
-    public function login($username, $password, $remembeme);
-    public logout();
+    public function getLogin();
+    public function postLogout();
+    public function delLogin();
+}
+```
+
+## 4.2 用户模块
+
+### 4.2.1 功能
+
+本模块实现添加帐号、删除账号、修改用户信息等功能。
+
+### 4.2.2 输入输出
+
+#### 添加帐号
+
+管理员在 'http://example.com/user/create' 页面填写以下表单，
+然后 `POST` 到 'http://example.com/user' 完成添加。
+
+- username
+- nickname
+- password
+- role
+
+#### 更改用户信息
+
+管理员在 'http://example.com/user/{id}/edit' 页面填写以下表单，
+然后 `PUT` 到 'http://example.com/user/{id}' 完成修改。
+
+- username
+- nickname
+- password
+- role
+
+#### 删除帐号
+
+管理员发 `DELETE` 申请到 'http://example.com/user/{id}'，
+完成删除。
+
+### 4.2.3 接口
+
+```php
+interface UserInterface {
+    public function getUserCreate();
+    public function postUserCreate();
+    public function getUserUpdate();
+    public function putUserUpdate();
+    public function delUser();
+}
+```
+
+## 4.3 首页模块
+
+### 4.3.1 功能
+
+本模块的功能是显示首页。
+
+### 4.3.2 输入/输出
+
+`GET` 'http://example.com' 就是首页
+
+### 4.3.3 接口
+
+```php
+interface HomeInterface {
+    public function getIndex();
 }
 ```

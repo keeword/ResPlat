@@ -1,23 +1,27 @@
 <?php
+namespace App\Controllers;
 
-class HomeController extends BaseController {
+use BaseController, View, Input, Redirect, Response;
+use Sentry;
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
-	public function showWelcome()
-	{
-		return View::make('hello');
-	}
+class HomeController extends BaseController 
+{
+    /*
+     * 显示首页
+     * GET /
+     *
+     * @return View
+     */
+    public function getIndex()
+    {
+        if ( ! Sentry::check())
+        {
+            return Redirect::route('login');
+        }
+        else
+        {
+            return View::make('home');
+        }
+    }
 
 }
