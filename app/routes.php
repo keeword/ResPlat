@@ -15,3 +15,13 @@ Route::get('/', function()
 {
     return View::make('auth/login');
 });
+
+Route::get('/login', array('as' => 'login','uses' =>
+    'App\Controllers\AuthController@getLogin')
+);
+Route::post('/login', array('as' => 'login','uses' =>
+    'App\Controllers\AuthController@postLogin')
+);
+Route::delete('/login', array('as' => 'login','uses' =>
+    'App\Controllers\AuthController@delLogin')
+);

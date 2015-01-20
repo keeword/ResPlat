@@ -124,6 +124,7 @@ return array(
                 'Way\Generators\GeneratorsServiceProvider',
                 'Cartalyst\Sentry\SentryServiceProvider',
                 'Anbu\ProfilerServiceProvider',
+                'Turbo\Provider\Laravel\TurboServiceProvider',
 
 	),
 
