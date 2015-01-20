@@ -330,7 +330,7 @@ status                  消息状态（已读、未读等）
 
 ```php
 interface AuthInterface {
-    public function login($credentials, $remembeme);
+    public function login($username, $password, $remembeme);
     public logout();
 }
 ```
