@@ -51,18 +51,6 @@ class UserController extends BaseController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 * GET /user/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
 	 * 更新用户信息
 	 * PUT /user/{id}
 	 *
