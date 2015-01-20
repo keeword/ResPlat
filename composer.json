@@ -8,7 +8,8 @@
 		"laravel/framework": "4.2.*",
                 "cartalyst/sentry": "2.1.*",
                 "way/generators": "~2.0",
-                "caouecs/laravel4-lang": "dev-master"
+                "caouecs/laravel4-lang": "dev-master",
+                "daylerees/anbu": "~1.0@alpha"
 	},
         "require-dev": {
                 "way/generators": "~2.0",

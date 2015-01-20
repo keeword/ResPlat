@@ -300,3 +300,37 @@ user_id                 接收方的id
 status                  消息状态（已读、未读等）                
 
 # 4. 详细设计
+
+## 4.1 登录模块
+
+### 4.1.1 功能
+
+本模块主要实现用户的登入和登出功能。
+
+### 4.1.2 输入输出
+
+#### 登入
+
+在URL 'http://example.com/login.php' 填写以下表单，
+提交到 'http://example.com/login.php'
+
+- username
+- password
+- remember_me
+
+验证成功后跳转到 '首页'
+
+#### 登出
+
+点击 '登出按钮' -> `js` 弹出确认框，内容是一个 `delete` 表单 ->
+点击 '确认按钮' -> 提交 `delete` 表单到 'htto://example.com/logout.php' ->
+跳转回'登入页面'
+
+### 4.1.3 接口
+
+```php
+interface AuthInterface {
+    public function login($credentials, $remembeme);
+    public logout();
+}
+```

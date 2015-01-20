@@ -15,8 +15,3 @@ Route::get('/', function()
 {
     return View::make('hello');
 });
-
-Route::get('user', function() 
-{
-    return View::make('user');
-});
