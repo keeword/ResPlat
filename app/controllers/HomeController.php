@@ -21,7 +21,7 @@ class HomeController extends BaseController
             $username = $user->username;
 
             $group = $user->getGroups();
-            $usergroup = $group->fetch('name')->toArray()[0];
+            $usergroup = $group->fetch('name');
 
             Session::put('username', $username);
             Session::put('usergroup', $usergroup);

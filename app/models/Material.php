@@ -3,6 +3,7 @@
 class Material extends \Eloquent {
 
     protected $table = 'material';
+    protected $fillable = array('name', 'description', 'total_number', 'lent_number');
 
     public function belongsToManyCategory()
     {
