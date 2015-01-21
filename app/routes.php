@@ -14,7 +14,7 @@
 Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')
 );
-Route::delete('/login', array('as' => 'logout','uses' =>
+Route::post('/logout', array('as' => 'logout','uses' =>
     'App\Controllers\AuthController@delLogin')
 );
 
@@ -25,12 +25,12 @@ Route::group(array('before' => 'unlogined'), function()
     );
 });
 
-Route::group(array('before' => 'csrf'), function()
-{
+// Route::group(array('before' => 'csrf'), function()
+// {
     Route::post('/login', array('as' => 'login.post','uses' =>
         'App\Controllers\AuthController@postLogin')
     );
-});
+// });
 
 Route::filter('unlogined', function()
 {

@@ -27,13 +27,14 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="{{ URL::route('logout') }}">
-                    <i class="fa fa-sign-out"></i> 退出
+            <li >
+                <a   id="logoutlayer"  onClick="test()">
+                    <i class="fa fa-sign-out" ></i> 退出
                 </a>
             </li>
         </ul>
     </nav>
 </div>
 </div>
+
 @stop

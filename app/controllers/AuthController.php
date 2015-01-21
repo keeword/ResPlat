@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use BaseController, View, Input, Redirect, Response;
+use BaseController, View, Input, Redirect, Response, Lang;
 use Sentry;
 
 class AuthController extends BaseController {
@@ -42,11 +42,12 @@ class AuthController extends BaseController {
         try
         {
             $user = Sentry::authenticate($credentials, $remember);
+            return Response::json(array('success' => true));
         }
         catch(\Exception $e)
         {
 #            return Redirect::refresh()->withErrors(array('login' => $e->getMessage()));
-            return Response::json(array('success' => false, 'error' => $e->getMessage()));
+            return Response::json(array('success' => false, 'error' => Lang::get('user.login_error')));
         }
     }
 
@@ -60,7 +61,7 @@ class AuthController extends BaseController {
     {
         Sentry::logout();
 
-        return Redirect::route('login');
+        return Response::json(array('success' => true));
     }
 
 }

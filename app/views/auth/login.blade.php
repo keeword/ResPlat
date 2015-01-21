@@ -23,7 +23,7 @@
                 <h3>欢迎使用电子与信息学院团委学生会物资管理平台</h3>
 
 
-                {{ Form::open(array('url' => 'login', 'class' => 'm-t text-left', 'id' => 'loginform')) }}
+                {{ Form::open(array('url' => 'login', 'class' => 'm-t text-left',  'id' => 'loginform')) }}
 
                     <div class="form-group">
                     {{ Form::text('username', Input::old('username'), array('name'=>'username','id'=>'username','class' => 'form-control', 'placeholder' => '用户名', 'required' => '')) }}
@@ -61,6 +61,11 @@
         <!-- jQuery Validation plugin javascript-->
         <script src="js/plugins/validate/jquery.validate.min.js"></script>
         <script src="js/plugins/validate/messages_zh.min.js"></script>
+        <!-- layer javascript -->
+        <script src="js/plugins/layer/layer.min.js"></script>
+        <script>
+            layer.use('extend/layer.ext.js'); //载入layer拓展模块
+        </script>
         <script>
             /*  *   *   *   *   *   *   *   *   *
              *             字体等变红           *
@@ -107,11 +112,14 @@
 	
 	 $(document).ready(function(){
 	   	 $('#loginform').bind('submit', function(){
-	       	 ajaxSubmit(this, function(json){
-                            if (json.success==true) {
-    
-                            };
-             });
+
+                         ajaxSubmit(this, function(json){
+                                 // alert(data);
+                                if(json.success==true){
+                                        layer.load(3000);
+                                        window.location.href="{{ URL::route('home') }}";
+                                }
+	    	    });
 	        return false;
 	    });
 	});

@@ -35,6 +35,54 @@
     <script src="js/jquery.pjax.js"></script>
 
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<!-- layer javascript -->
+    <script src="js/plugins/layer/layer.min.js"></script>
+    <script>
+        layer.use('extend/layer.ext.js'); //载入layer拓展模块
+    </script>
+<script src="js/demo/layer-demo.js"></script>
+
+<script>
+
+
+function test(){
+    $.layer({
+                    shade: [0],
+                    area: ['auto','auto'],
+                    dialog: {
+                        msg: 'Are You Sure to Quit?',
+                        btns: 2, 
+                        type: 4,
+                        btn: ['Yes','No'],
+                        yes: function(){
+                            $.post("{{URL::route('logout') }}",function(json){
+                                if(json.success==true){
+                                   window.location.href="{{ URL::route('login') }}";
+                                }
+                            })
+                        }, 
+                        no: function(){
+                            //layer.msg('奇葩', 1, 13);
+                        }
+                    }
+                });     
+    }
+       
+    function test1(){
+        var r = confirm("Are You Sure to Quit?");
+        if(r==true){
+           window.location.href="{{ URL::route('login') }}";
+        }
+    }
+
+    $("#logoutlayer").live('click',function(){ 
+    $.post("login.php?action=logout",function(msg){ 
+        if(msg==1){ 
+            window.location.href="{{URL::route('logout')}}";
+        } 
+    }); 
+}); 
+</script>
 
 </body>
 
