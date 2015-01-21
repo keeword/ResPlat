@@ -11,9 +11,8 @@ class DatabaseSeeder extends Seeder {
     {
         $this->call('GroupTableSeeder');
         $this->call('UserTableSeeder');
-        $this->call('MaterialTableSeeder');
         $this->call('CategoryTableSeeder');
-        $this->call('MaterialCategoryTableSeeder');
+        $this->call('MaterialTableSeeder');
 
 
         // 将用户加入用户组

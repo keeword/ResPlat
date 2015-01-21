@@ -10,7 +10,8 @@
                 "way/generators": "~2.0",
                 "caouecs/laravel4-lang": "dev-master",
                 "daylerees/anbu": "~1.0@alpha",
-                "rcrowe/turbo": "0.2.*"
+                "rcrowe/turbo": "0.2.*",
+		"barryvdh/laravel-debugbar": "~1.8"
 	},
         "require-dev": {
                 "way/generators": "~2.0",
