@@ -15,9 +15,13 @@ class Material extends \Eloquent {
         return $this->all();
     }
 
-    public function belongsToManyCategory()
+    public function category()
     {
-        return $this->belongsToMany('Category', 'material_category', 
-                                    'material_id', 'category_id');
+        return $this->belongsTo('Category', 'category_id', 'id');
+    }
+
+    public function belongsToCategory()
+    {
+        return $this->belongsTo('Category', 'category_id', 'id');
     }
 }

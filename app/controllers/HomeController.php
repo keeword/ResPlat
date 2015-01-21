@@ -22,21 +22,28 @@ class HomeController extends BaseController
             $nickname = $user->nickname;
 
             $group = $user->getGroups();
-            $usergroup = $group->fetch('name');
+            $usergroup = $group->fetch('name')[0];
 
             Session::put('username', $username);
             Session::put('usergroup', $usergroup);
         }
         catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            Redirect::route('login');
+            return Redirect::route('login');
         }
 
-        $material = Material::all();
+        try
+        {
+            $materials = Material::with('category')->get();
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
 
         return View::make('home', array('username' => $nickname, 
             'usergroup' => Lang::get('user.'.$usergroup),
-            'material_list' => $material,)
+            'materials' => $materials,)
         );
     }
 

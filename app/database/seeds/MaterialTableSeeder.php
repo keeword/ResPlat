@@ -16,6 +16,7 @@ class MaterialTableSeeder extends Seeder {
                 'description'  => $faker->sentence($nbWrods = 10),
                 'total_number' => $faker->randomDigitNotNull,
                 'lent_number'  => $faker->randomDigitNotNull,
+                'category_id'  => $faker->randomDigitNotNull,
             ]);
         }
     }

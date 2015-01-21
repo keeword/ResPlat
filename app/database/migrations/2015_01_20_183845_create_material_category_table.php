@@ -12,6 +12,7 @@ class CreateMaterialCategoryTable extends Migration {
      */
     public function up()
     {
+/*            
         Schema::create('material_category', function(Blueprint $table)
         {
             $table->integer('material_id')->unsigned();
@@ -20,6 +21,7 @@ class CreateMaterialCategoryTable extends Migration {
 			$table->engine = 'InnoDB';
             $table->primary(array('material_id', 'category_id'));
         });
+*/
     }
 
     /**

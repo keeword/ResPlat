@@ -20,9 +20,10 @@ class CreateMaterialTable extends Migration {
             $table->string('status')->nullable();
             $table->integer('total_number');
             $table->integer('lent_number');
+            $table->integer('category_id');
             $table->timestamps();
 
-			$table->engine = 'InnoDB';
+            $table->engine = 'InnoDB';
             $table->unique('name');
         });
     }
