@@ -107,9 +107,11 @@
 	
 	 $(document).ready(function(){
 	   	 $('#loginform').bind('submit', function(){
-	       	 ajaxSubmit(this, function(data){
-	          	 // alert(data);
-	    	    });
+	       	 ajaxSubmit(this, function(json){
+                            if (json.success==true) {
+    
+                            };
+             });
 	        return false;
 	    });
 	});
