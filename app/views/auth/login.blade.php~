@@ -23,8 +23,7 @@
 
                 <h3>欢迎使用电子与信息学院团委学生会物资管理平台</h3>
 
-                  {{ Form::open(array('url'=>'login', 'class' => 'm-t', 'id' => 'loginform' )) }} 
-                   
+                {{ Form::open(array('url' => 'login', 'class' => 'm-t', 'id' => 'loginform')) }}
                     <div class="form-group">
                     {{ Form::text('username', Input::old('username'), array('name'=>'username','id'=>'username','class' => 'form-control', 'placeholder' => '用户名', 'required' => '')) }}
                     </div>
@@ -33,13 +32,70 @@
                     </div>
         <!--
                     {{ Form::radio('remember', false) }}记住我
-                    {{Form::button('登录', array('id'=>'searchbtn','class' => 'btn btn-primary block full-width m-b', 'onclick'=>'submitPost(this.form)'));}}
-                       {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
-        -->		
-                    <input class ="btn btn-primary block full-width m-b" type="submit"  value="登录" >
-                 
+        -->
+                    {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
                 {{ Form::close() }}
 	
+
+
+	<script>
+		var request = false;
+
+		try{
+		 request = new XMLHttpRequest();
+		}
+		catch (trymicrosoft) {
+		  try{
+		    request = new ActiveXObject("Msxml2.XMLHTTP");
+		   }
+		  catch (othermicrosoft) {
+		    try {
+		      request = new ActiveXObject("Microsoft.XMLHTTP");
+		    }
+		    catch (failed) {
+		      request = false;
+		    } 
+		  }
+		}
+
+		if (!request)
+		 alert("Error initializing XMLHttpRequest!");
+
+ 
+
+ 
+
+		//再定义反馈接收函数
+
+		function updatePage() {
+		 if (request.readyState == 4) {
+		   if (request.status == 200) {
+		  
+		  //alert(request.responseText);
+		 
+		   } else{
+		     //alert("status is " + request.status);
+		  }
+		 }
+		}
+
+		 
+
+		//在需要提交请求的地方，以下为Get方式
+
+		 request.open("GET", "xxxx.asp?parm=yyyy", true);
+		 request.onreadystatechange = updatePage;
+		 request.send(null);
+
+		 
+
+		//以下通过Post方式打开连接，大小可以超过2K
+
+		request.open("POST", url, true);
+		request.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+		request.onreadystatechange = updatePage;
+		request.send("parm1=....&parm2=....");  
+	</script>
         <!-- Mainly scripts -->
         <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
         <script src="js/jquery.pjax.js"></script>
@@ -88,26 +144,7 @@
                     password:"请输入密码"
                 }
                 });
-        });
-
-	        //将form转为AJAX提交
-	function ajaxSubmit(frm, fn) {
-	    $.ajax({
-	        url: frm.action,
-	        type: frm.method,
-	        data: $('form#loginform').serialize(),
-	        success: fn
-	    });
-	}
-	
-	 $(document).ready(function(){
-	   	 $('#loginform').bind('submit', function(){
-	       	 ajaxSubmit(this, function(data){
-	          	 // alert(data);
-	    	    });
-	        return false;
-	    });
-	});
+        })
         </script>
     </body>
 <!--
