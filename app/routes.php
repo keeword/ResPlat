@@ -11,16 +11,31 @@
 |
 */
 
-Route::get('/', array('as' => 'home', 'uses' =>
-    'App\Controllers\HomeController@getIndex')
-);
-
 Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')
 );
-Route::post('/login', array('as' => 'login','uses' =>
-    'App\Controllers\AuthController@postLogin')
-);
-Route::delete('/login', array('as' => 'login','uses' =>
+Route::delete('/login', array('as' => 'logout','uses' =>
     'App\Controllers\AuthController@delLogin')
 );
+
+Route::group(array('before' => 'unlogined'), function()
+{
+    Route::get('/', array('as' => 'home', 'uses' =>
+        'App\Controllers\HomeController@getIndex')
+    );
+});
+
+Route::group(array('before' => 'csrf'), function()
+{
+    Route::post('/login', array('as' => 'login.post','uses' =>
+        'App\Controllers\AuthController@postLogin')
+    );
+});
+
+Route::filter('unlogined', function()
+{
+    if ( !Sentry::check())
+    {
+        return Redirect::to('login');
+    }
+});

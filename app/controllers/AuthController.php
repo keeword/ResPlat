@@ -17,7 +17,7 @@ class AuthController extends BaseController {
         // logined
         if ( Sentry::check() )
         {
-            return Redirect::route('home');
+            return Redirect::home();
         }
 
         // did not logined
@@ -45,7 +45,7 @@ class AuthController extends BaseController {
         }
         catch(\Exception $e)
         {
-#            return Redirect::route('login')->withErrors(array('login' => $e->getMessage()));
+#            return Redirect::refresh()->withErrors(array('login' => $e->getMessage()));
             return Response::json(array('success' => false, 'error' => $e->getMessage()));
         }
     }

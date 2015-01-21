@@ -16,24 +16,28 @@
     <body class="gray-bg">
 
         <div class="middle-box text-center loginscreen  animated fadeInDown">
-            <div>
                 <div>
                     <h1 class="logo-name"><img src="img/logo.png" /></h1>
                 </div>
 
                 <h3>欢迎使用电子与信息学院团委学生会物资管理平台</h3>
 
-                {{ Form::open(array('url' => 'login', 'class' => 'm-t', 'id' => 'loginform')) }}
+                {{ Form::open(array('url' => 'login', 'class' => 'm-t text-left', 'id' => 'loginform')) }}
+
                     <div class="form-group">
                     {{ Form::text('username', Input::old('username'), array('name'=>'username','id'=>'username','class' => 'form-control', 'placeholder' => '用户名', 'required' => '')) }}
                     </div>
+
                     <div class="form-group">
                     {{ Form::password('password', array('name'=>'password','id'=>'password', 'class' => 'form-control', 'placeholder' => '密码', 'required' => '')) }}
                     </div>
-        <!--
-                    {{ Form::radio('remember', false) }}记住我
-        -->
+
+                    <label>
+                    {{ Form::checkbox('remember', false, array('class' => 'checkbox')) }} 记住我
+                    </label>
+
                     {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
+
                 {{ Form::close() }}
 
         <!-- Mainly scripts -->
