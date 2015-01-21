@@ -3,6 +3,8 @@
 class Category extends \Eloquent {
 
     protected $table = 'category';
+    protected $fillable = array('category');
+
 
     public function hasManyMaterial()
     {

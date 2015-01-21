@@ -7,4 +7,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUserModel;
 
 class User extends SentryUserModel {
+
+    protected $table='users';
+
 }

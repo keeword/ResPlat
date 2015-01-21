@@ -1,7 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use BaseController, View, Input, Redirect, Response;
+use User;
+use BaseController, View, Input, Redirect, Response, Session, Lang;
 use Sentry;
 
 class HomeController extends BaseController 
@@ -14,14 +15,25 @@ class HomeController extends BaseController
      */
     public function getIndex()
     {
-        if ( ! Sentry::check())
+        try
         {
-            return Redirect::route('login');
+            $user = Sentry::getUser();
+            $username = $user->username;
+
+            $group = $user->getGroups();
+            $usergroup = $group->fetch('name');
+
+            Session::put('username', $username);
+            Session::put('usergroup', $usergroup);
         }
-        else
+        catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            return View::make('home');
+            Redirect::route('login');
         }
+
+        return View::make('home', array('username' => $username, 
+            'usergroup' => Lang::get('user.'.$usergroup))
+        );
     }
 
 }

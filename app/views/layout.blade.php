@@ -21,7 +21,7 @@
 
 <body>
 
-    @yield('navbar')
+    @yield('sidebar')
 
     <!-- Mainly scripts -->
     <script src="js/jquery-1.10.2.js"></script>

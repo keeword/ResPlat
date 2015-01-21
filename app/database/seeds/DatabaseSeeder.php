@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder {
     {
         $this->call('GroupTableSeeder');
         $this->call('UserTableSeeder');
+        $this->call('MaterialTableSeeder');
+        $this->call('CategoryTableSeeder');
+        $this->call('MaterialCategoryTableSeeder');
+
 
         // 将用户加入用户组
         $adminUser  = Sentry::getUserProvider()->findByLogin('test');
