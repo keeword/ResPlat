@@ -9,6 +9,7 @@
  <div class="row"> 
   <div class="col-lg-12"> 
 
+{{ print_r(Session::all()) }}
 
    <div class="ibox float-e-margins"> 
 
@@ -20,18 +21,16 @@
       <table class="table table-bordered table-striped"> 
        <thead> 
         <tr> 
-         <th>用户名</th> 
          <th>用户帐号</th> 
+         <th>用户名</th> 
+         <th>用户角色</th> 
         </tr> 
        </thead> 
        <tbody> 
         <tr> 
-         <th class="text-nowrap"> 
-          <form>
-            信宣部 
-          </form>
-         </th> 
-         <td>blablablablabla</td> 
+         <td>{{ Session::get('username') }}</td> 
+         <td>{{ Session::get('nickname') }}</td> 
+         <td>{{ Session::get('usergroup') }}</td> 
         </tr> 
         <tr> 
         </tr> 

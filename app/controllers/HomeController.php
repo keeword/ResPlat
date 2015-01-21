@@ -15,22 +15,6 @@ class HomeController extends BaseController
      */
     public function getIndex()
     {
-        try
-        {
-            $user = Sentry::getUser();
-            $username = $user->username;
-            $nickname = $user->nickname;
-
-            $group = $user->getGroups();
-            $usergroup = $group->fetch('name')[0];
-
-            Session::put('username', $username);
-            Session::put('usergroup', $usergroup);
-        }
-        catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
-        {
-            return Redirect::route('login');
-        }
 
         try
         {
@@ -41,10 +25,7 @@ class HomeController extends BaseController
             return Response::make('Not Found', 404);
         }
 
-        return View::make('home', array('username' => $nickname, 
-            'usergroup' => Lang::get('user.'.$usergroup),
-            'materials' => $materials,)
-        );
+        return View::make('home')->with('materials', $materials);
     }
 
 }

@@ -17,12 +17,15 @@ class UserController extends BaseController {
     {
         try
         {
-            $users = Sentry::findAllUsers();
+            $users = User::with('groups')->get();
         }            
         catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
+
+        return View::make('user', array('users' => $users));
+
     }
 
     /**
@@ -43,17 +46,6 @@ class UserController extends BaseController {
      * @return Response
      */
     public function postUserCreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * POST /user
-     *
-     * @return Response
-     */
-    public function store()
     {
         //
     }
