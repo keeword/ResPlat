@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use User;
+use User, Material;
 use BaseController, View, Input, Redirect, Response, Session, Lang;
 use Sentry;
 
@@ -19,6 +19,7 @@ class HomeController extends BaseController
         {
             $user = Sentry::getUser();
             $username = $user->username;
+            $nickname = $user->nickname;
 
             $group = $user->getGroups();
             $usergroup = $group->fetch('name');
@@ -31,8 +32,11 @@ class HomeController extends BaseController
             Redirect::route('login');
         }
 
-        return View::make('home', array('username' => $username, 
-            'usergroup' => Lang::get('user.'.$usergroup))
+        $material = Material::all();
+
+        return View::make('home', array('username' => $nickname, 
+            'usergroup' => Lang::get('user.'.$usergroup),
+            'material_list' => $material,)
         );
     }
 

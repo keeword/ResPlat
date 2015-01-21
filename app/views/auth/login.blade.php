@@ -107,8 +107,11 @@
 	
 	 $(document).ready(function(){
 	   	 $('#loginform').bind('submit', function(){
-	       	 ajaxSubmit(this, function(data){
-	          	 // alert(data);
+                         ajaxSubmit(this, function(json){
+                                 // alert(data);
+                                if(json.success==true){
+                                        window.location.href="{{ URL::route('home') }}";
+                                }
 	    	    });
 	        return false;
 	    });
