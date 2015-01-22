@@ -38,9 +38,9 @@
                        {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
         -->		
 
-                    <label>
-                    {{ Form::checkbox('remember', false, array('class' => 'checkbox')) }} 记住我
-                    </label>
+                    <!-- <label>
+                    {{ Form::checkbox('remember', true, false, array('class' => 'checkbox')) }} 记住我
+                    </label> -->
 
                     {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
                 {{ Form::close() }}
@@ -62,10 +62,11 @@
         <script src="js/plugins/validate/jquery.validate.min.js"></script>
         <script src="js/plugins/validate/messages_zh.min.js"></script>
         <!-- layer javascript -->
-        <script src="js/plugins/layer/layer.min.js"></script>
-        <script>
-            layer.use('extend/layer.ext.js'); //载入layer拓展模块
-        </script>
+	    <script src="js/plugins/layer/layer.min.js"></script>
+	    <script>
+	        layer.use('extend/layer.ext.js'); //载入layer拓展模块
+	    </script>
+	    <script src="js/demo/layer-demo.js"></script>
         <script>
             /*  *   *   *   *   *   *   *   *   *
              *             字体等变红           *
@@ -106,68 +107,34 @@
 	        url: frm.action,
 	        type: frm.method,
 	        data: $('form#loginform').serialize(),
-	        success: fn
+	        success: fn,
+	        beforeSend:function(){
+	        	if (($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
+	        		//alert('bunengweikong');
+	        		return false;
+	        	}else {
+	        		//alert('buweikong');
+	        		return true;
+	        	}
+	        }
 	    });
 	}
 	
 	 $(document).ready(function(){
-	   	 $('#loginform').bind('submit', function(){
+	   	 	$('#loginform').bind('submit', function(){
 
-                         ajaxSubmit(this, function(json){
-                                 // alert(data);
-                                if(json.success==true){
-                                        layer.load(3000);
-                                        window.location.href="{{ URL::route('home') }}";
-                                }else{
-                                	
-                                }
-	    	    });
-	        return false;
+            	ajaxSubmit(this, function(json){
+
+                    if(json.success==true){
+                            layer.load('loading...', 3);
+                            window.location.href="{{ URL::route('home') }}";
+                    }else{
+                    	layer.load('帐号密码不匹配', 1);
+                    }
+    	    });
+        return false;
 	    });
 	});
         </script>
     </body>
-<!--
-<script type='text/javascript'>
-$(document).ready(function() {
-    $('form#loginform').submit(function() {
-        $.ajax({
-            type: 'post',
-            cache: false,
-            dataType: 'json',
-            data: $('form#loginform').serialize(),
-            beforeSend: function() { 
-                $("#validation-errors").hide().empty(); 
-            },
-            success: function(data) {
-                if(data.success == false)
-                {
-                    var arr = data.errors;
-                    $.each(arr, function(index, value)
-                    {
-                        if (value.length != 0)
-                        {
-                            $("#validation-errors").append('<div class="alert alert-error"><strong>'+ value +'</strong><div>');
-                        }
-                    });
-                    $("#validation-errors").show();
-                } else {
-                     location.reload();
-                }
-            },
-            error: function(xhr, textStatus, thrownError) {
-                alert('Something went to wrong.Please Try again later...');
-            }
-        });
-        return false;
-    });
-});
-</script>
-
-<script type="javascript">
-$(document).ready(function()
-{
-    $(document).pjax('a', 'body');
-});
-</script>-->
 </html>
