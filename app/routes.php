@@ -31,12 +31,12 @@ Route::group(array('before' => 'unlogined'), function()
     );
 });
 
-// Route::group(array('before' => 'csrf'), function()
-// {
+Route::group(array('before' => 'csrf'), function()
+{
     Route::post('/login', array('as' => 'login.post','uses' =>
         'App\Controllers\AuthController@postLogin')
     );
-// });
+});
 
 Route::filter('unlogined', function()
 {

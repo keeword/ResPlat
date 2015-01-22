@@ -13,128 +13,124 @@
 
     </head>
 
-    <body class="gray-bg">
+<body class="gray-bg">
 
-        <div class="middle-box text-center loginscreen  animated fadeInDown">
-                <div>
-                    <h1 class="logo-name"><img src="img/logo.png" /></h1>
-                </div>
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <h1 class="logo-name"><img src="img/logo.png" /></h1>
+        </div>
 
-                <h3>欢迎使用电子与信息学院团委学生会物资管理平台</h3>
+        <h3>欢迎使用电子与信息学院团委学生会物资管理平台</h3>
 
 
-                {{ Form::open(array('url' => 'login', 'class' => 'm-t text-left',  'id' => 'loginform')) }}
+        {{ Form::open(array('url' => 'login', 'class' => 'm-t text-left',  'id' => 'loginform')) }}
 
-                    <div class="form-group">
-                    {{ Form::text('username', Input::old('username'), array('name'=>'username','id'=>'username','class' => 'form-control', 'placeholder' => '用户名', 'required' => '')) }}
-                    </div>
+            <div class="form-group">
+            {{ Form::text('username', Input::old('username'), array('name'=>'username','id'=>'username','class' => 'form-control', 'placeholder' => '用户名', 'required' => '')) }}
+            </div>
 
-                    <div class="form-group">
-                    {{ Form::password('password', array('name'=>'password','id'=>'password', 'class' => 'form-control', 'placeholder' => '密码', 'required' => '')) }}
-                    </div>
-        <!--
-                    {{ Form::radio('remember', false) }}记住我
-                    {{Form::button('登录', array('id'=>'searchbtn','class' => 'btn btn-primary block full-width m-b', 'onclick'=>'submitPost(this.form)'));}}
-                       {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
-        -->		
+            <div class="form-group">
+            {{ Form::password('password', array('name'=>'password','id'=>'password', 'class' => 'form-control', 'placeholder' => '密码', 'required' => '')) }}
+            </div>
 
-                    <!-- <label>
-                    {{ Form::checkbox('remember', true, false, array('class' => 'checkbox')) }} 记住我
-                    </label> -->
+            <!-- <label>
+            {{ Form::checkbox('remember', true, false, array('class' => 'checkbox')) }} 记住我
+            </label> -->
 
-                    {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
-                {{ Form::close() }}
-	
-        <!-- Mainly scripts -->
-        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-        <script src="js/jquery.pjax.js"></script>
-        <!-- Mainly scripts -->
-        <script src="js/jquery-1.10.2.js"></script>
-        <script src="js/bootstrap.min.js?v=1.6"></script>
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            {{ Form::submit('登录', array('class' => 'btn btn-primary block full-width m-b')) }}
+        {{ Form::close() }}
 
-        <!-- Custom and plugin javascript -->
-        <script src="js/hplus.js?v=1.6"></script>
-        <script src="js/plugins/pace/pace.min.js"></script>
+    <!-- Mainly scripts -->
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <script src="js/jquery.pjax.js"></script>
+    <!-- Mainly scripts -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js?v=1.6"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <!-- jQuery Validation plugin javascript-->
-        <script src="js/plugins/validate/jquery.validate.min.js"></script>
-        <script src="js/plugins/validate/messages_zh.min.js"></script>
-        <!-- layer javascript -->
-	    <script src="js/plugins/layer/layer.min.js"></script>
-	    <script>
-	        layer.use('extend/layer.ext.js'); //载入layer拓展模块
-	    </script>
-	    <script src="js/demo/layer-demo.js"></script>
-        <script>
-            /*  *   *   *   *   *   *   *   *   *
-             *             字体等变红           *
-             *  *   *   *   *   *   *   *   *   */         
-            $.validator.setDefaults({
-            highlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+    <!-- Custom and plugin javascript -->
+    <script src="js/hplus.js?v=1.6"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="js/plugins/validate/messages_zh.min.js"></script>
+    <!-- layer javascript -->
+    <script src="js/plugins/layer/layer.min.js"></script>
+    <script>
+        layer.use('extend/layer.ext.js'); //载入layer拓展模块
+    </script>
+    <script src="js/demo/layer-demo.js"></script>
+    <script>
+    /*  *   *   *   *   *   *   *   *   *
+     *             字体等变红           *
+     *  *   *   *   *   *   *   *   *   */         
+    $.validator.setDefaults({
+    highlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+    },
+    success: function (element) {
+        element.closest('.form-group').removeClass('has-error').addClass('has-success');
+    },
+    errorElement: "span",
+    errorClass: "help-block m-b-none",
+    validClass: "help-block m-b-none"
+    });
+
+
+    /*
+     *
+     */
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#loginform").validate({
+            rules:{
+                username:"required",
+                password:"required"
             },
-            success: function (element) {
-                element.closest('.form-group').removeClass('has-error').addClass('has-success');
-            },
-            errorElement: "span",
-            errorClass: "help-block m-b-none",
-            validClass: "help-block m-b-none"
-             });
-
-
-            /*
-             *
-             */
-        $().ready(function () {
-            // validate signup form on keyup and submit
-            $("#loginform").validate({
-                rules:{
-                    username:"required",
-                    password:"required"
-                },
-                messages:{
-                    username:"请输入用户名",
-                    password:"请输入密码"
-                }
-                });
+            messages:{
+                username:"请输入用户名",
+                password:"请输入密码"
+            }
         });
+    });
 
-	        //将form转为AJAX提交
-	function ajaxSubmit(frm, fn) {
-	    $.ajax({
-	        url: frm.action,
-	        type: frm.method,
-	        data: $('form#loginform').serialize(),
-	        success: fn,
-	        beforeSend:function(){
-	        	if (($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
-	        		//alert('bunengweikong');
-	        		return false;
-	        	}else {
-	        		//alert('buweikong');
-	        		return true;
-	        	}
-	        }
-	    });
-	}
-	
-	 $(document).ready(function(){
-	   	 	$('#loginform').bind('submit', function(){
+    //将form转为AJAX提交
+    function ajaxSubmit(frm, fn) {
+        $.ajax({
+            url: frm.action,
+            type: frm.method,
+            data: $('form#loginform').serialize(),
+            success: fn,
+            beforeSend:function(){
+                if (($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
+                    //alert('bunengweikong');
+                    return false;
+                }else {
+                    //alert('buweikong');
+                    return true;
+                }
+            }
+        });
+    }
+    
+     $(document).ready(function(){
+        $('#loginform').bind('submit', function(){
 
-            	ajaxSubmit(this, function(json){
+            ajaxSubmit(this, function(json){
 
-                    if(json.success==true){
-                            layer.load('loading...', 3);
-                            window.location.href="{{ URL::route('home') }}";
-                    }else{
-                    	layer.load('帐号密码不匹配', 1);
-                    }
-    	    });
-        return false;
-	    });
-	});
-        </script>
-    </body>
+                if(json.success==true){
+                        layer.load('loading...', 3);
+                        window.location.href="{{ URL::route('home') }}";
+                }else{
+                    layer.load('帐号密码不匹配', 1);
+                }
+            });
+            return false;
+        });
+    });
+    </script>
+
+</body>
 </html>
