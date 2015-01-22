@@ -14,21 +14,41 @@
 Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')
 );
-Route::delete('/login', array('as' => 'logout','uses' =>
-    'App\Controllers\AuthController@delLogin')
-);
 
-Route::group(array('before' => 'unlogined'), function()
+
+Route::group(array('before' => 'isLogined'), function()
 {
     Route::get('/', array('as' => 'home', 'uses' =>
         'App\Controllers\HomeController@getIndex')
     );
+    Route::delete('/login', array('as' => 'logout','uses' =>
+        'App\Controllers\AuthController@delLogin')
+    );
     Route::get('/user', array('as' => 'user', 'uses' =>
         'App\Controllers\UserController@getUser')
     );
+});
+
+Route::group(array('before' => 'isAdmin'), function()
+{
     Route::get('/user/create', array('as' => 'user.create', 'uses' =>
         'App\Controllers\UserController@getUserCreate')
     );
+    Route::get('/user/{id}', array('as' => 'user.update', 'uses' =>
+        'App\Controllers\UserController@getUserUpdate')
+    )
+    ->where('id', '[0-9]+');
+});
+
+Route::group(array('before' => 'isAdmin|csrf'), function()
+{
+    Route::post('/user', array('as' => 'user.post','uses' =>
+        'App\Controllers\UserController@postUserCreate')
+    );
+    Route::put('/user/{id}', array('as' => 'user.update','uses' =>
+        'App\Controllers\UserController@postUserUpdate')
+    )
+    ->where('id', '[0-9]+');
 });
 
 Route::group(array('before' => 'csrf'), function()
@@ -36,15 +56,37 @@ Route::group(array('before' => 'csrf'), function()
     Route::post('/login', array('as' => 'login.post','uses' =>
         'App\Controllers\AuthController@postLogin')
     );
-    Route::post('/user', array('as' => 'user.post','uses' =>
-        'App\Controllers\UserController@postUserCreate')
-    );
 });
 
-Route::filter('unlogined', function()
+
+Route::filter('isLogined', function()
 {
-    if ( !Sentry::check())
+    if ( ! Sentry::check())
     {
         return Redirect::to('login');
+    }
+});
+
+Route::filter('isAdmin', function()
+{
+    try
+    {
+        if ( ! $user = Sentry::getUser() )
+        {
+            throw new \Exception('User not found.');
+        }
+        $admin = Sentry::findGroupByName('admin');
+        if ( ! $user->inGroup($admin) )
+        {
+            return Response::make('Not Found', 404);
+        }
+    }
+    catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+    {
+        return Response::make('Not Found', 404);
+    }
+    catch (\Exception $e)
+    {
+        return Response::make('Not Found', 404);
     }
 });
