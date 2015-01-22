@@ -120,6 +120,29 @@ function fnClickAddRow() {
         "New row"]);
 }
 </script>
+<script>
+var pageii;
+function alterbtn(){
+    pageii = $.layer({
+    type: 1,
+    offset: ['150px', ''],
+    title: false,
+    area: ['auto', 'auto'],
+    border: [0], //去掉默认边框
+    shade: [0], //去掉遮罩
+    closeBtn: [0, false], //去掉默认关闭按钮
+    shift: 'top', //从左动画弹出
+    page: {
+    html: '<div style="width:420px; height:260px; padding:20px; border:1px solid #ccc; background-color:#eee;"><p>我从左边来，我自定了风格。</p><button id="pagebtn" class="btns" onclick="">关闭</button></div>'
+    }
+});
+    //layer.load(pageii);
+    //自设关闭
+    $('#pagebtn').on('click', function(){
+        layer.close(pageii);
+    });
+}
 
+</script>
 </body>
 </html>
