@@ -10,7 +10,7 @@ class UserTableSeeder extends Seeder {
           'email'      => 'test@scut.edu',
           'username'   => 'test',
           'nickname'   => '测试',
-          'password'   => "123456789",
+          'password'   => '123456789',
           'activated'  => true,
         ));
     }
