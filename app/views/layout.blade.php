@@ -123,7 +123,7 @@ function fnClickAddRow() {
 <script>                    //user.blade.php's javascript 
 
 function addUser(){         //user.blade.php 新增帐号
-    iframeset('https://mp.weixin.qq.com');
+    iframeset('{{ URL::route('user.create') }}');
 }
 
 function alterbtn(){        //user.blade.php 修改按钮
