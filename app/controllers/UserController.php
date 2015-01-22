@@ -21,7 +21,7 @@ class UserController extends BaseController {
             $admin = Sentry::findGroupByName('admin');
             $isAdmin = $user->inGroup($admin);
 
-            if ($admin)
+            if ($isAdmin)
             {
                 $users = User::with('groups')->get();
             }
@@ -81,8 +81,6 @@ class UserController extends BaseController {
         {
             return Response::make('Not Found', 404);
         }
-
-
     }
 
     /**
@@ -94,37 +92,67 @@ class UserController extends BaseController {
     public function postUserCreate()
     {
         try
-        {
+        {   
+            $user = Sentry::getUser();
+            $admin = Sentry::findGroupByName('admin');
+            $isAdmin = $user->inGroup($admin);
+
             $password = (Input::get('password') === Input::get('repasswd')) 
                         ? Input::get('password') : '';
 
             $group = Sentry::findGroupByName(Input::get('group'));
-
-            $user = Sentry::createUser(array(
-                'username'  => Input::get('username'),
-                'nickname'  => Input::get('nickname'),
-                'password'  => $password,
-                'activated' => true,
-            ));
-
-            $user->addGroup($group);
         }
-        catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
+        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            return Response::json(array('success' => false, 'error' => 'username required'));
-        }
-        catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
-        {
-            return Response::json(array('success' => false, 'error' => 'password required'));
-        }
-        catch (Cartalyst\Sentry\Users\UserExistsException $e)
-        {
-            return Response::json(array('success' => false, 'error' => 'user exists'));
+            return Response::make('Not Found', 404);
         }
         catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
         {
-            return Response::json(array('success' => false, 'error' => 'group not found'));
+            return Response::make('Not Found', 404);
         }
+
+        try
+        {
+            if ($isAdmin)
+            {
+                $user = Sentry::createUser(array(
+                    'username'  => Input::get('username'),
+                    'nickname'  => Input::get('nickname'),
+                    'password'  => $password,
+                    'activated' => true,
+                ));
+    
+                $user->addGroup($group);
+                
+                return Response::json(array('success' => true));
+            }
+            else
+            {
+                return Response::json(array('success' => false, 
+                    'error' => Lang::get('user.'.'permission_denied')));
+            }
+        }
+        catch (\Cartalyst\Sentry\Users\LoginRequiredException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => Lang::get('user.'.'username_required')));
+        }
+        catch (\Cartalyst\Sentry\Users\PasswordRequiredException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => Lang::get('user.'.'password_required')));
+        }
+        catch (\Cartalyst\Sentry\Users\UserExistsException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => Lang::get('user.'.'user_exists' )));
+        }
+        catch (\Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => Lang::get('user.'.'group_not_found')));
+        }
+
     }
 
     /**
