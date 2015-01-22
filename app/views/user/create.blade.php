@@ -2,6 +2,7 @@
 <html>
 <head>
     <title></title>
+    <meta content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -14,22 +15,22 @@
 
     <div class="form-group">
     {{ Form::label('username', '用户名') }}
-    {{ Form::text('username', Input::old('username'), array('class' => 'form-control','id'=>'username', 'placeholder' => '用户名', 'required' => '')) }}
+    {{ Form::text('username', Input::old('username'), array('class' => 'form-control','id'=>'username', 'placeholder' => '用户名')) }}
     </div>
 
     <div class="form-group">
     {{ Form::label('nickname', '部门') }}
-    {{ Form::text('nickname', Input::old('nickname'), array('class' => 'form-control', 'id'=>'nickname', 'placeholder' => '部门', 'required' => '')) }}
+    {{ Form::text('nickname', Input::old('nickname'), array('class' => 'form-control', 'id'=>'nickname', 'placeholder' => '部门')) }}
     </div>
 
     <div class="form-group">
     {{ Form::label('password', '密码') }}
-    {{ Form::password('password', array('class' => 'form-control', 'id'=>'password', 'placeholder' => '密码', 'required' => '')) }}
+    {{ Form::password('password', array('class' => 'form-control', 'id'=>'password', 'placeholder' => '密码')) }}
     </div>
 
     <div class="form-group">
     {{ Form::label('repasswd', '确认密码') }}
-    {{ Form::password('repasswd', array('class' => 'form-control', 'id'=>'repasswd', 'placeholder' => '确认密码', 'required' => '')) }}
+    {{ Form::password('repasswd', array('class' => 'form-control', 'id'=>'repasswd', 'placeholder' => '确认密码')) }}
     </div>
 
     <div class="form-group">
@@ -42,25 +43,19 @@
 
     </div>
     </div>
-    <!-- Mainly scripts -->
+    <!-- Mainly scripts 
+     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+     -->
     <script src="/js/jquery-1.10.2.js"></script>
-    <script src="/js/bootstrap.min.js?v=1.6"></script>
-    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-    <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
     <!-- jQuery Validation plugin javascript-->
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/plugins/validate/messages_zh.min.js"></script>
-    <!-- Data Tables -->
-    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    
     <!-- layer javascript -->
     <script src="/js/plugins/layer/layer.min.js"></script>
-    <script>
-        layer.use('extend/layer.ext.js'); //载入layer拓展模块
-    </script>
-    <script src="/js/demo/layer-demo.js"></script>
+    
+    
     <script>
     //将form转为AJAX提交
     function ajaxSubmit(frm, fn) {
@@ -71,8 +66,20 @@
             dataType:'json',
             success: fn,
             beforeSend:function(){
-                if($('input[id=password]').val()!= $('input[id=repasswd]').val()){
-                    layer.load('密码不一致!!', 1);
+                if(!(($('input[id=username]').val()).match(/^[a-zA-Z0-9_]{4,16}$/))){
+                    layer.load('请输入4-16位英文字符、数字或下划线的用户名',1);
+                    return false;
+                }else if($('input[id=nickname]').val().length==0){
+                    layer.load('部门名称不能为空',1);
+                    return false;
+                }else if(!$('input[id=password]').val().match(/^.{6,32}$/)){
+                    layer.load('请输入6-32位长度的密码',1);
+                    return false;
+                }else if($('input[id=repasswd]').val().length==0){
+                    layer.load('请确认密码',1);
+                    return false;
+                }else if($('input[id=password]').val()!= $('input[id=repasswd]').val()){
+                    layer.load('两次输入的密码不一致!', 2);
                     return false;
                 }
                 else if(($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
@@ -93,6 +100,8 @@
                         layer.load('帐号创建成功!!', 1);
                         //window.location.href="{{ URL::route('home') }}";
                 }else{
+                        layer.load(json.error, 1);
+
                     //layer.load('帐号密码不匹配', 1);
                 }
             });

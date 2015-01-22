@@ -38,13 +38,15 @@
     <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 
-    <!-- Custom and plugin javascript -->
+    <!-- Custom and plugin javascript
+        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
+     -->
     <script src="/js/hplus.js?v=1.6"></script>
     <script src="/js/plugins/pace/pace.min.js"></script>
     <script src="/js/jquery.pjax.js"></script>
 
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-
+    
     <!-- layer javascript -->
     <script src="/js/plugins/layer/layer.min.js"></script>
     <script>
@@ -80,7 +82,6 @@ function logout(){
                 })
             }, 
             no: function(){
-                //layer.msg('奇葩', 1, 13);
             }
         }
     });     
@@ -92,7 +93,7 @@ $(document).ready(function () {
     $('.dataTables-example').dataTable();
 
     /* Init DataTables */
-    var oTable = $('#editable').dataTable();
+    var oTable = $(document).dataTable();
 
     /* Apply the jEditable handlers to the table */
     oTable.$('td').editable('../example_ajax.php', {
@@ -111,19 +112,19 @@ $(document).ready(function () {
     });
 });
 
-function fnClickAddRow() {
+/*function fnClickAddRow() {
     $('#editable').dataTable().fnAddData([
         "Custom row",
         "New row",
         "New row",
         "New row",
         "New row"]);
-}
+}*/
 </script>
 <script>                    //user.blade.php's javascript 
 
 function addUser(){         //user.blade.php 新增帐号
-    iframeset('{{ URL::route('user.create') }}');
+    iframeset('{{ URL::route("user.create") }}');
 }
 
 function alterbtn(){        //user.blade.php 修改按钮
