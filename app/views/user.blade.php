@@ -37,7 +37,7 @@
 
     <div class="ibox-content"> 
     @if ($isAdmin)
-       <a href="javascript:;" class="btn btn-outline btn-primary">新增账号</a>
+       <a href="javascript:;" class="btn btn-outline btn-primary" onClick="addUser()">新增账号</a>
        <button type="button" class="btn btn-outline btn-danger">批量删除</button>
     @endif
     @if ($isAdmin)
