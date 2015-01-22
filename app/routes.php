@@ -14,7 +14,7 @@
 Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')
 );
-Route::post('/logout', array('as' => 'logout','uses' =>
+Route::delete('/login', array('as' => 'logout','uses' =>
     'App\Controllers\AuthController@delLogin')
 );
 
@@ -22,6 +22,9 @@ Route::group(array('before' => 'unlogined'), function()
 {
     Route::get('/', array('as' => 'home', 'uses' =>
         'App\Controllers\HomeController@getIndex')
+    );
+    Route::get('/user', array('as' => 'user', 'uses' =>
+        'App\Controllers\UserController@getUser')
     );
 });
 

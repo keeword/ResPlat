@@ -28,7 +28,7 @@
                 </ul>
             </li>
             <li >
-                <a   id="logoutlayer"  onClick="test()">
+                <a id="logoutlayer"  onClick="logout()">
                     <i class="fa fa-sign-out" ></i> 退出
                 </a>
             </li>

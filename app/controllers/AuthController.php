@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use BaseController, View, Input, Redirect, Response, Lang;
+use BaseController, View, Input, Redirect, Response, Lang, Session;
 use Sentry;
 
 class AuthController extends BaseController {
@@ -32,7 +32,6 @@ class AuthController extends BaseController {
      */
     public function postLogin()
     {
-        ad('foo');
         $credentials = array(
             'username' => Input::get('username'),
             'password' => Input::get('password')
@@ -42,11 +41,14 @@ class AuthController extends BaseController {
         try
         {
             $user = Sentry::authenticate($credentials, $remember);
+            Session::put('userid', $user->id);
+            Session::put('username', $user->username);
+            Session::put('nickname', $user->nickname);
+            Session::put('usergroup', Lang::get('user.'.$user->getGroups()->first()->name));
             return Response::json(array('success' => true));
         }
         catch(\Exception $e)
         {
-#            return Redirect::refresh()->withErrors(array('login' => $e->getMessage()));
             return Response::json(array('success' => false, 'error' => Lang::get('user.login_error')));
         }
     }

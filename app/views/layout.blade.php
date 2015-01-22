@@ -44,92 +44,82 @@
     <script src="js/jquery.pjax.js"></script>
 
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-<!-- layer javascript -->
+
+    <!-- layer javascript -->
     <script src="js/plugins/layer/layer.min.js"></script>
     <script>
         layer.use('extend/layer.ext.js'); //载入layer拓展模块
     </script>
-<script src="js/demo/layer-demo.js"></script>
+    <script src="js/demo/layer-demo.js"></script>
 
 <script>
-
-
-function test(){
+function logout(){
     $.layer({
-                    shade: [0],
-                    area: ['auto','auto'],
-                    dialog: {
-                        msg: 'Are You Sure to Quit?',
-                        btns: 2, 
-                        type: 4,
-                        btn: ['Yes','No'],
-                        yes: function(){
-                            $.post("{{URL::route('logout') }}",function(json){
-                                if(json.success==true){
-                                   window.location.href="{{ URL::route('login') }}";
-                                }
-                            })
-                        }, 
-                        no: function(){
-                            //layer.msg('奇葩', 1, 13);
-                        }
+        shade: [0],
+        title: ' ',
+        offset: ['200px', ''],
+        area: ['auto','auto'],
+        shade: [0.5, '#000'],
+        shadeClose: true,
+        closeBtn: [1, false],
+        time: 3,
+        dialog: {
+            msg: 'Are You Sure to Quit?',
+            btns: 2, 
+            type: 4,
+            btn: ['Yes','No'],
+            yes: function(){
+                $.post("{{ URL::route('logout') }}", 
+                {
+                    _method: 'delete'
+                },
+                function(json){
+                    if(json.success==true){
+                        window.location.href="{{ URL::route('login') }}";
                     }
-                });     
-    }
-       
-    function test1(){
-        var r = confirm("Are You Sure to Quit?");
-        if(r==true){
-           window.location.href="{{ URL::route('login') }}";
+                })
+            }, 
+            no: function(){
+                //layer.msg('奇葩', 1, 13);
+            }
         }
-    }
-
-    $("#logoutlayer").live('click',function(){ 
-    $.post("login.php?action=logout",function(msg){ 
-        if(msg==1){ 
-            window.location.href="{{URL::route('logout')}}";
-        } 
-    }); 
-}); 
+    });     
+}
 </script>
 
-    <script>
-        $(document).ready(function () {
-            $('.dataTables-example').dataTable();
+<script>
+$(document).ready(function () {
+    $('.dataTables-example').dataTable();
 
-            /* Init DataTables */
-            var oTable = $('#editable').dataTable();
+    /* Init DataTables */
+    var oTable = $('#editable').dataTable();
 
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable('../example_ajax.php', {
-                "callback": function (sValue, y) {
-                    var aPos = oTable.fnGetPosition(this);
-                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-                },
-                "submitdata": function (value, settings) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition(this)[2]
-                    };
-                },
+    /* Apply the jEditable handlers to the table */
+    oTable.$('td').editable('../example_ajax.php', {
+        "callback": function (sValue, y) {
+            var aPos = oTable.fnGetPosition(this);
+            oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+        },
+        "submitdata": function (value, settings) {
+            return {
+                "row_id": this.parentNode.getAttribute('id'),
+                "column": oTable.fnGetPosition(this)[2]
+            };
+        },
+        "width": "90%",
+        "height": "100%"
+    });
+});
 
-                "width": "90%",
-                "height": "100%"
-            });
+function fnClickAddRow() {
+    $('#editable').dataTable().fnAddData([
+        "Custom row",
+        "New row",
+        "New row",
+        "New row",
+        "New row"]);
+}
+</script>
 
-
-        });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData([
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row"]);
-
-        }
-    </script>
 </body>
-
 </html>
