@@ -8,4 +8,11 @@ return array(
 
     'login_error'       => '帐号或密码错误',
 
+    'permission_denied' => '没有权限',
+    'username_required' => '需要用户名',
+    'password_required' => '需要密码',
+    'user_exists'       => '用户已存在',
+    'group_not_found'   => '用户组不存在',
+        
+
 );
