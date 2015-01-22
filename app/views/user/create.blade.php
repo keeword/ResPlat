@@ -38,7 +38,7 @@
     </div>
 
     {{ Form::submit('创建', array('class' => 'btn btn-info block full-width m-b')) }}
-    {{ Form::close() }}
+{{ Form::close() }}
 
     </div>
     </div>
@@ -47,14 +47,20 @@
     <script src="/js/bootstrap.min.js?v=1.6"></script>
     <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
     <!-- jQuery Validation plugin javascript-->
-    <script src="js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="js/plugins/validate/messages_zh.min.js"></script>
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"></script>
     <!-- Data Tables -->
     <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <!-- layer javascript -->
+    <script src="/js/plugins/layer/layer.min.js"></script>
+    <script>
+        layer.use('extend/layer.ext.js'); //载入layer拓展模块
+    </script>
+    <script src="/js/demo/layer-demo.js"></script>
     <script>
     //将form转为AJAX提交
     function ajaxSubmit(frm, fn) {
@@ -62,17 +68,16 @@
             url: frm.action,
             type: frm.method,
             data: $('form#createuserform').serialize(),
+            dataType:'json',
             success: fn,
             beforeSend:function(){
                 if($('input[id=password]').val()!= $('input[id=repasswd]').val()){
-                    alert('unmatch!');
+                    layer.load('密码不一致!!', 1);
                     return false;
                 }
                 else if(($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
-                    //alert('bunengweikong');
                     return false;
                 }else {
-                    //alert('buweikong');
                     return true;
                 }
             }
@@ -85,10 +90,10 @@
             ajaxSubmit(this, function(json){
 
                 if(json.success==true){
-                        layer.load('loading...', 3);
-                        window.location.href="{{ URL::route('home') }}";
+                        layer.load('帐号创建成功!!', 1);
+                        //window.location.href="{{ URL::route('home') }}";
                 }else{
-                    layer.load('帐号密码不匹配', 1);
+                    //layer.load('帐号密码不匹配', 1);
                 }
             });
             return false;

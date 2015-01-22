@@ -145,7 +145,7 @@ function iframeset(srcurl){
         scrolling: 'auto'
         }
     });
-    layer.load(1);
+    //layer.load(1);
 }
 
 </script>
