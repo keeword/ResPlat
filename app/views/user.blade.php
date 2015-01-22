@@ -4,7 +4,7 @@
 
 <div class="row  border-bottom white-bg dashboard-header">
      <div class="col-lg-10">
-        <h2>新增账号</h2>
+        <h2>账号管理</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ URL::route('home') }}">主页</a>
@@ -16,6 +16,7 @@
     </div>
 </div>
 
+
 <div class="col-lg-12"> 
 
 <div class="wrapper wrapper-content"> 
@@ -24,6 +25,7 @@
 
    <div class="ibox float-e-margins"> 
 
+    @if ($isAdmin)
     <div class="ibox-title"> 
      <h5>用户列表</h5> 
      <div class="ibox-tools"> 
@@ -31,11 +33,18 @@
       <a class="close-link"> <i class="fa fa-times"></i> </a> 
      </div> 
     </div> 
+    @endif
 
     <div class="ibox-content"> 
+    @if ($isAdmin)
        <a href="javascript:;" class="btn btn-outline btn-primary">新增账号</a>
        <button type="button" class="btn btn-outline btn-danger">批量删除</button>
+    @endif
+    @if ($isAdmin)
      <table class="table table-striped table-bordered table-hover dataTables-example"> 
+    @else
+     <table class="table table-striped table-bordered table-hover"> 
+    @endif
       <thead> 
        <tr> 
         <th>用户帐号</th> 
@@ -57,6 +66,7 @@
        </tr> 
        @endforeach 
       </tbody> 
+    @if ($isAdmin)
       <tfoot> 
        <tr> 
         <th>用户帐号</th> 
@@ -65,6 +75,7 @@
         <th>操作</th> 
        </tr> 
       </tfoot> 
+    @endif
      </table> 
     </div> 
 

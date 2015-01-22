@@ -26,6 +26,9 @@ Route::group(array('before' => 'unlogined'), function()
     Route::get('/user', array('as' => 'user', 'uses' =>
         'App\Controllers\UserController@getUser')
     );
+    Route::get('/user/create', array('as' => 'user.create', 'uses' =>
+        'App\Controllers\UserController@getUserCreate')
+    );
 });
 
 // Route::group(array('before' => 'csrf'), function()

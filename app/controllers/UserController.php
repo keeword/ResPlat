@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use User;
-use BaseController, View, Input, Redirect, Response;
+use BaseController, View, Input, Redirect, Response, Session;
 use Sentry;
 
 class UserController extends BaseController {
@@ -18,22 +18,28 @@ class UserController extends BaseController {
         try
         {   
             $user = Sentry::getUser();
-            $permissions = $user->getPermissions();
+            $admin = Sentry::findGroupByName('admin');
+            $isAdmin = $user->inGroup($admin);
+
+            if ($admin)
+            {
+                $users = User::with('groups')->get();
+            }
+            else
+            {
+                $users = User::with('groups')->where('id', Session::get('userid'))->get();
+            }
         }
         catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
-        try
-        {
-            $users = User::with('groups')->get();
-        }            
-        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('user')->with('users', $users)->with('permissions', $permissions);
+        return View::make('user')->with('users', $users)->with('isAdmin', $isAdmin);
 
     }
 
@@ -45,6 +51,27 @@ class UserController extends BaseController {
      */
     public function getUserCreate()
     {
+        try
+        {   
+            $user = Sentry::getUser();
+            $admin = Sentry::findGroupByName('admin');
+            $isAdmin = $user->inGroup($admin);
+
+            if ($isAdmin)
+            {
+                return View::make('user.create');
+            }
+
+        }
+        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
+        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
+
 
     }
 

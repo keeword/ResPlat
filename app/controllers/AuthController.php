@@ -47,7 +47,11 @@ class AuthController extends BaseController {
             Session::put('usergroup', Lang::get('user.'.$user->getGroups()->first()->name));
             return Response::json(array('success' => true));
         }
-        catch(\Exception $e)
+        catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return Response::json(array('success' => false, 'error' => Lang::get('user.login_error')));
+        }
+        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
         {
             return Response::json(array('success' => false, 'error' => Lang::get('user.login_error')));
         }
