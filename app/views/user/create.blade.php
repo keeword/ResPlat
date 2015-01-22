@@ -23,6 +23,11 @@
     </div>
 
     <div class="form-group">
+    {{ Form::label('repasswd', '确认密码') }}
+    {{ Form::password('repasswd', array('class' => 'form-control', 'placeholder' => '确认密码', 'required' => '')) }}
+    </div>
+
+    <div class="form-group">
     {{ Form::label('group', '用户组') }}
     {{ Form::select('group', $groups, 'user', array('class' => 'chosen-select')) }}
     </div>
