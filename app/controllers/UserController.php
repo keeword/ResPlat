@@ -16,6 +16,15 @@ class UserController extends BaseController {
     public function getUser()
     {
         try
+        {   
+            $user = Sentry::getUser();
+            $permissions = $user->getPermissions();
+        }
+        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
+        try
         {
             $users = User::with('groups')->get();
         }            
@@ -24,7 +33,7 @@ class UserController extends BaseController {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('user', array('users' => $users));
+        return View::make('user')->with('users', $users)->with('permissions', $permissions);
 
     }
 

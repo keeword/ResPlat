@@ -24,7 +24,8 @@
                 😄
             </div>
             <li class="active">
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">物资管理</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-th-large"></i>
+                <span class="nav-label">物资管理</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="index_1.html">物资审核</a>
                     </li>
@@ -35,7 +36,8 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-building-o"></i> <span class="nav-label">工作室管理</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-building-o"></i> 
+                <span class="nav-label">工作室管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="graph_echarts.html">工作室审核</a>
                     </li>
@@ -45,15 +47,8 @@
             </li>
 
             <li>
-                <a href="#">
-                <i class="fa fa-cog"></i>
+                <a href="{{ URL::route('user') }}"><i class="fa fa-cog"></i>
                 <span class="nav-label">账号管理</span>
-                <ul class="nav nav-second-level">
-                    <li><a href="{{ URL::route('user') }}">新增账号</a>
-                    </li>
-                    <li><a href="mail_detail.html">密码修改</a>
-                    </li>
-                </ul>
             </li>
 
         </ul>
