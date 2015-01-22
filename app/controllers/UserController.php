@@ -93,7 +93,38 @@ class UserController extends BaseController {
      */
     public function postUserCreate()
     {
-        //
+        try
+        {
+            $password = (Input::get('password') === Input::get('repasswd')) 
+                        ? Input::get('password') : '';
+
+            $group = Sentry::findGroupByName(Input::get('group'));
+
+            $user = Sentry::createUser(array(
+                'username'  => Input::get('username'),
+                'nickname'  => Input::get('nickname'),
+                'password'  => $password,
+                'activated' => true,
+            ));
+
+            $user->addGroup($group);
+        }
+        catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
+        {
+            return Response::json(array('success' => false, 'error' => 'username required'));
+        }
+        catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
+        {
+            return Response::json(array('success' => false, 'error' => 'password required'));
+        }
+        catch (Cartalyst\Sentry\Users\UserExistsException $e)
+        {
+            return Response::json(array('success' => false, 'error' => 'user exists'));
+        }
+        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+        {
+            return Response::json(array('success' => false, 'error' => 'group not found'));
+        }
     }
 
     /**

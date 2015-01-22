@@ -36,6 +36,9 @@ Route::group(array('before' => 'csrf'), function()
     Route::post('/login', array('as' => 'login.post','uses' =>
         'App\Controllers\AuthController@postLogin')
     );
+    Route::post('/user', array('as' => 'user.post','uses' =>
+        'App\Controllers\UserController@postUserCreate')
+    );
 });
 
 Route::filter('unlogined', function()
