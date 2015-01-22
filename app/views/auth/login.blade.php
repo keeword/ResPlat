@@ -118,6 +118,8 @@
                                 if(json.success==true){
                                         layer.load(3000);
                                         window.location.href="{{ URL::route('home') }}";
+                                }else{
+                                	
                                 }
 	    	    });
 	        return false;
