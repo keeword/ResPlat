@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use User;
-use BaseController, View, Input, Redirect, Response, Session;
+use User, Group;
+use BaseController, View, Input, Redirect, Response, Session, Lang;
 use Sentry;
 
 class UserController extends BaseController {
@@ -59,7 +59,17 @@ class UserController extends BaseController {
 
             if ($isAdmin)
             {
-                return View::make('user.create');
+                $allgroup = Group::select('name')->get()->toArray();
+                $groups = array();
+                foreach ($allgroup as $group)
+                {
+                    $groups[$group['name']] = Lang::get('user.'.$group['name']);
+                }
+                return View::make('user.create')->with('groups', $groups);
+            }
+            else
+            {
+                return Response::make('Not Found', 404);
             }
 
         }
