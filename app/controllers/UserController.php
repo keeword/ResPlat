@@ -179,7 +179,7 @@ class UserController extends BaseController {
 
             if ( $groupname = Input::get('group'))
             {
-                if ( !$user->addGroup(Sentry::findGroupByName($groupname)) )
+                if ( ! $user->addGroup(Sentry::findGroupByName($groupname)) )
                 {
                     throw new \Exception('Group was not assigned.');
                 }
@@ -195,12 +195,12 @@ class UserController extends BaseController {
         catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
             return Response::json(array('success' => false, 
-                'error' => Lang::get('user.'.'user_exists' )));
+                'error' => Lang::get('user.'.'user_not_found' )));
         }
         catch (\Cartalyst\Sentry\Groups\GroupNotFoundException $e)
         {
             return Response::json(array('success' => false, 
-                'error' => Lang::get('user.'.'user_exists' )));
+                'error' => Lang::get('user.'.'group_not_found' )));
         }
         catch (\Exception $e)
         {
@@ -216,7 +216,30 @@ class UserController extends BaseController {
      */
     public function delUser()
     {
-        //
+        try
+        {
+            $id = Request::segment(2);
+            $user = Sentry::findUserById($id);
+
+            $admin = Sentry::getUser();
+            $password = Input::get('password');
+
+            if ( $admin->checkPassword($password) )
+            {
+                $user->delete();
+                return Response::json(array('success' => true));
+            }
+            else
+            {
+                return Response::json(array('success' => false, 
+                    'error' => Lang::get('user.'.'password_not_match' )));
+            }
+        }
+        catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => Lang::get('user.'.'user_not_found' )));
+        }
     }
 
 }

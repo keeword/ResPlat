@@ -38,6 +38,10 @@ Route::group(array('before' => 'isAdmin'), function()
         'App\Controllers\UserController@getUserUpdate')
     )
     ->where('id', '[0-9]+');
+    Route::delete('/user/{id}', array('as' => 'user.delete', 'uses' =>
+        'App\Controllers\UserController@delUser')
+    )
+    ->where('id', '[0-9]+');
 });
 
 Route::group(array('before' => 'isAdmin|csrf'), function()
@@ -45,8 +49,8 @@ Route::group(array('before' => 'isAdmin|csrf'), function()
     Route::post('/user', array('as' => 'user.post','uses' =>
         'App\Controllers\UserController@postUserCreate')
     );
-    Route::put('/user/{id}', array('as' => 'user.update','uses' =>
-        'App\Controllers\UserController@postUserUpdate')
+    Route::put('/user/{id}', array('as' => 'user.put','uses' =>
+        'App\Controllers\UserController@putUserUpdate')
     )
     ->where('id', '[0-9]+');
 });

@@ -80,7 +80,7 @@
     }
 
     $(document).ready(function(){
-        $('#updateuserform').bind('submit', function(){
+        $('#teuserform').bind('submit', function(){
 
             ajaxSubmit(this, function(json){
 

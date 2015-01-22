@@ -93,9 +93,9 @@ $(document).ready(function () {
     $('.dataTables-example').dataTable();
 
     /* Init DataTables */
-    var oTable = $(document).dataTable();
-
+    // var oTable = $(document).dataTable();
     /* Apply the jEditable handlers to the table */
+/*
     oTable.$('td').editable('../example_ajax.php', {
         "callback": function (sValue, y) {
             var aPos = oTable.fnGetPosition(this);
@@ -110,6 +110,7 @@ $(document).ready(function () {
         "width": "90%",
         "height": "100%"
     });
+*/
 });
 
 /*function fnClickAddRow() {
@@ -127,26 +128,50 @@ function addUser(){         //user.blade.php 新增帐号
     iframeset('{{ URL::route("user.create") }}');
 }
 
-function alterbtn(){        //user.blade.php 修改按钮
-    iframeset("http://www.baidu.com");
+function alterbtn(id){        //user.blade.php 修改按钮
+    iframeset("{{ URL::route('user') }}" + '/' + id);
+}
+
+function delUser(id){
+    layer.prompt({
+        top: 'auto',
+        type : 1,
+        title: '输入密码以确认删除!!'
+    }, function(val){
+        $.post(
+            "{{ URL::route('user') }}" + '/' + id,
+            {
+                _method : 'delete', 
+                password : val
+            },
+            function (json){
+                if(json.success == true){
+                    layer.msg('删除成功!',2,function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(json.error,2,2);
+                }
+        });
+    });
 }
 
 function iframeset(srcurl){
     var pageii = $.layer({
-    type: 2,
-    offset:['100px',''],
-    //shade: [0],
-    closeBtn: [0, true],
-    shadeClose: true,
-    area: ['450px', '400px'],
-    title: false,
-    border: [0],
-    iframe: {
-        src: srcurl,
-        scrolling: 'auto'
-        }
-    });
-    //layer.load(1);
+        type: 2,
+        offset:['100px',''],
+        //shade: [0],
+        closeBtn: [0, true],
+        shadeClose: true,
+        area: ['450px', '400px'],
+        title: false,
+        border: [0],
+        iframe: {
+            src: srcurl,
+            scrolling: 'auto'
+            }
+        });
+        //layer.load(1);
 }
 
 </script>
