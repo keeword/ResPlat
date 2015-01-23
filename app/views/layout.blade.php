@@ -14,6 +14,10 @@
     <!-- Data Tables -->
     <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet">
+
     <!-- Gritter -->
     <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 
