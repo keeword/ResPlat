@@ -30,6 +30,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/workroom', array('as' => 'workroom', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroom')
     );
+    Route::get('/application', array('as' => 'application', 'uses' =>
+        'App\Controllers\ApplicationController@getApplication')
+    );
 });
 
 Route::group(array('before' => 'isAdmin'), function()

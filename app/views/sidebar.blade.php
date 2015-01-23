@@ -27,11 +27,10 @@
                 <a href="#"><i class="fa fa-th-large"></i>
                 <span class="nav-label">物资管理</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
+                    <li><a href="{{ URL::route('application') }}">物资申请</a>
+                    </li>
                     <li><a href="index_1.html">物资审核</a>
                     </li>
-                    <li><a href="index_2.html">物资一览</a>
-                    </li>
-                    
                 </ul>
             </li>
 

@@ -814,8 +814,8 @@ button.dim:active:before {
     text-shadow: none;
 }
 .badge {
-    background-color: #d1dade;
-    color: #5e5e5e;
+    background-color: #0099FF;
+    color: #fff;
     font-family: 'Open Sans';
     font-size: 11px;
     font-weight: 600;

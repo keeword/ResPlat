@@ -1,9 +1,10 @@
 <?php
 namespace App\Controllers;
 
+use Material;
 use BaseController, View, Input, Redirect, Response, Lang, Session;
 
-class Application extends \BaseController {
+class ApplicationController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -11,9 +12,18 @@ class Application extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getApplication()
 	{
-		//
+        try
+        {
+            $materials = Material::with('category')->get();
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
+
+        return View::make('application')->with('materials', $materials);
 	}
 
 	/**
