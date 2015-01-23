@@ -33,6 +33,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/application', array('as' => 'application', 'uses' =>
         'App\Controllers\ApplicationController@getApplication')
     );
+    Route::get('/application/create', array('as' => 'application.create', 'uses' =>
+        'App\Controllers\ApplicationController@getApplicationCreate')
+    );
 });
 
 Route::group(array('before' => 'isAdmin'), function()
@@ -48,6 +51,13 @@ Route::group(array('before' => 'isAdmin'), function()
         'App\Controllers\UserController@delUser')
     )
     ->where('id', '[0-9]+');
+});
+
+Route::group(array('before' => 'isLogined|csrf'), function()
+{
+    Route::post('/application', array('as' => 'application', 'uses' =>
+        'App\Controllers\ApplicationController@postApplication')
+    );
 });
 
 Route::group(array('before' => 'isAdmin|csrf'), function()

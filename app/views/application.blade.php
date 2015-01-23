@@ -39,7 +39,7 @@
      </div> 
     </div> 
 
-{{ Form::open(array('url' => 'application.create', 'method' => 'GET')) }}
+{{ Form::open(array('url' => 'application/create', 'method' => 'GET')) }}
     <div class="ibox-content"> 
      <table class="table table-striped table-bordered table-hover dataTables-example"> 
       <thead> 
@@ -52,7 +52,7 @@
        </tr> 
       </thead> 
       <tbody>
-        @foreach ($materials as $material) 
+       @foreach ($materials as $material) 
        <tr class="gradeX"> 
         <td>{{ $material->name }}</td> 
         <td>{{ $material->category->category }}</td> 
@@ -66,10 +66,14 @@
         <td><a href="#">详情</a></td> 
         <td><span>
             <a href="javascript:;" class="J_minus" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
+<!--
             <input type="text" value="0" class="J_input" style="width:30px;height:18px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px"/>
+-->
+            {{ Form::text($material->id, '0', array('class' => 'J_input', 'style' => 'width:30px;height:18px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
             <a href="javascript:;" class="J_add" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
         </span></td>
-       </tr> @endforeach 
+       </tr> 
+       @endforeach 
       </tbody> 
       <tfoot> 
        <tr> 
@@ -81,6 +85,10 @@
        </tr> 
       </tfoot> 
      </table> 
+<!--
+       <a href="javascript:;" class="btn btn-outline btn-primary" onClick="addUser()">提交申请</a>
+-->
+        {{ Form::submit('提交')}}
     </div> 
 {{ Form::close() }}
 
