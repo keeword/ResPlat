@@ -49,7 +49,6 @@
         <th>剩余数量</th> 
         <th>借出情况</th> 
         <th>需求数量</th> 
-        <th>操作</th> 
        </tr> 
       </thead> 
       <tbody>
@@ -65,8 +64,11 @@
         <td>{{ $material->total_number }}</td> 
 -->
         <td><a href="#">详情</a></td> 
-        <td>8</td>
-        <td></td>
+        <td><span>
+            <a href="javascript:;" class="J_minus" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
+            <input type="text" value="0" class="J_input" style="width:30px;height:18px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px"/>
+            <a href="javascript:;" class="J_add" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
+        </span></td>
        </tr> @endforeach 
       </tbody> 
       <tfoot> 
@@ -75,6 +77,7 @@
         <th>物资品类</th> 
         <th>剩余数量</th> 
         <th>借出情况</th> 
+        <th>需求数量</th> 
        </tr> 
       </tfoot> 
      </table> 
