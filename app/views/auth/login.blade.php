@@ -44,7 +44,8 @@
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <script src="js/jquery.pjax.js"></script>
     <!-- Mainly scripts -->
-    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    
     <script src="js/bootstrap.min.js?v=1.6"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
