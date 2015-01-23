@@ -55,12 +55,12 @@ Route::group(array('before' => 'isAdmin|csrf'), function()
     ->where('id', '[0-9]+');
 });
 
-Route::group(array('before' => 'csrf'), function()
-{
+// Route::group(array('before' => 'csrf'), function()
+// {
     Route::post('/login', array('as' => 'login.post','uses' =>
         'App\Controllers\AuthController@postLogin')
     );
-});
+// });
 
 
 Route::filter('isLogined', function()
@@ -73,23 +73,7 @@ Route::filter('isLogined', function()
 
 Route::filter('isAdmin', function()
 {
-    try
-    {
-        if ( ! $user = Sentry::getUser() )
-        {
-            throw new \Exception('User not found.');
-        }
-        $admin = Sentry::findGroupByName('admin');
-        if ( ! $user->inGroup($admin) )
-        {
-            return Response::make('Not Found', 404);
-        }
-    }
-    catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
-    {
-        return Response::make('Not Found', 404);
-    }
-    catch (\Exception $e)
+    if ( ! Session::get('group') === 'admin' )
     {
         return Response::make('Not Found', 404);
     }

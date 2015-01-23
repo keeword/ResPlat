@@ -37,5 +37,4 @@ class CreateMaterialTable extends Migration {
     {
         Schema::drop('material');
     }
-
 }

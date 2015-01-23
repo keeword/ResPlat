@@ -9,16 +9,13 @@ class DatabaseSeeder extends Seeder {
      */
     public function run()
     {
-        $this->call('GroupTableSeeder');
-        $this->call('UserTableSeeder');
-        $this->call('CategoryTableSeeder');
-        $this->call('MaterialTableSeeder');
+#        $this->call('GroupTableSeeder');
+#        $this->call('UserTableSeeder');
+#        $this->call('CategoryTableSeeder');
+#        $this->call('MaterialTableSeeder');
+#        $this->call('ApplicationTableSeeder');
+        $this->call('ApplicationMaterialTableSeeder');
 
-
-        // 将用户加入用户组
-        $adminUser  = Sentry::getUserProvider()->findByLogin('test');
-        $adminGroup = Sentry::getGroupProvider()->findByName('admin');
-        $adminUser->addGroup($adminGroup);
     }
 
 }
