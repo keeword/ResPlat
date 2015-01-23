@@ -208,24 +208,23 @@ $(document).ready(function () {
     $('.dataTables-example').dataTable();
 
     /* Init DataTables */
-    // var oTable = $(document).dataTable();
+    var oTable = $('.edit-table').dataTable();
     /* Apply the jEditable handlers to the table */
-/*
-    oTable.$('td').editable('../example_ajax.php', {
-        "callback": function (sValue, y) {
+    oTable.$('.edit-td').editable('{{ URL::route("material") }}', {
+        "callback":   function (value, setings) {
             var aPos = oTable.fnGetPosition(this);
             oTable.fnUpdate(sValue, aPos[0], aPos[1]);
         },
         "submitdata": function (value, settings) {
             return {
                 "row_id": this.parentNode.getAttribute('id'),
-                "column": oTable.fnGetPosition(this)[2]
+                "column": oTable.fnGetPosition(this)[2],
+                "_method": 'put'
             };
         },
-        "width": "90%",
-        "height": "100%"
+        "width": "80%",
+        "height": "80%"
     });
-*/
 });
 
 /*function fnClickAddRow() {

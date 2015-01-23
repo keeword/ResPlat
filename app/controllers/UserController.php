@@ -17,9 +17,8 @@ class UserController extends BaseController {
     {
         try
         {   
-            $user    = Sentry::getUser();
-            $admin   = Sentry::findGroupByName('admin');
-            $isAdmin = $user->inGroup($admin);
+            $isAdmin = (Session::get('group') === 'admin') ?
+                true : false;
 
             if ($isAdmin)
             {

@@ -27,8 +27,12 @@
                 <a href="#"><i class="fa fa-th-large"></i>
                 <span class="nav-label">物资管理</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ URL::route('application') }}">物资申请</a>
-                    </li>
+                    @if (Session::get('group') === 'admin')
+                    <li><a href="{{ URL::route('material') }}">物资管理</a></li>
+                    @else
+                    <li><a href="{{ URL::route('material') }}">物资一览</a></li>
+                    @endif
+                    <li><a href="{{ URL::route('application') }}">物资申请</a></li>
                     <li><a href="index_1.html">物资审核</a>
                     </li>
                 </ul>

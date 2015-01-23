@@ -9,8 +9,6 @@
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css?v=1.6" rel="stylesheet">
 
-
-
     <link href="/css/create.css" rel="stylesheet">
 </head>
 <body>

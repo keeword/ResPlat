@@ -27,6 +27,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/user', array('as' => 'user', 'uses' =>
         'App\Controllers\UserController@getUser')
     );
+    Route::get('/material', array('as' => 'material', 'uses' =>
+        'App\Controllers\MaterialController@getMaterial')
+    );
     Route::get('/workroom', array('as' => 'workroom', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroom')
     );
@@ -51,6 +54,9 @@ Route::group(array('before' => 'isAdmin'), function()
         'App\Controllers\UserController@delUser')
     )
     ->where('id', '[0-9]+');
+    Route::get('/material/create', array('as' => 'material.create', 'uses' =>
+        'App\Controllers\MaterialController@getMaterialCreate')
+    );
 });
 
 Route::group(array('before' => 'isLogined|csrf'), function()
