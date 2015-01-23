@@ -15,7 +15,6 @@ class HomeController extends BaseController
      */
     public function getIndex()
     {
-
         try
         {
             $materials = Material::with('category')->get();

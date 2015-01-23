@@ -1,17 +1,27 @@
 .form-control1 {height: 25px;width: 240px; margin-top: 30px;}
-.form-control2 {height: 25px;width: 240px;margin-top: 5px;}
-.form-control3 {height: 25px;width: 240px;margin-top: 5px;}
-.form-control4 {height: 25px;width: 240px;margin-top: 5px;}
-.chosen-select{margin-top: 5px;}
+.form-control2 {height: 25px;width: 240px;margin-top: 15px;}
+.form-control3 {height: 25px;width: 240px;margin-top: 15px;}
+.form-control4 {height: 25px;width: 240px;margin-top: 15px;}
+.chosen-select{margin-top: 15px;}
 
 
 body{background-color: #f0f0f0;}
-.form-group{
-	margin-left: 70px;
-	float: right;margin-right: 70px;
+.form-group1111{
+	
+	float: right;margin-right:70px;
+	}
+
+
+.form-group2{
+	margin-left: 10px;
+	float: right;
+	margin-right: 193px;
 	}
 
 .create{margin-top: 40px;
 	    width: 120px;
         float: right;
-        margin-left: 100px;}
+        margin-right: 190px;
+        
+
+        }

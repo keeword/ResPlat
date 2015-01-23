@@ -2,6 +2,16 @@
 
 @section('content') 
 
+<div class="wrapper wrapper-content"> 
+<div class="col-lg-12"> 
+<div class="row  border-bottom white-bg dashboard-header">
+     <div class="col-lg-10">
+        <h2>主页</h2>
+    </div>
+</div>
+</div>
+</div>
+
 
 <div class="col-lg-12"> 
 
@@ -9,7 +19,7 @@
  <div class="row"> 
   <div class="col-lg-12"> 
 
-{{ print_r(Session::all()) }}
+{{-- print_r(Session::all()) --}}
 
    <div class="ibox float-e-margins"> 
 

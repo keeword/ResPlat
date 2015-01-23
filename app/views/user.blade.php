@@ -2,6 +2,8 @@
 
 @section('content') 
 
+<div class="wrapper wrapper-content"> 
+<div class="col-lg-12"> 
 <div class="row  border-bottom white-bg dashboard-header">
      <div class="col-lg-10">
         <h2>账号管理</h2>
@@ -15,7 +17,8 @@
         </ol>
     </div>
 </div>
-
+</div>
+</div>
 
 <div class="col-lg-12"> 
 
