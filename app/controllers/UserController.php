@@ -17,8 +17,8 @@ class UserController extends BaseController {
     {
         try
         {   
-            $user = Sentry::getUser();
-            $admin = Sentry::findGroupByName('admin');
+            $user    = Sentry::getUser();
+            $admin   = Sentry::findGroupByName('admin');
             $isAdmin = $user->inGroup($admin);
 
             if ($isAdmin)
@@ -53,7 +53,7 @@ class UserController extends BaseController {
         try
         {   
             $allgroup = Group::select('name')->get()->toArray();
-            $groups = array();
+            $groups   = array();
             foreach ($allgroup as $group)
             {
                 $groups[$group['name']] = Lang::get('user.'.$group['name']);
@@ -84,12 +84,12 @@ class UserController extends BaseController {
     {
         try
         {
-            $password = (Input::get('password') === Input::get('repasswd'))
-                ? Input::get('password') : '';
+            $password        = (Input::get('password') === Input::get('repasswd')) ?
+                               Input::get('password') : '';
 
-            $group = Sentry::findGroupByName(Input::get('group'));
+            $group           = Sentry::findGroupByName(Input::get('group'));
 
-            $user = Sentry::createUser(array(
+            $user            = Sentry::createUser(array(
                 'username'  => Input::get('username'),
                 'nickname'  => Input::get('nickname'),
                 'password'  => $password,
@@ -140,7 +140,7 @@ class UserController extends BaseController {
                 throw new \Exception('User was not found.');
             }
             $allgroup = Group::select('name')->get()->toArray();
-            $groups = array();
+            $groups   = array();
             foreach ($allgroup as $group)
             {
                 $groups[$group['name']] = Lang::get('user.'.$group['name']);
@@ -163,7 +163,7 @@ class UserController extends BaseController {
     {
         try
         {
-            $id = Request::segment(2);
+            $id   = Request::segment(2);
             $user = Sentry::findUserById($id);
 
             if ( $nickname = Input::get('nickname') )
@@ -218,10 +218,10 @@ class UserController extends BaseController {
     {
         try
         {
-            $id = Request::segment(2);
-            $user = Sentry::findUserById($id);
+            $id       = Request::segment(2);
+            $user     = Sentry::findUserById($id);
 
-            $admin = Sentry::getUser();
+            $admin    = Sentry::getUser();
             $password = Input::get('password');
 
             if ( $admin->checkPassword($password) )
