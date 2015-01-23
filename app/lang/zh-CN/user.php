@@ -11,8 +11,10 @@ return array(
     'permission_denied' => '没有权限',
     'username_required' => '需要用户名',
     'password_required' => '需要密码',
+    'password_not_match'=> '密码错误',
     'user_exists'       => '用户已存在',
-    'group_not_found'   => '用户组不存在',
+    'user_not_found'    => '找不到用户',
+    'group_not_found'   => '找不到用户组',
         
 
 );

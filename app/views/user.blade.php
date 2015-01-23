@@ -60,8 +60,8 @@
         <td>{{ $user->nickname }}</td> 
         <td>{{ Lang::get('user.'.$user->groups->first()->name) }}</td> 
         <td>
-            <a class="btn btn-info btn-rounded" id="btn-alter" href="#" onClick="alterbtn()"><i class="fa fa-paste"></i>修改</a>
-            <a class="btn btn-warning btn-rounded" href="#"><i class="fa fa-warning"></i>删除</a>
+            <a class="btn btn-info btn-rounded" id="btn-alter" onClick="alterbtn({{ $user->id }})" href="#"><i class="fa fa-paste"></i>修改</a>
+            <a class="btn btn-warning btn-rounded" id="delUser" onClick="delUser({{ $user->id }})" href="#"><i class="fa fa-warning"></i>删除</a>
         </td>
        </tr> 
        @endforeach 

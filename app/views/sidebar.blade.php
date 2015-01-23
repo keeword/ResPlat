@@ -9,7 +9,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element"> 
                   <span>
-                    <img alt="image" class="img-circle img-responsive" src="img/logo.png" style="height:80px;width:80px;" />
+                    <img alt="image" class="img-circle img-responsive" src="/img/logo.png" style="height:80px;width:80px;" />
                   </span>
                     <span class="clear">
                       <span class="block m-t-xs">
