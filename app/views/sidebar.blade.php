@@ -39,7 +39,7 @@
                 <a href="#"><i class="fa fa-building-o"></i> 
                 <span class="nav-label">工作室管理</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="graph_echarts.html">工作室审核</a>
+                    <li><a href="graph_echarts.php">工作室审核</a>
                     </li>
                     <li><a href="graph_flot.html">会议室审核</a>
                     </li>
