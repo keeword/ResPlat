@@ -45,6 +45,10 @@
         <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
      -->
+     <!-- jQuery Validation plugin javascript-->
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"></script>
+    
     <script src="/js/hplus.js?v=1.6"></script>
     <script src="/js/plugins/pace/pace.min.js"></script>
     <script src="/js/jquery.pjax.js"></script>
@@ -60,14 +64,13 @@
     <script src="/js/plugins/layer/laydate/laydate.js"></script>
 
      <!-- iCheck -->
-    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script src="/js/plugins/iCheck/icheck.min.js"></script>
 
     <!-- Full Calendar -->
-    <script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
 
 <script>                                    //工作室管理,日历事件等
         $(document).ready(function () {
-
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
@@ -111,7 +114,7 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 editable: true,
-                aspectRatio:2,
+                aspectRatio:2.1,
                 handleWindowResize:true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 drop: function (date, allDay) { // this function is called when something is dropped
@@ -130,6 +133,8 @@
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                     $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
+
+
                     // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
                         // if so, remove the element from the "Draggable Events" list
@@ -137,36 +142,35 @@
                     }
 
                 },
+                dayClick: function(date, allDay, jsEvent, view) {
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
+                        
+                        
+                        $.ajax({ 
+                            url:'{{ URL::route("user") }}' + '/' + dateft, 
+                            type:'GET', 
+                            success: '',  
+                         });
+                       workroomapply(dateft);
+                },
+
+               /* eventMouseover:function(calEvent, jsEvent, view){
+                    alert();
+                },
+            */
+                
                 events: [
-                    {
-                        title: '日事件',
-                        start: new Date(y, m, 1)
-                    },
-                    {
-                        title: '长事件',
-                        start: new Date(y, m, d - 5),
-                        end: new Date(y, m, d - 2),
-                    },
-                 
-                    {
-                        title: '打开百度',
-                        start: new Date(y, m, 28),
-                        end: new Date(y, m, 29),
-                        url: 'http://baidu.com/'
-                    }
+
+                    
                 ],
             });
 
         
-            $('#calendar').fullCalendar({
-            dayClick: function(date, allDay, jsEvent, view) {
-                addUser();
-                }
             
-            });
-       
+            
 
         });
+      
     </script>
 
 <script>                                        //退出功能
@@ -236,15 +240,20 @@ $(document).ready(function () {
         "New row"]);
 }*/
 </script>
-<script>                    //user.blade.php's javascript 
+<script>                            //iframe's javascript 
 
-function addUser(){         //user.blade.php 新增帐号
+function workroomapply(dateft){     //workroom.blade.php 点击日历提交工作室申请
+    iframeset('{{ URL::route("user") }}' + '/' + dateft);
+}
+
+function addUser(){                 //user.blade.php 新增帐号
     iframeset('{{ URL::route("user.create") }}');
 }
 
-function alterbtn(id){        //user.blade.php 修改按钮
+function alterbtn(id){              //user.blade.php 修改按钮
     iframeset("{{ URL::route('user') }}" + '/' + id);
 }
+
 
 function delUser(id){
     layer.prompt({

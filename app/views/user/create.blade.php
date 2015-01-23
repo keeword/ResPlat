@@ -87,7 +87,7 @@
                     layer.load('请确认密码',1);
                     return false;
                 }else if($('input[id=password]').val()!= $('input[id=repasswd]').val()){
-                    layer.load('两次输入的密码不一致!', 2);
+                    layer.load('两次输入的密码不一致!', 1);
                     return false;
                 }
                 else if(($('input[id=username]').val().length&&$('input[id=password]').val().length)==0) {
