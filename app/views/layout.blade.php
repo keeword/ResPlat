@@ -23,7 +23,6 @@
 
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css?v=1.6" rel="stylesheet">
-
 </head>
 
 <body>
@@ -58,7 +57,117 @@
     </script>
     <script src="/js/demo/layer-demo.js"></script>
 
-<script>
+     <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Full Calendar -->
+    <script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+<script>                                    //工作室管理,日历事件等
+        $(document).ready(function () {
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+
+            $('#external-events div.external-event').each(function () {
+
+                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                // it doesn't need to have a start or end
+                var eventObject = {
+                    title: $.trim($(this).text()) // use the element's text as the event title
+                };
+
+                // store the Event Object in the DOM element so we can get to it later
+                $(this).data('eventObject', eventObject);
+
+                // make the event draggable using jQuery UI
+                $(this).draggable({
+                    zIndex: 999,
+                    revert: true, // will cause the event to go back to its
+                    revertDuration: 0 //  original position after the drag
+                });
+
+            });
+
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: true,
+                aspectRatio:2,
+                handleWindowResize:true,
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                drop: function (date, allDay) { // this function is called when something is dropped
+
+                    // retrieve the dropped element's stored Event Object
+                    var originalEventObject = $(this).data('eventObject');
+
+                    // we need to copy it, so that multiple events don't have a reference to the same object
+                    var copiedEventObject = $.extend({}, originalEventObject);
+
+                    // assign it the date that was reported
+                    copiedEventObject.start = date;
+                    copiedEventObject.allDay = allDay;
+
+                    // render the event on the calendar
+                    // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                    // is the "remove after drop" checkbox checked?
+                    if ($('#drop-remove').is(':checked')) {
+                        // if so, remove the element from the "Draggable Events" list
+                        $(this).remove();
+                    }
+
+                },
+                events: [
+                    {
+                        title: '日事件',
+                        start: new Date(y, m, 1)
+                    },
+                    {
+                        title: '长事件',
+                        start: new Date(y, m, d - 5),
+                        end: new Date(y, m, d - 2),
+                    },
+                 
+                    {
+                        title: '打开百度',
+                        start: new Date(y, m, 28),
+                        end: new Date(y, m, 29),
+                        url: 'http://baidu.com/'
+                    }
+                ],
+            });
+
+        
+            $('#calendar').fullCalendar({
+            dayClick: function(date, allDay, jsEvent, view) {
+                addUser();
+                }
+            
+            });
+       
+
+        });
+    </script>
+
+<script>                                        //退出功能
 function logout(){
     $.layer({
         shade: [0],
