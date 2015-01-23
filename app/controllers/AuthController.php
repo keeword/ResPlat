@@ -32,28 +32,29 @@ class AuthController extends BaseController {
      */
     public function postLogin()
     {
-        $credentials = array(
+        $credentials    = array(
             'username' => Input::get('username'),
             'password' => Input::get('password')
         );
-        $remember = Input::get('remember');
+        $remember       = Input::get('remember');
 
         try
         {
-            $user = Sentry::authenticate($credentials, $remember);
+            $user  = Sentry::authenticate($credentials, $remember);
             $group = $user->getGroups()->first()->name;
 
-            Session::put('userid', $user->id);
-            Session::put('username', $user->username);
-            Session::put('nickname', $user->nickname);
-            Session::put('group', $group);
+            Session::put('userid',    $user->id);
+            Session::put('username',  $user->username);
+            Session::put('nickname',  $user->nickname);
+            Session::put('group',     $group);
             Session::put('usergroup', Lang::get('user.'.$group));
 
             return Response::json(array('success' => true));
         }
         catch (\Exception $e)
         {
-            return Response::json(array('success' => false, 'error' => Lang::get('user.login_error')));
+                return Response::json(array('success' => false, 
+                    'error' => Lang::get('user.login_error')));
         }
     }
 
