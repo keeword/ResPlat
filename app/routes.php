@@ -27,6 +27,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/user', array('as' => 'user', 'uses' =>
         'App\Controllers\UserController@getUser')
     );
+    Route::get('/workroom', array('as' => 'workroom', 'uses' =>
+        'App\Controllers\WorkroomController@getWorkroom')
+    );
 });
 
 Route::group(array('before' => 'isAdmin'), function()
