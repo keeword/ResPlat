@@ -40,6 +40,35 @@
 
    </div> 
 
+   <div class="ibox float-e-margins"> 
+
+    <div class="ibox-title"> 
+     <h5>消息公告</h5> 
+    </div> 
+
+    <div class="table-responsive">
+     <table class="table table-bordered table-striped"> 
+      <thead> 
+       <tr> 
+        <th>公告时间</th> 
+        <th> 内容 </th> 
+       </tr> 
+      </thead> 
+      <tbody> 
+       <tr> 
+        <th class="text-nowrap"> 
+         <form>
+           2015.1.18 14:00 
+         </form> 
+        </th> 
+        <td>blablablablabla</td> 
+       </tr> 
+      </tbody> 
+     </table> 
+    </div> 
+
+   </div> 
+
 
    <div class="ibox float-e-margins"> 
 
@@ -155,34 +184,7 @@
    </div> 
 
 
-   <div class="ibox float-e-margins"> 
-
-    <div class="ibox-title"> 
-     <h5>消息公告</h5> 
-    </div> 
-
-    <div class="table-responsive">
-     <table class="table table-bordered table-striped"> 
-      <thead> 
-       <tr> 
-        <th>公告时间</th> 
-        <th> 内容 </th> 
-       </tr> 
-      </thead> 
-      <tbody> 
-       <tr> 
-        <th class="text-nowrap"> 
-         <form>
-           2015.1.18 14:00 
-         </form> 
-        </th> 
-        <td>blablablablabla</td> 
-       </tr> 
-      </tbody> 
-     </table> 
-    </div> 
-
-   </div> 
+   
 
 
   </div> 

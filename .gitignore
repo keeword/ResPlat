@@ -21,4 +21,5 @@ vagrant
 _ide_helper.php
 
 *.swp
+*.swo
 *~

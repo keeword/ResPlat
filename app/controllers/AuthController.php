@@ -41,10 +41,14 @@ class AuthController extends BaseController {
         try
         {
             $user = Sentry::authenticate($credentials, $remember);
+            $group = $user->getGroups()->first()->name;
+
             Session::put('userid', $user->id);
             Session::put('username', $user->username);
             Session::put('nickname', $user->nickname);
-            Session::put('usergroup', Lang::get('user.'.$user->getGroups()->first()->name));
+            Session::put('group', $group);
+            Session::put('usergroup', Lang::get('user.'.$group));
+
             return Response::json(array('success' => true));
         }
         catch (\Exception $e)

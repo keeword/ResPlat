@@ -111,13 +111,17 @@ LNMP——Linux,Nginx,MySQL,PHP
 - 申请/审核记录，包含两部分，自己个人的和所有人的，按时间排序，点击切换
 - 物资列表
 
-### 3.3.4 物资审核模块
+### 3.3.4 物资申请/审核模块
 
 本模块有查看审核列表、查看详情、通过申请、拒绝申请等功能。
 
-#### 审核列表
+#### 申请物资
 
-审核员可以在此页面查看所有未审核的物资申请。
+所有用户都可以在此页面申请物资。
+
+#### 申请列表
+
+审核员可以在此页面查看所有的物资申请。
 
 #### 查看详情
 
@@ -244,7 +248,7 @@ comment                 （留用）
 
 ### 3.4.3 申请/审核表
 
-#### check表
+#### application表
 
 ID
 
@@ -252,7 +256,9 @@ user_id                 用户id
 
 checker_id              审核者id
 
-reason                  申请原因/审核原因
+reason                  申请原因
+
+response                审核结果
 
 request_time            申请时间
 
@@ -262,13 +268,13 @@ borrow_time             借出时间（或预计借出时间）
 
 return_time             归还时间（预计归还时间）
 
-status                  物资状态（pass：审核通过； refuse：拒绝通过；  waiting：未审核 ）
+status                  申请状态（pass：审核通过； refuse：拒绝通过；  waiting：未审核 ）
 
 #### apply_resouce表
 
 ID
 
-apply_id
+application_id          申请的id号 
 
 resource_id             物资的id号
 
@@ -377,6 +383,7 @@ interface AuthInterface {
 
 ```php
 interface UserInterface {
+    public function getUser();
     public function getUserCreate();
     public function postUserCreate();
     public function getUserUpdate();
@@ -400,5 +407,47 @@ interface UserInterface {
 ```php
 interface HomeInterface {
     public function getIndex();
+}
+```
+
+## 4.4 物资管理模块
+
+## 4.5 物资申请模块
+
+### 4.5.1 功能
+
+本模块实现用户申请物资、查看申请列表、审核员审核申请的功能。
+
+### 4.5.2 输入/输出
+
+#### 查看申请列表
+
+`GET` 'http://example.com/application' 是查看申请列表，
+普通用户只能看到已通过的申请，审核员和管理员可以看到全部申请。
+
+#### 申请物资
+
+首先，用户 `GET` 'http://example.com/application/create' 打开申请页面，
+填写以下表单，然后 'POST' 到 'http://example.com/application' 完成申请。
+
+- 物资
+- 申请时间
+- 归还时间
+- 申请理由
+- 用户信息
+
+#### 通过/拒绝申请
+
+`PUT` 通过/拒绝理由到 'http://example/application/{id}' 完成操作。
+
+### 4.5.3 接口
+
+```php
+interface ApplicationInterface {
+    public function getApplicationCreate();
+    public function postApplication();
+    public function getApplicationUpdate();
+    public function putApplicationUpdate();
+    public function delApplication();
 }
 ```

@@ -3,43 +3,53 @@
 <head>
     <title></title>
     <meta content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css?v=1.6" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css?v=1.6" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=1.6" rel="stylesheet">
+
+
+
+    <link href="/css/create.css" rel="stylesheet">
 </head>
 <body>
 
 
 
-<div class="gray-bg">
-<div class="middle-box text-center loginscreen animated fadeInDown" align="center">
+<div>
+<div  align="center">
 
-{{ Form::open(array('url' => 'user', 'class' => 'm-t text-left',  'id' => 'createuserform')) }}
-
+{{ Form::open(array('url' => 'user', 'class' => 'm-t text-left ',  'id' => 'createuserform')) }}
+	
     <div class="form-group">
-    {{ Form::label('username', '用户名') }}
-    {{ Form::text('username', Input::old('username'), array('class' => 'form-control','id'=>'username', 'placeholder' => '用户名')) }}
+    {{ Form::label('username', '&#160;用户名&#160;' ,array('class'=>'badge badge-primary','id'=>'labelusername'))}}
+    {{ Form::text('username', Input::old('username'), array('class' => 'form-control1','id'=>'username', 'placeholder' => '用户名')) }}
     </div>
 
     <div class="form-group">
-    {{ Form::label('nickname', '部门') }}
-    {{ Form::text('nickname', Input::old('nickname'), array('class' => 'form-control', 'id'=>'nickname', 'placeholder' => '部门')) }}
+    {{ Form::label('nickname', '&#160;&#160;部&#160;&#160;门&#160;&#160;' ,array('class'=>'badge badge-primary','id'=>'labelusername')) }}
+    {{ Form::text('nickname', Input::old('nickname'), array('class' => 'form-control2', 'id'=>'nickname', 'placeholder' => '部门')) }}
     </div>
 
     <div class="form-group">
-    {{ Form::label('password', '密码') }}
-    {{ Form::password('password', array('class' => 'form-control', 'id'=>'password', 'placeholder' => '密码')) }}
+    {{ Form::label('password', '&#160;&#160;密&#160;&#160;码&#160;&#160;' ,array('class'=>'badge badge-primary','id'=>'labelusername')) }}
+    {{ Form::password('password', array('class' => 'form-control3','id'=>'password', 'placeholder' => '密码')) }}
     </div>
 
     <div class="form-group">
-    {{ Form::label('repasswd', '确认密码') }}
-    {{ Form::password('repasswd', array('class' => 'form-control', 'id'=>'repasswd', 'placeholder' => '确认密码')) }}
+    {{ Form::label('repasswd', '确认密码' ,array('class'=>'badge badge-primary','id'=>'labelusername')) }}
+    {{ Form::password('repasswd', array('class' => 'form-control4', 'id'=>'repasswd', 'placeholder' => '确认密码')) }}
     </div>
 
     <div class="form-group">
-    {{ Form::label('group', '用户组') }}
+    {{ Form::label('group', '用户组',array('class'=>'badge badge-primary')) }}
     {{ Form::select('group', $groups, 'user', array('class' => 'chosen-select')) }}
     </div>
-
-    {{ Form::submit('创建', array('class' => 'btn btn-info block full-width m-b')) }}
-{{ Form::close() }}
+    
+    <div class="create">
+    {{ Form::submit('创建', array('class' => 'btn btn-info block full-width m-b ')) }}
+{{ Form::close() }}</div>
 
     </div>
     </div>

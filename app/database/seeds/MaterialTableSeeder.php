@@ -9,14 +9,16 @@ class MaterialTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach(range(1, 10) as $index)
+        $id = \Category::lists('id');
+
+        foreach(range(1, 30) as $index)
         {
             Material::create([
                 'name'         => $faker->name,
                 'description'  => $faker->sentence($nbWrods = 10),
+                'category_id'  => $faker->randomElement($array = $id),
                 'total_number' => $faker->randomDigitNotNull,
                 'lent_number'  => $faker->randomDigitNotNull,
-                'category_id'  => $faker->randomDigitNotNull,
             ]);
         }
     }
