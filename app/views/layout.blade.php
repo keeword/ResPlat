@@ -14,9 +14,9 @@
     <!-- Data Tables -->
     <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet">
+    <link href="/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+    <link href="/css/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet">
 
     <!-- Gritter -->
     <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
@@ -57,6 +57,8 @@
         layer.use('extend/layer.ext.js'); //载入layer拓展模块
     </script>
     <script src="/js/demo/layer-demo.js"></script>
+    <!-- layerDate plugin javascript -->
+    <script src="/js/plugins/layer/laydate/laydate.js"></script>
 
 <script>
 function logout(){
@@ -284,10 +286,45 @@ $.fn.iVaryVal=function(iSet,CallBack){
 //调用
 $( function() {
     $('.i_box').iVaryVal({},function(value,index){
-        $('.i_tips').html('你点击的表单索引是：'+index+'；改变后的表单值是：'+value);
     });
     
 });
+</script>
+
+<script>
+    //外部js调用
+    // laydate({
+    // elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，
+                    //因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+    // event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    // });
+
+     //日期范围限制
+    var start = {
+        elem: '#start',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2100-01-01 00:00:00',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY-MM-DD',
+        min: laydate.now(),
+        max: '2100-01-01 00:00:00',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
 </script>
 
 </body>
