@@ -4,7 +4,7 @@ namespace App\Controllers;
 use Material, Category;
 use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
 
-class MaterialController extends \BaseController {
+class MaterialController extends BaseController {
 
     /**
      * 物资一览
@@ -16,7 +16,7 @@ class MaterialController extends \BaseController {
     {
         try
         {
-            $materials = Material::with('category')->get();
+            $materials = Material::with('category')->with('application_material')->get();
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
@@ -24,7 +24,7 @@ class MaterialController extends \BaseController {
         }
 
         return View::make('material')->with('materials', $materials)
-            ->with('isAdmin', (Session::get('group') ? true : false));
+                     ->with('isAdmin', (Session::get('group') ? true : false));
     }
 
     /**
@@ -59,8 +59,9 @@ class MaterialController extends \BaseController {
              ($number      = Input::get('number'))  &&
              ($category_id = Input::get('category')) )
         {
-            $comment   = Input::get('comment');
+            $comment       = Input::get('comment');
         }
+
         else
         {
             return Response::json(array('success' => false, 

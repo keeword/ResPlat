@@ -45,7 +45,7 @@
         <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
      -->
-     <!-- jQuery Validation plugin javascript-->
+    <!-- jQuery Validation plugin javascript-->
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/plugins/validate/messages_zh.min.js"></script>
     

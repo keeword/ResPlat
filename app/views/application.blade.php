@@ -55,14 +55,8 @@
        @foreach ($materials as $material) 
        <tr class="gradeX"> 
         <td>{{ $material->name }}</td> 
-        <td>{{ $material->category->category }}</td> 
-<!--
-        <td>{{ $material->lent_number }}</td> 
--->
+        <td>{{ $material->category->name }}</td> 
         <td>{{ $material->total_number - $material->lent_number }}</td> 
-<!--
-        <td>{{ $material->total_number }}</td> 
--->
         <td><a href="#">详情</a></td> 
         <td><span>
             <a href="javascript:;" class="J_minus" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>

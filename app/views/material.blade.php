@@ -75,7 +75,7 @@
         <td>{{ $material->lent_number }}</td> 
         <td>{{ $material->total_number - $material->lent_number }}</td> 
         <td>{{ $material->total_number }}</td> 
-        <td><a href="#">详情</a></td> 
+        <td><button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ var_dump($material->application_material) }}">左侧提示</button></td>
         <td>操作</td>
        </tr> 
        @endforeach 

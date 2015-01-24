@@ -11,7 +11,7 @@
 
    <div class="ibox float-e-margins"> 
 
-  <div class="col-lg-10"> 
+    <div class="ibox-content"> 
     <div class="form-group">
     {{ Form::label('name', '物资名称', array('class'=>'control-label')) }}
     {{ Form::text('name', '', array('class' => 'form-control',
