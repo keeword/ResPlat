@@ -2,6 +2,16 @@
 
 class BaseController extends Controller {
 
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

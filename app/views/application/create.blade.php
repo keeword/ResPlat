@@ -3,6 +3,8 @@
 @section('sidebar')
 
 <div class="gray-bg">
+ <div class="row"> 
+  <div class="col-lg-12"> 
 <div class="text-center fadeInDown" align="center">
 
 {{ Form::open(array('url' => 'application', 'class' => 'm-t text-left',  'id' => 'createappform')) }}
