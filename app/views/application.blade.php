@@ -41,7 +41,7 @@
 
 {{ Form::open(array('url' => 'application.create','id' => 'applicationForm')) }}
     <div class="ibox-content"> 
-     <table class="table table-striped table-bordered table-hover dataTables-example"> 
+     <table class="table table-striped table-bordered table-hover"> 
       <thead> 
        <tr> 
         <th>物资名称</th> 
@@ -59,11 +59,11 @@
         <td>{{ $material->total_number - $material->lent_number }}</td> 
         <td><a href="#">详情</a></td> 
         <td><span>
-            <a href="javascript:;" class="J_minus" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
+            <a href="javascript:;" class="J_minus" style="width:4px;padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
 <!--
             <input type="text" value="0" class="J_input" style="width:30px;height:18px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px"/>
 -->
-            {{ Form::text($material->id, '0', array('class' => 'J_input', 'style' => 'width:30px;height:18px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
+            {{ Form::text($material->id, '0', array('class' => 'J_input', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
             <a href="javascript:;" class="J_add" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
         </span></td>
        </tr> 
