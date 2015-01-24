@@ -39,7 +39,7 @@
      </div> 
     </div> 
 
-{{ Form::open(array('url' => 'application/create', 'method' => 'GET')) }}
+{{ Form::open(array('url' => 'application.create','id' => 'applicationForm')) }}
     <div class="ibox-content"> 
      <table class="table table-striped table-bordered table-hover dataTables-example"> 
       <thead> 

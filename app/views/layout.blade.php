@@ -240,6 +240,43 @@ $(document).ready(function () {
         "New row"]);
 }*/
 </script>
+
+<script>
+    //将form转为AJAX提交
+    function ajaxSubmit(frm, fn) {
+        $.ajax({
+            url: frm.action,
+            type: 'get',
+            data: $('form#applicationForm').serialize(),
+            success: fn,
+            beforeSend:function(){
+                applicationcreate();
+                return false;
+             
+            }
+        });
+    }
+    
+(function(){
+        //alert();
+        $('#applicationForm').bind('submit', function(){
+            //alert();
+            ajaxSubmit(this, function(json){
+
+                if(json.success==true){
+                        layer.load('loading...', 3);
+                        window.location.href="{{ URL::route('home') }}";
+                }else{
+                    layer.load('帐号密码不匹配', 1);
+                }
+            });
+            return false;
+        });
+    })();  
+</script>
+
+
+
 <script>                            //iframe's javascript 
 
 function workroomapply(dateft){     //workroom.blade.php 点击日历提交工作室申请
@@ -254,7 +291,9 @@ function alterbtn(id){              //user.blade.php 修改按钮
     iframeset("{{ URL::route('user') }}" + '/' + id);
 }
 
-
+function applicationcreate(){
+    iframeset('{{URL::route("application.create")}}'+'?'+$('form#applicationForm').serialize());
+}
 function delUser(id){
     layer.prompt({
         top: 'auto',
