@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers;
 
-use Material, Application, ApplicationMaterial;
-use BaseController, View, Input, Redirect, Response, Lang, Session;
+use Material, Application, ApplicationMaterial, Category;
+use BaseController, View, Input, Redirect, Response, Lang, Session, Request;
 
 class ApplicationController extends BaseController {
 
@@ -118,8 +118,8 @@ class ApplicationController extends BaseController {
                     'error' => 'Can not save!'));
             }
 
+/*
             $mat = Material::lists('lent_number', 'id');
-
             foreach ($materials as $material)
             {
                 Material::where('id', $material['material_id'])
@@ -127,6 +127,7 @@ class ApplicationController extends BaseController {
                             $material['number']+$mat[$material['material_id']] ));
             }
             return Response::json(array('success' => true));
+*/
 
 // try to use one sql query to update the `lent_number` column of table `material`
 /*
@@ -172,14 +173,39 @@ class ApplicationController extends BaseController {
     }
 
     /**
-     * Display the specified resource.
+     * 物资详情
      * GET /application/{id}
      *
-     * @return Response
+     * @return View
      */
-    public function show($id)
+    public function getApplicationDetail()
     {
-        //
+        try
+        {
+            $id   = Request::segment(2);
+
+            if ( ! ($application = Application::with('user')->find($id)) )
+            {
+                return Response::json(array('success' => false, 
+                    'error' => 'Can not find application id!'));
+            }
+
+            $app_mats = ApplicationMaterial::with('material')
+                                           ->where('application_id', $id)
+                                           ->get();
+
+            $categorys = Category::lists('name', 'id');
+        }
+
+        catch (\Exception $e)
+        {
+            return Response::make($e->getMessage(), 404);
+        }
+
+        return View::make('application.detail')
+                   ->with('application', $application)
+                   ->with('categorys', $categorys)
+                   ->with('app_mats', $app_mats);
     }
 
     /**

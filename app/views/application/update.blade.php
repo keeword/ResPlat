@@ -54,7 +54,7 @@
        <tr>
         <td>{{ $application->created_at }}</td> 
         <td>{{ $application->user->nickname }}</td> 
-        <td>详情</td> 
+        <td><a href="{{ URL::route('application').'/'.$application->id }}">详情</a></td> 
         <td><a class="btn btn-rounded 
             @if ($application->status === 'wating') 
                 {{ 'btn-warning' }} 

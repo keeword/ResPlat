@@ -66,11 +66,15 @@ Route::group(array('before' => 'isAdmin'), function()
 });
 
 
-Route::group(array('before' => 'isAdmin'), function()
+Route::group(array('before' => 'isChecker'), function()
 {
     Route::get('/application/update', array('as' => 'application.update', 'uses' =>
         'App\Controllers\ApplicationController@getApplicationUpdate')
     );
+    Route::get('/application/{id}', array('as' => 'application.detail', 'uses' =>
+        'App\Controllers\ApplicationController@getApplicationDetail')
+    )
+    ->where('id', '[0-9]+');
 });
 
 Route::group(array('before' => 'isLogined|csrf'), function()
