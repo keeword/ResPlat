@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use Material, Category;
+use User, Application, ApplicationMaterial, Material, Category;
 use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
 
 class MaterialController extends BaseController {
@@ -14,17 +14,37 @@ class MaterialController extends BaseController {
      */
     public function getMaterial()
     {
+
         try
         {
-            $materials = Material::with('category')->with('application_material')->get();
+            $today            = date("Y-m-d H:i:s");
+            if ($applications = Application::where('borrow_time', '<', $today)
+                                           ->where('return_time', '>', $today)
+                                           ->lists('user_id', 'id'))
+            {
+                $app_mets     = ApplicationMaterial::whereIn('application_id',
+                                                        array_keys($applications))
+                                                   ->get();
+            }
+            else
+            {
+                $app_mets     = ApplicationMaterial::where('id', 0)->get();
+            }
+            $materials        = Material::with('category')->get();
+            $users            = User::lists('nickname', 'id');
         }
+
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('material')->with('materials', $materials)
-                     ->with('isAdmin', (Session::get('group') ? true : false));
+        return View::make('material')
+                   ->with('materials', $materials)
+                   ->with('isAdmin', (Session::get('group') ? true : false))
+                   ->with('users', $users)
+                   ->with('app_mats', $app_mets)
+                   ->with('applications', $applications);
     }
 
     /**

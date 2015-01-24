@@ -46,8 +46,8 @@ class ApplicationController extends BaseController {
         try
         {
             if ( ! $materials = Material::select('id',    'name')
-                                          ->whereIn('id', array_keys($material))
-                                          ->get())
+                                        ->whereIn('id', array_keys($material))
+                                        ->get())
             {
                 throw new \Exception('User infomation was not updated.');
             }
@@ -163,6 +163,7 @@ class ApplicationController extends BaseController {
 */
 
         }
+
         catch (\Exception $e)
         {
             return Response::json(array('success' => false, 
@@ -174,7 +175,6 @@ class ApplicationController extends BaseController {
      * Display the specified resource.
      * GET /application/{id}
      *
-     * @param  int  $id
      * @return Response
      */
     public function show($id)
@@ -183,15 +183,17 @@ class ApplicationController extends BaseController {
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * GET /application/{id}/edit
+     * 审核页面
+     * GET /application/update
      *
-     * @param  int  $id
-     * @return Response
+     * @return View
      */
-    public function edit($id)
+    public function getApplicationUpdate()
     {
-        //
+        $applications = Application::with('user')
+                                   ->where('status', 'wating')
+                                   ->get();
+        return View::make('application.update')->with('applications', $applications);
     }
 
     /**

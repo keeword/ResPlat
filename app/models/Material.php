@@ -21,4 +21,15 @@ class Material extends \Eloquent {
         return $this->hasMany('ApplicationMaterial', 'material_id', 'id');
     }
 
+    /**
+     * 借出的表单
+     */
+    public function application()
+    {
+        return $this->belongsToMany('Application',
+                                    'application_material',
+                                    'material_id',
+                                    'application_id');
+    }
+
 }

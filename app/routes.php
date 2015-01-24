@@ -65,6 +65,14 @@ Route::group(array('before' => 'isAdmin'), function()
     );
 });
 
+
+Route::group(array('before' => 'isAdmin'), function()
+{
+    Route::get('/application/update', array('as' => 'application.update', 'uses' =>
+        'App\Controllers\ApplicationController@getApplicationUpdate')
+    );
+});
+
 Route::group(array('before' => 'isLogined|csrf'), function()
 {
     Route::post('/application', array('as' => 'application', 'uses' =>
@@ -109,3 +117,12 @@ Route::filter('isAdmin', function()
         return Response::make('Not Found', 404);
     }
 });
+
+Route::filter('isChecker', function()
+{
+    if ( ! Session::get('group') === 'checker' )
+    {
+        return Response::make('Not Found', 404);
+    }
+}
+);
