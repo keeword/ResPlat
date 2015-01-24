@@ -57,6 +57,12 @@ Route::group(array('before' => 'isAdmin'), function()
     Route::get('/material/create', array('as' => 'material.create', 'uses' =>
         'App\Controllers\MaterialController@getMaterialCreate')
     );
+    Route::get('/category', array('as' => 'category', 'uses' =>
+        'App\Controllers\CategoryController@getCategory')
+    );
+    Route::post('/category', array('as' => 'category.create', 'uses' =>
+        'App\Controllers\CategoryController@postCategory')
+    );
 });
 
 Route::group(array('before' => 'isLogined|csrf'), function()
@@ -75,6 +81,9 @@ Route::group(array('before' => 'isAdmin|csrf'), function()
         'App\Controllers\UserController@putUserUpdate')
     )
     ->where('id', '[0-9]+');
+    Route::post('/material', array('as' => 'material.post','uses' =>
+        'App\Controllers\MaterialController@postMaterial')
+    );
 });
 
 // Route::group(array('before' => 'csrf'), function()

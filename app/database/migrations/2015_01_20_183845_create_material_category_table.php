@@ -31,7 +31,6 @@ class CreateMaterialCategoryTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('material_category');
     }
 
 }

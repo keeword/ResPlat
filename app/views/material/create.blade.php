@@ -7,7 +7,7 @@
   <div class="col-lg-12"> 
 <div class="text-center fadeInDown" align="center">
 
-{{ Form::open(array('url' => 'materail', 'class' => 'm-t text-left', 'id' => 'creatematerialform')) }}
+{{ Form::open(array('url' => 'material', 'class' => 'm-t text-left', 'id' => 'creatematerialform')) }}
 
    <div class="ibox float-e-margins"> 
 
@@ -25,14 +25,15 @@
     </div>
 
     <div class="form-group">
-    {{ Form::label('comment', '备注' ,array('class'=>'control-label')) }}
-    {{ Form::textarea('comment', '', array('class' => 'form-control',
+    {{ Form::label('description', '备注' ,array('class'=>'control-label')) }}
+    {{ Form::textarea('description', '', array('class' => 'form-control',
         'placeholder' => '备注', 'rows' => 2)) }}
     </div>
 
     <div class="form-group">
     {{ Form::label('category', '物资分类',array('class'=>'control-label')) }}
-    {{ Form::select('category', $category, '', array('class' => 'chosen-select')) }}
+    {{ Form::select('category', $category, '', array('class' => 'chosen-select', 
+        'require' =>'')) }}
     </div>
 
     {{ Form::submit('确定申请', array('class' => 'btn btn-info block full-width m-b')) }}

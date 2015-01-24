@@ -16,10 +16,10 @@ class CreateMaterialTable extends Migration {
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('comment')->nullable();
             $table->string('status')->nullable();
             $table->integer('total_number');
-            $table->integer('lent_number');
+            $table->integer('lent_number')->default(0);
             $table->integer('category_id');
             $table->timestamps();
 

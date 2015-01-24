@@ -4,80 +4,60 @@ namespace App\Controllers;
 use Material, Category;
 use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
 
-class MaterialController extends \BaseController {
+class CategoryController extends BaseController {
 
     /**
-     * 物资一览
-     * GET /material
+     * 品类一览
+     * GET /category
      *
      * @return View
      */
-    public function getMaterial()
+    public function getCategory()
     {
         try
         {
-            $materials = Material::with('category')->get();
+            $names = Category::lists('name');
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('material')->with('materials', $materials)
-            ->with('isAdmin', (Session::get('group') ? true : false));
+        return View::make('category')->with('names', $names);
+
     }
 
     /**
-     * 添加物资
-     * GET /material/create
+     * 添加品类
+     * GET /category/create
      *
      * @return View
      */
-    public function getMaterialCreate()
+    public function getCategoryCreate()
     {
-        try
-        {   
-            $category = Category::lists('name', 'id');
-
-            return View::make('material.create')->with('category', $category);
-        }
-        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
-        {
-            return Response::make('Not Found', 404);
-        }
     }
 
     /**
-     * 添加物资
-     * POST /material
+     * 添加分类
+     * POST /category
      *
      * @return Response
      */
-    public function postMaterial()
+    public function postCategory()
     {
-        if ( ($name        = Input::get('name'))    &&
-             ($number      = Input::get('number'))  &&
-             ($category_id = Input::get('category')) )
-        {
-            $comment   = Input::get('comment');
-        }
-        else
+        if ( ! ($name = Input::get('name')) )
         {
             return Response::json(array('success' => false, 
-                'error' => 'Missing input' ));
+                'error' => 'Missing category name' ));
         }
 
         try
         {
-            $material = new Material;
+            $category = new Category;
 
-            $material->name         = $name;
-            $material->total_number = $number;
-            $material->lent_number  = 0;
-            $material->category_id  = $category_id;
-            $material->comment      = $comment;
+            $category->name = $name;
 
-            if ( ! $material->save() )
+            if ( ! $category->save() )
             {
                 return Response::json(array('success' => false, 
                     'error' => 'Can not save!'));
@@ -95,7 +75,7 @@ class MaterialController extends \BaseController {
 
     /**
      * Display the specified resource.
-     * GET /material/{id}
+     * GET /category/{id}
      *
      * @param  int  $id
      * @return Response
@@ -107,7 +87,7 @@ class MaterialController extends \BaseController {
 
     /**
      * Show the form for editing the specified resource.
-     * GET /material/{id}/edit
+     * GET /category/{id}/edit
      *
      * @param  int  $id
      * @return Response
@@ -119,7 +99,7 @@ class MaterialController extends \BaseController {
 
     /**
      * Update the specified resource in storage.
-     * PUT /material/{id}
+     * PUT /category/{id}
      *
      * @param  int  $id
      * @return Response
@@ -131,7 +111,7 @@ class MaterialController extends \BaseController {
 
     /**
      * Remove the specified resource from storage.
-     * DELETE /material/{id}
+     * DELETE /category/{id}
      *
      * @param  int  $id
      * @return Response

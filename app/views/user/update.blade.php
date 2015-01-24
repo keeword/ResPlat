@@ -2,42 +2,55 @@
 <html>
 <head>
     <title></title>
+        <meta content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css?v=1.6" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css?v=1.6" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=1.6" rel="stylesheet">
+
+    <link href="/css/create.css" rel="stylesheet">
+
+    <link href="/css/update.css" rel="stylesheet">
+    
 </head>
 <body>
 
 
-<div class="gray-bg">
-<div class="middle-box text-center loginscreen animated fadeInDown" align="center">
+<div>
+<div align="center">
 
 {{ Form::open(array('url' => 'user/'.$user->id, 'class' => 'm-t text-left',  'id' => 'updateuserform', 'method' => 'put')) }}
 
-    <div class="form-group">
-    {{ Form::label('username', '用户名') }}
+    <div class="form-group11111">
+    {{ Form::label('username', '用户名',array('class'=>'badge','id'=>'labelusername')) }}
     {{ Form::text('username', $user->username, array('class' => 'form-control-static-control')) }}
     </div>
 
-    <div class="form-group">
-    {{ Form::label('nickname', '部门') }}
-    {{ Form::text('nickname', $user->nickname, array('class' => 'form-control')) }}
+    <div class="form-group11111">
+    {{ Form::label('nickname', '部门',array('class'=>'badge','id'=>'labelusername')) }}
+    {{ Form::text('nickname', $user->nickname, array('class' => 'form-control5')) }}
     </div>
 
-    <div class="form-group">
-    {{ Form::label('password', '密码') }}
-    {{ Form::password('password', array('class' => 'form-control', 'placeholder' => '密码')) }}
+    <div class="form-group11111">
+    {{ Form::label('password', '密码',array('class'=>'badge','id'=>'labelusername')) }}
+    {{ Form::password('password', array('class' => 'form-control6', 'placeholder' => '密码')) }}
     </div>
 
-    <div class="form-group">
-    {{ Form::label('repasswd', '确认密码') }}
-    {{ Form::password('repasswd', array('class' => 'form-control', 'placeholder' => '确认密码')) }}
+    <div class="form-group11111">
+    {{ Form::label('repasswd', '确认密码',array('class'=>'badge','id'=>'labelusername')) }}
+    {{ Form::password('repasswd', array('class' => 'form-control7', 'placeholder' => '确认密码')) }}
     </div>
 
-    <div class="form-group">
-    {{ Form::label('group', '用户组') }}
-    {{ Form::select('group', $groups, $user->groups->first()->name, array('class' => 'chosen-select')) }}
+    <div class="form-group22222">
+    {{ Form::label('group', '用户组',array('class'=>'badge','id'=>'labelusername')) }}
+    {{ Form::select('group', $groups, $user->groups->first()->name, array('class' => 'chosen-select2')) }}
     </div>
+    
 
-    {{ Form::submit('修改', array('class' => 'btn btn-info block full-width m-b')) }}
-{{ Form::close() }}
+    <div class="update">{{ Form::submit('修改', array('class' => 'btn btn-info block full-width m-b')) }}
+{{ Form::close() }}</div>
+    
 
 </div>
 </div>

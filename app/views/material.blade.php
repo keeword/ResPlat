@@ -50,6 +50,7 @@
     <div class="ibox-content"> 
      @if ($isAdmin)
      <table class="table table-striped table-bordered table-hover edit-table"> 
+       <a href="javascript:;" class="btn btn-outline btn-primary" onClick="addMaterial()">添加物资</a>
      @else
      <table class="table table-striped table-bordered table-hover dataTables-example"> 
      @endif
@@ -70,7 +71,7 @@
        @foreach ($materials as $material) 
        <tr class="gradeX"> 
         <td @if($isAdmin) class="edit-td" @endif>{{ $material->name }}</td> 
-        <td @if($isAdmin) class="edit-td" @endif>{{ $material->category->category }}</td> 
+        <td @if($isAdmin) class="edit-td" @endif>{{ $material->category->name }}</td> 
         <td>{{ $material->lent_number }}</td> 
         <td>{{ $material->total_number - $material->lent_number }}</td> 
         <td>{{ $material->total_number }}</td> 

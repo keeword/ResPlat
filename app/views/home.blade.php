@@ -171,7 +171,7 @@
         @foreach ($materials as $material) 
        <tr class="gradeX"> 
         <td>{{ $material->name }}</td> 
-        <td>{{ $material->category->category }}</td> 
+        <td>{{ $material->category->name }}</td> 
         <td>{{ $material->lent_number }}</td> 
         <td>{{ $material->total_number - $material->lent_number }}</td> 
         <td>{{ $material->total_number }}</td> 
