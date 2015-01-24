@@ -15,11 +15,11 @@ class CreateCategoryTable extends Migration {
 		Schema::create('category', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('category');
+            $table->string('name');
 			$table->timestamps();
 
 			$table->engine = 'InnoDB';
-            $table->unique('category');
+            $table->unique('name');
 		});
 	}
 

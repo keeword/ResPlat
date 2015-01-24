@@ -20,6 +20,8 @@ class CreateApplicationTable extends Migration {
             $table->text('reason');
             $table->text('response')->nullable();
             $table->string('status')->default('wating');
+            $table->string('person');
+            $table->string('phone')->nullable();
             $table->timestamp('borrow_time');
             $table->timestamp('return_time');
             $table->timestamps();
@@ -35,7 +37,7 @@ class CreateApplicationTable extends Migration {
      */
     public function down()
     {
-        // Schema::drop('application');
+        Schema::drop('application');
     }
 
 }

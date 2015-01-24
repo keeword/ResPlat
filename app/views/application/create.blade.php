@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-    {{ Form::label('time', '图标触发日期', array('class' => 'control-label')) }}
+    {{ Form::label('time', '申请时间', array('class' => 'control-label')) }}
     {{ Form::text('btime', '', array('placeholder' => '借出日期', 
         'class' => 'form-control layer-date', 'id' => 'start', 'require' => '')) }}
     {{ Form::text('rtime', '', array('placeholder' => '归还日期', 

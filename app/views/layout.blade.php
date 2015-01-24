@@ -171,7 +171,7 @@
 
         });
       
-    </script>
+</script>
 
 <script>                                        //退出功能
 function logout(){
@@ -241,9 +241,10 @@ $(document).ready(function () {
 }*/
 </script>
 
+
 <script>
     //将form转为AJAX提交
-    function ajaxSubmit(frm, fn) {
+    function ajaxSubmit1(frm, fn) {
         $.ajax({
             url: frm.action,
             type: 'get',
@@ -261,7 +262,7 @@ $(document).ready(function () {
         //alert();
         $('#applicationForm').bind('submit', function(){
             //alert();
-            ajaxSubmit(this, function(json){
+            ajaxSubmit1(this, function(json){
 
                 if(json.success==true){
                         layer.load('loading...', 3);
@@ -274,7 +275,6 @@ $(document).ready(function () {
         });
     })();  
 </script>
-
 
 
 <script>                            //iframe's javascript 
@@ -291,9 +291,16 @@ function alterbtn(id){              //user.blade.php 修改按钮
     iframeset("{{ URL::route('user') }}" + '/' + id);
 }
 
+
 function applicationcreate(){
     iframeset('{{URL::route("application.create")}}'+'?'+$('form#applicationForm').serialize());
 }
+
+function addMaterial(){
+    iframeset("{{ URL::route('material.create') }}")
+}
+
+
 function delUser(id){
     layer.prompt({
         top: 'auto',
@@ -309,6 +316,28 @@ function delUser(id){
             function (json){
                 if(json.success == true){
                     layer.msg('删除成功!',2,function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(json.error,2,2);
+                }
+        });
+    });
+}
+
+function addCategory(id){
+    layer.prompt({
+        type : 0,
+        title: '请输入分类名称'
+    }, function(val){
+        $.post(
+            "{{ URL::route('category') }}",
+            {
+                name : val
+            },
+            function (json){
+                if(json.success == true){
+                    layer.msg('添加成功',2,function(){
                         location.reload();
                     });
                 }else{
@@ -335,6 +364,31 @@ function iframeset(srcurl){
         });
         //layer.load(1);
 }
+
+function ajaxSubmit(frm, fn) {
+    $.ajax({
+        url: frm.action,
+        type: frm.method,
+        data: $('form#creatematerialform').serialize(),
+        dataType:'json',
+        success: fn
+    });
+}
+
+$(document).ready(function(){
+    $('#creatematerialform').bind('submit', function(){
+        ajaxSubmit(this, function(json){
+            if(json.success==true){
+                    layer.msg('添加成功!',2,function(){
+                        location.reload();
+                    });
+            }else{
+                    layer.msg(json.error,2,2);
+            }
+        });
+        return false;
+    });
+});
 </script>
 
 <script>

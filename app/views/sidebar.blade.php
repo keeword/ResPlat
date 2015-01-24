@@ -29,6 +29,7 @@
                 <ul class="nav nav-second-level">
                     @if (Session::get('group') === 'admin')
                     <li><a href="{{ URL::route('material') }}">物资管理</a></li>
+                    <li><a href="{{ URL::route('category') }}">品类管理</a></li>
                     @else
                     <li><a href="{{ URL::route('material') }}">物资一览</a></li>
                     @endif
