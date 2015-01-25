@@ -75,7 +75,14 @@
         <td>{{ $material->lent_number }}</td> 
         <td>{{ $material->total_number - $material->lent_number }}</td> 
         <td>{{ $material->total_number }}</td> 
-        <td><button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="{{ var_dump($material->application_material) }}">左侧提示</button></td>
+        <td><button type="button" class="btn btn-default" 
+            data-toggle="tooltip" data-placement="top" title="
+            @foreach ($app_mats as $app_mat)
+                @if ($app_mat->material_id === $material->id)
+                    {{ $users[$applications[$app_mat->application_id]] }} 借出 {{ $app_mat->number }}
+                @endif
+            @endforeach
+            ">借出详情</button></td>
         <td>操作</td>
        </tr> 
        @endforeach 

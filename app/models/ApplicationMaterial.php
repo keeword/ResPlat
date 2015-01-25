@@ -7,4 +7,9 @@ class ApplicationMaterial extends \Eloquent {
     public $timestamps = false;
 
 	protected $fillable = array('application_id', 'material_id', 'number', 'comment');
+
+    public function material()
+    {
+        return $this->belongsTo('Material', 'material_id', 'id');
+    }
 }

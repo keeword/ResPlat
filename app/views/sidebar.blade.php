@@ -34,7 +34,7 @@
                     <li><a href="{{ URL::route('material') }}">物资一览</a></li>
                     @endif
                     <li><a href="{{ URL::route('application') }}">物资申请</a></li>
-                    <li><a href="index_1.html">物资审核</a>
+                    <li><a href="{{ URL::route('application.update') }}">物资审核</a>
                     </li>
                 </ul>
             </li>
