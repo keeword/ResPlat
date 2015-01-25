@@ -115,13 +115,12 @@
                     right: 'month, agendaWeek, agendaDay'
                 },
                 defaultView:'agendaWeek',
-                timeFormat:'H(:mm)',
-                agendaWeek:{
-                    //axisFormat:'H(:mm)',
-                    firstHour:12,
-                    minTime:12,
-                    maxTime:24,
-                },
+                timeFormat: 'H:mm',
+                axisFormat:'H:mm',
+                firstHour:9,
+                minTime:6,
+                maxTime:24,
+                
                 editable: true,
                 theme:false,
                 aspectRatio:2.1,
@@ -170,13 +169,17 @@
             */
                 
                 events: function(start, end, callback){
-                   /* $.ajax({
+                   /*$.ajax({
                         url: 'myxmlfeed.php',
                         dataType: 'xml',
                         data: {
                         // our hypothetical feed requires UNIX timestamps
                         start: Math.round(start.getTime() / 1000),
                         end: Math.round(end.getTime() / 1000)
+                        },
+                        beforeSend:function(){
+
+
                         },
                         success: function(doc) {
                             var events = [];
@@ -269,8 +272,45 @@ $(document).ready(function () {
 }*/
 </script>
 
+<script>                        //view/application/create.blade.php
+    function ajaxformsubmit(frm,fn,beforefn,formid,formtype){
+        $.ajax({
+            url:frm.action,
+            type:formtype,
+            data:$('form#'+formid).serialize(),
+            dataType:'json',
+            success:fn,
+            beforeSend:beforefn,
+        });
 
-<script>
+    }
+
+    (function(){                    
+        
+        $('#createappform').bind('submit', function(){
+            ajaxformsubmit(this, function(json){
+                if(json.success == true){
+
+                    layer.msg('提交申请成功!',2,function(){
+                        location.reload();
+                    });
+            }else{
+                    //alert();
+                    layer.msg(json.error,2,2);
+            }
+            },
+            function(){
+                return true;
+            },
+            'createappform',
+            'post');
+            return false;
+        });
+    })();  
+</script>
+
+
+<script>                        //application.blade.php
     formchange = '';
     function forminputadd(){
         formchange = formchange+$('form#applicationForm').serialize();
@@ -289,8 +329,7 @@ $(document).ready(function () {
             data: $('form#applicationForm').serialize(),
             success: fn,
             beforeSend:function(){
-                //alert($('#applicationForm input').length);
-                //$.get('{{URL::route("application.create")}}'+'?'+$('form#applicationForm').serialize(), '');
+    
                 applicationcreate(formchange);
                 return false;
              
@@ -298,7 +337,7 @@ $(document).ready(function () {
         });
     }
     
-(function(){
+(function(){                    //application.blade.php's applicationForm submit
         //alert();
         $('#applicationForm').bind('submit', function(){
             //alert();
