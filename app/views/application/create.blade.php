@@ -23,12 +23,12 @@
         <th>需求数量</th> 
        </tr> 
       </thead> 
-      <tbody>
+      <tbody id="tb-applicationcreate">
     @foreach ($materials as $m)
       <tr class="gradeX"> 
         <td>{{ $m->name }}</td> 
         <td><span>
-            <a href="javascript:;" class="J_minus" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
+            <a href="javascript:;" class="J_minus" style="padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
             {{ Form::text($m->id, $material[$m->id], array('class' => 'J_input', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
             <a href="javascript:;" class="J_add" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
         </span></td>

@@ -39,9 +39,9 @@
      </div> 
     </div> 
 
-{{ Form::open(array('url' => 'application.create','id' => 'applicationForm')) }}
+<form id="applicationForm" action="">
     <div class="ibox-content"> 
-     <table class="table table-striped table-bordered table-hover"> 
+     <table class="table table-striped table-bordered table-hover dataTables-example"> 
       <thead> 
        <tr> 
         <th>物资名称</th> 
@@ -55,8 +55,14 @@
        @foreach ($materials as $material) 
        <tr class="gradeX"> 
         <td>{{ $material->name }}</td> 
-        <td>{{ $material->category->name }}</td> 
+        <td>{{ $material->category->category }}</td> 
+<!--
+        <td>{{ $material->lent_number }}</td> 
+-->
         <td>{{ $material->total_number - $material->lent_number }}</td> 
+<!--
+        <td>{{ $material->total_number }}</td> 
+-->
         <td><a href="#">详情</a></td> 
         <td><span>
             <a href="javascript:;" class="J_minus" style="width:4px;padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
@@ -81,10 +87,11 @@
      </table> 
 <!--
        <a href="javascript:;" class="btn btn-outline btn-primary" onClick="addUser()">提交申请</a>
--->
-        {{ Form::submit('提交')}}
+-->     
+        <input type="button" value="添加" onclick="forminputadd()">
+        <input type="submit" value="提交">
     </div> 
-{{ Form::close() }}
+ </form>
 
    </div> 
 

@@ -69,6 +69,7 @@
     <!-- Full Calendar -->
     <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
 
+
 <script>                                    //工作室管理,日历事件等
         $(document).ready(function () {
             $('.i-checks').iCheck({
@@ -111,9 +112,18 @@
                 header: {
                     left: 'prev,next',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'month, agendaWeek, agendaDay'
+                },
+                defaultView:'agendaWeek',
+                timeFormat:'H(:mm)',
+                agendaWeek:{
+                    //axisFormat:'H(:mm)',
+                    firstHour:12,
+                    minTime:12,
+                    maxTime:24,
                 },
                 editable: true,
+                theme:false,
                 aspectRatio:2.1,
                 handleWindowResize:true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -159,26 +169,28 @@
                 },
             */
                 
-                events: [
+                events: function(start, end, callback){
+                   /* $.ajax({
+                        url: 'myxmlfeed.php',
+                        dataType: 'xml',
+                        data: {
+                        // our hypothetical feed requires UNIX timestamps
+                        start: Math.round(start.getTime() / 1000),
+                        end: Math.round(end.getTime() / 1000)
+                        },
+                        success: function(doc) {
+                            var events = [];
+                            $(doc).find('event').each(function() {
+                                event.push({
+                                title: $(this).attr('title'),
+                                start: $(this).attr('start') // will be parsed
+                                });
+                            });
+                            callback(events);
+                        }
+                        });*/
+                    },
 
-                    {
-                        title: '长事件',
-                        start: new Date(y, m, d - 5),
-                        end: new Date(y, m, d - 2),
-                    },
-                    {
-                        title: '生日',
-                        start: new Date(y, m, d + 1, 19, 0),
-                        end: new Date(y, m, d + 1, 22, 30),
-                        allDay: false
-                    },
-                    {
-                        title: '打开百度',
-                        start: new Date(y, m, 28),
-                        end: new Date(y, m, 29),
-                        url: 'http://baidu.com/'
-                    }
-                ],
             });
 
         
@@ -259,6 +271,16 @@ $(document).ready(function () {
 
 
 <script>
+    formchange = '';
+    function forminputadd(){
+        formchange = formchange+$('form#applicationForm').serialize();
+        formchange = formchange.replace('DataTables_Table_0_length=10','')
+                                .replace('DataTables_Table_0_length=20','')
+                                .replace('DataTables_Table_0_length=50','')
+                                .replace('DataTables_Table_0_length=100','');
+        //alert(formchange);
+    }
+
     //将form转为AJAX提交
     function ajaxSubmit1(frm, fn) {
         $.ajax({
@@ -268,7 +290,8 @@ $(document).ready(function () {
             success: fn,
             beforeSend:function(){
                 //alert($('#applicationForm input').length);
-                applicationcreate();
+                //$.get('{{URL::route("application.create")}}'+'?'+$('form#applicationForm').serialize(), '');
+                applicationcreate(formchange);
                 return false;
              
             }
@@ -281,12 +304,6 @@ $(document).ready(function () {
             //alert();
             ajaxSubmit1(this, function(json){
 
-                if(json.success==true){
-                        layer.load('loading...', 3);
-                        window.location.href="{{ URL::route('home') }}";
-                }else{
-                    layer.load('帐号密码不匹配', 1);
-                }
             });
             return false;
         });
@@ -309,8 +326,9 @@ function alterbtn(id){              //user.blade.php 修改按钮
 }
 
 
-function applicationcreate(){       //application.blade   submit
-    iframeset('{{URL::route("application.create")}}'+'?'+$('form#applicationForm').serialize());
+function applicationcreate(varapply){       //application.blade   submit
+    iframeset('{{URL::route("application.create")}}'+'?'+varapply);
+     //$.get('{{URL::route("application.create")}}');
 }
 
 function addMaterial(){
