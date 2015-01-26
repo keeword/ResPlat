@@ -30,6 +30,8 @@
     <link href="/css/animate.css" rel="stylesheet">
 -->
     <link href="/css/style.css?v=1.6" rel="stylesheet">
+    <!-- layer layim 
+    <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
 </head>
 
 <body>
@@ -37,7 +39,7 @@
     @yield('master')
 
     <!-- Mainly scripts -->
-    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/jquery-2.1.3.min.js"></script>
     <script src="/js/bootstrap.min.js?v=1.6"></script>
     <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <!--
@@ -68,6 +70,7 @@
 -->
     
     <!-- layer javascript -->
+    <!--<script src="/js/plugins/layer/layim/layim.js"></script>-->
     <script src="/js/plugins/layer/layer.min.js"></script>
 <!--
     <script>
@@ -88,7 +91,7 @@
 
 
 <script>                                    //工作室管理,日历事件等
-        $(document).ready(function () {
+        $(function () {
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
@@ -124,7 +127,7 @@
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-
+            //eventtipstime = true;
             $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next',
@@ -137,8 +140,8 @@
                 firstHour:9,
                 minTime:6,
                 maxTime:24,
+                //allDay:0
                 
-                editable: true,
                 theme:false,
                 aspectRatio:2.1,
                 handleWindowResize:true,
@@ -179,37 +182,32 @@
                          });
                        workroomapply(dateft);
                 },
+                
 
                /* eventMouseover:function(calEvent, jsEvent, view){
                     alert();
-                },
-            */
+                },*/
+            
                 
-                events: function(start, end, callback){
-                   /*$.ajax({
-                        url: 'myxmlfeed.php',
-                        dataType: 'xml',
-                        data: {
-                        // our hypothetical feed requires UNIX timestamps
-                        start: Math.round(start.getTime() / 1000),
-                        end: Math.round(end.getTime() / 1000)
-                        },
-                        beforeSend:function(){
-
-
-                        },
-                        success: function(doc) {
-                            var events = [];
-                            $(doc).find('event').each(function() {
-                                event.push({
-                                title: $(this).attr('title'),
-                                start: $(this).attr('start') // will be parsed
-                                });
+                events: '{{URL::route("workroom.list")}}',
+                eventMouseover: function(calEvent, jsEvent, view) { 
+                        var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
+                        var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd");
+                        layer.tips(
+                        '<div>事件:'+calEvent.title+'</div><div>开始时间:'
+                        +calstart+'</div><div>结束时间:'
+                        +calend+'</div><div>申请人:'
+                        +'</div><div>手机:'
+                        +calEvent.phone+'</div>', 
+                        this , 
+                        {
+                            style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],
                             });
-                            callback(events);
-                        }
-                        });*/
-                    },
+                        
+                    } ,
+                eventMouseout:function(calEvent, jsEvent, view){
+                    layer.closeTips();
+               }
 
             });
 
@@ -308,9 +306,7 @@ $(document).ready(function () {
             ajaxformsubmit(this, function(json){
                 if(json.success == true){
 
-                    layer.msg('提交申请成功!',2,function(){
-                        location.reload();
-                    });
+                    layer.load('提交申请成功!',2);
             }else{
                     //alert();
                     layer.msg(json.error,2,2);

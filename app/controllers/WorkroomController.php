@@ -19,14 +19,42 @@ class WorkroomController extends \BaseController {
         return View::make('workroom');
     }
 
-    public function postWorkroomList()
+    public function getWorkroomList()
     {
-        Response::json(array('data' => array(array(
-            'id' => '1',
-            'title' => 'test',
-            'start' => '2015-01-25 00:00:00',
-            'end' => '2015-01-26 00:00:00',
-            ))));
+        return Response::json(array(
+        	array(
+	            'id' => '1',
+	            'title' => 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+	            'start' => '2015-01-25 12:00',
+	            'end' => '2015-01-25 14:00',
+	            'allDay' => false,
+	            'phone' =>'1234666666',),
+        	array(
+	            'id' => '1',
+	            'title' => 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest',
+	            'start' => '2015-01-25 14:00',
+	            'end' => '2015-01-25 15:00',
+	            'allDay' => false,
+	            'phone' =>'1234666666',),
+        	array(
+	            'id' => '2',
+	            'title' => 'test',
+	            'start' => '2015-01-26 12:00',
+	            'end' => '2015-01-26 15:00',
+	            'allDay' => false,),   
+            array(
+	            'id' => '2',
+	            'title' => 'test',
+	            'start' => '2015-02-26 12:00',
+	            'end' => '2015-02-26 15:00',
+	            'allDay' => false,),  
+            array(
+	            'id' => '2',
+	            'title' => 'test',
+	            'start' => '2015-02-26 12:00',
+	            'end' => '2015-02-26 15:00',
+	            'allDay' => false,),       	
+            ));
     }
 
     /**
