@@ -9,19 +9,26 @@
     <link href="/font-awesome/css/font-awesome.css?v=1.6" rel="stylesheet">
 
     <!-- Morris -->
+<!--
     <link href="/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-
+-->
     <!-- Data Tables -->
     <link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 
+<!--
     <link href="/css/plugins/iCheck/custom.css" rel="stylesheet">
+-->
     <link href="/css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
     <link href="/css/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet">
 
     <!-- Gritter -->
+<!--
     <link href="/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+-->
 
+<!--
     <link href="/css/animate.css" rel="stylesheet">
+-->
     <link href="/css/style.css?v=1.6" rel="stylesheet">
     <!-- layer layim 
     <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
@@ -29,32 +36,38 @@
 
 <body>
 
-    @yield('sidebar')
+    @yield('master')
 
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.3.min.js"></script>
     <script src="/js/bootstrap.min.js?v=1.6"></script>
     <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<!--
     <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+-->
 
-    <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
 
     <!-- Data Tables -->
     <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/js/plugins/jeditable/jquery.jeditable.js"></script>
 
-    <!-- Custom and plugin javascript
-        <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--Custom and plugin javascript-->
+<!--
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+-->
 
-     -->
     <!-- jQuery Validation plugin javascript-->
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/plugins/validate/messages_zh.min.js"></script>
     
     <script src="/js/hplus.js?v=1.6"></script>
+<!--
     <script src="/js/plugins/pace/pace.min.js"></script>
+-->
+<!--
     <script src="/js/jquery.pjax.js"></script>
-
+-->
     
     <!-- layer javascript -->
     <!--<script src="/js/plugins/layer/layim/layim.js"></script>-->
@@ -62,7 +75,9 @@
     <script>
         layer.use('extend/layer.ext.js'); //载入layer拓展模块
     </script>
+<!--
     <script src="/js/demo/layer-demo.js"></script>
+-->
     <!-- layerDate plugin javascript -->
     <script src="/js/plugins/layer/laydate/laydate.js"></script>
 
@@ -371,7 +386,6 @@ function addMaterial(){
     iframeset("{{ URL::route('material.create') }}")
 }
 
-
 function delUser(id){
     layer.prompt({
         top: 'auto',
@@ -393,6 +407,35 @@ function delUser(id){
                     layer.msg(json.error,2,2);
                 }
         });
+    });
+}
+
+function delMaterial(id){
+    $.layer({
+        title: '确认删除',
+        closeBtn: false,
+        dialog: {
+            type: -1,
+            msg: '删除后将无法恢复，是否继续?',
+            btns: 2, 
+            btn: ['确定', '取消']
+        },
+        yes: function(index){
+            $.post(
+                "{{ URL::route('material') }}" + '/' + id,
+                {
+                    _method : 'delete', 
+                },
+                function (json){
+                    if(json.success == true){
+                        layer.msg('删除成功!',2,function(){
+                            location.reload();
+                        });
+                    }else{
+                        layer.msg(json.error,2,2);
+                    }
+            });
+        }
     });
 }
 

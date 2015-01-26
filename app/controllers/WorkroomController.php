@@ -69,7 +69,7 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * 
+     *
      * POST /workroom
      *
      * @return Response

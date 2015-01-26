@@ -1,13 +1,14 @@
 @extends('layout') 
 
-@section('sidebar')
+@section('master')
 
 <div class="gray-bg">
- <div class="row"> 
-  <div class="col-lg-12"> 
+<div class="row"> 
+<div class="col-lg-12"> 
 <div class="text-center fadeInDown" align="center">
 
-{{ Form::open(array('url' => 'application', 'class' => 'm-t text-left',  'id' => 'createappform')) }}
+{{ Form::open(array('url' => 'application', 'class' => 'm-t text-left',  
+    'id' => 'createappform')) }}
 
    <div class="ibox float-e-margins"> 
 
@@ -64,8 +65,11 @@
     </div>
 
     {{ Form::submit('确定申请', array('class' => 'btn btn-info block full-width m-b')) }}
+
 {{ Form::close() }}
 
+</div>
+</div>
 </div>
 </div>
 

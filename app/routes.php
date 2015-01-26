@@ -60,6 +60,10 @@ Route::group(array('before' => 'isLogined|isAdmin'), function()
     Route::get('/material/create', array('as' => 'material.create', 'uses' =>
         'App\Controllers\MaterialController@getMaterialCreate')
     );
+    Route::delete('/material/{id}', array('as' => 'material.delete', 'uses' =>
+        'App\Controllers\MaterialController@delMaterial')
+    )
+    ->where('id', '[0-9]+');
     Route::get('/category', array('as' => 'category', 'uses' =>
         'App\Controllers\CategoryController@getCategory')
     );
