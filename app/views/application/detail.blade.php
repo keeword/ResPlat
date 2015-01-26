@@ -35,6 +35,7 @@
      <h5>申请详情</h5> 
     </div> 
 
+{{ Form::open(array('url' => 'application'.'/'.$application->id, 'method' => 'PUT'))}}
     <div class="ibox-content"> 
     <div>
         <span class="list-group-item">申请部门：{{ $application->user->nickname }}</span>
@@ -58,7 +59,7 @@
        <tr class="gradeX"> 
         <td>{{ $app_mat->material->name }}</td> 
         <td>{{ $categorys[$app_mat->material->category_id] }}</td> 
-        <td>{{ $app_mat->number }}</td> 
+        <td>{{ Form::number("data[$app_mat->id]", $app_mat->number) }}</td> 
        </tr> 
        @endforeach 
       </tbody> 
@@ -70,12 +71,28 @@
        </tr> 
       </tfoot> 
      </table> 
+
     </div> 
 
+   <div class="ibox float-e-margins"> 
+    <div class="ibox-title"> 
+     <h5>审核</h5> 
+    </div> 
+    <div class="ibox-content"> 
+    <div>
+        {{ Form::label('response', '审核原因' ,array('class'=>'control-label')) }}
+        {{ Form::textarea('response', '', array('class' => 'form-control',
+            'placeholder' => '审核原因', 'require' => '', 'rows' => 2)) }}
+    </div>
+        {{ Form::hidden('status', 'pass')}}
+        {{ Form::submit('提交')}}
+    </div>
+
+    </div> 
    </div> 
 
+{{ Form::close() }}
 
-  </div> 
  </div> 
 </div> 
 

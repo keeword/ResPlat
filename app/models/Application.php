@@ -12,4 +12,9 @@ class Application extends \Eloquent {
     {
         return $this->belongsTo('User', 'user_id', 'id');
     }
+
+    public function application_material()
+    {
+        return $this->hasMany('ApplicationMaterial', 'application_id', 'id');
+    }
 }
