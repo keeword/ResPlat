@@ -76,10 +76,10 @@
     <div class="ibox float-e-margins">
 
         <div class="ibox-title">
-            <h5>申请情况</h5>
+            <h5>我的申请</h5>
             <div class="ibox-tools">
-                <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
-                <a class="close-link"> <i class="fa fa-times"></i> </a>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i> </a>
+                <a class="close-link"><i class="fa fa-times"></i> </a>
             </div>
         </div>
 
@@ -87,25 +87,23 @@
         <table class="table table-striped table-bordered table-hover dataTables-example">
         <thead>
         <tr>
-        <th></th>
             <th>申请时间</th>
-            <th>申请部门</th>
             <th>申请项目</th>
             <th>审核状态</th>
-            <th>操作</th>
         </tr>
         </thead>
         <tbody>
+        @foreach ($applications as $application)
         <tr>
-            <td class="text-nowrap">
-                <input type="checkbox" name="1" />
+            <td>{{ $application->created_at }}</td>
+            <td>
+            @foreach ($application->material as $material)
+                {{ $material->name.',' }}
+            @endforeach
             </td>
-            <td>2014.1.18 12:00</td>
-            <td>信宣部</td>
-            <td>详情</td>
             <td><a class="btn btn-danger btn-rounded" href="">已拒绝</a></td>
-            <td><button class="btn btn-info btn-circle" type="button"><i class="fa fa-check"></i> </button> <button class="btn btn-warning btn-circle" type="button"><i class="fa fa-times"></i></button></td>
         </tr>
+        @endforeach
         </tbody>
         </table>
         </div>

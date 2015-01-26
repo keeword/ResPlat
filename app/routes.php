@@ -70,6 +70,10 @@ Route::group(array('before' => 'isLogined|isAdmin'), function()
     Route::post('/category', array('as' => 'category.create', 'uses' =>
         'App\Controllers\CategoryController@postCategory')
     );
+    Route::delete('/category/{id}', array('as' => 'category.delete', 'uses' =>
+        'App\Controllers\CategoryController@delCategory')
+    )
+    ->where('id', '[0-9]+');
 });
 
 

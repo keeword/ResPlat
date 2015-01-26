@@ -110,15 +110,25 @@ class CategoryController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除品类
      * DELETE /category/{id}
      *
-     * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function delCategory()
     {
-        //
+        try
+        {
+            Category::destroy(Request::segment(2));
+
+            return Response::json(array('success' => true));
+        }
+
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
+        }
     }
 
 }

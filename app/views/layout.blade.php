@@ -460,6 +460,34 @@ function addCategory(id){
     });
 }
 
+function delCategory(id){
+    $.layer({
+        title: '确认删除',
+        closeBtn: false,
+        dialog: {
+            type: -1,
+            msg: '删除后将无法恢复，是否继续?',
+            btns: 2, 
+            btn: ['确定', '取消']
+        },
+        yes: function(index){
+            $.post(
+                "{{ URL::route('category') }}" + '/' + id,
+                {
+                    _method : 'delete', 
+                },
+                function (json){
+                    if(json.success == true){
+                        layer.msg('删除成功!',2,function(){
+                            location.reload();
+                        });
+                    }else{
+                        layer.msg(json.error,2,2);
+                    }
+            });
+        }
+    });
+}
 function iframeset(srcurl){
     var pageii = $.layer({
         type: 2,

@@ -57,7 +57,9 @@
             <td>{{ $material->name }}</td>
             <td>{{ $material->category->name }}</td>
             <td>{{ $material->total_number - $material->lent_number }}</td>
-            <td><a href="#">详情</a></td>
+            <td><button type="button" class="btn btn-default"
+                data-toggle="tooltip" data-placement="top" title="@foreach($app_mats as $app_mat)@if($app_mat->material_id === $material->id){{ $users[$applications[$app_mat->application_id]].'借出'.$app_mat->number }}@endif @endforeach">借出详情
+            </button></td>
             <td><span>
                 <a href="javascript:;" class="J_minus" style="width:4px;padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
                 {{ Form::text($material->id, '0', array('class' => 'J_input', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
