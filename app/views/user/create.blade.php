@@ -107,6 +107,7 @@
                 if(json.success==true){
                         layer.load('帐号创建成功!!', 1);
                         //window.location.href="{{ URL::route('home') }}";
+                        
                 }else{
                         layer.load(json.error, 1);
 

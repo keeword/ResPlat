@@ -126,8 +126,9 @@ class ApplicationController extends BaseController {
                         ->update(array('lent_number' => 
                             $material['number']+$mat[$material['material_id']] ));
             }
-            return Response::json(array('success' => true));
 */
+            return Response::json(array('success' => true));
+
 
 // try to use one sql query to update the `lent_number` column of table `material`
 /*
