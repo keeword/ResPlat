@@ -224,15 +224,65 @@ class ApplicationController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
+     * 审核
      * PUT /application/{id}
      *
-     * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function postApplicationUpdate()
     {
-        //
+        if ( ($id         = Request::segment(2))  &&
+             ($app_mats   = Input::get('data'))   &&
+             ($status     = Input::get('status')) &&
+              $checker_id = Session::get('userid') )
+        {
+            $response     = Input::get('response');
+        }
+
+        else
+        {
+            return Response::json(array('success' => false, 
+                'error' => 'Missing input' ));
+        }
+
+        try
+        {
+            $application = Application::find($id);
+
+            $application->status     = $status;
+            $application->response   = $response;
+            $application->checker_id = $checker_id;
+
+            if ( ! $application->save())
+            {
+                return Response::json(array('success' => false, 
+                    'error' => 'Can not save!' ));
+            }
+
+            $mat = Material::lists('lent_number', 'id');
+            foreach ($app_mats as $id => $number)
+            {
+                $material = ApplicationMaterial::find($id);
+                $material->number = $number;
+                $material->save();
+                Material::where('id', $material['material_id'])
+                        ->update(array('lent_number' =>
+                            $number+$mat[$material['material_id']] ));
+            }
+
+            return Response::json(array('success' => true));
+
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => $e->getMessage()));
+        }
+        catch (\Exception $e)
+        {
+            return Response::json(array('success' => false, 
+                'error' => $e->getMessage()));
+        }
     }
 
     /**

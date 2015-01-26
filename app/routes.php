@@ -87,6 +87,12 @@ Route::group(array('before' => 'isLogined|csrf'), function()
     );
 });
 
+Route::group(array('before' => 'isLogined|isChecker|csrf'), function()
+{
+    Route::put('/application/{id}', array('uses' =>
+        'App\Controllers\ApplicationController@postApplicationUpdate')
+    );
+});
 Route::group(array('before' => 'isLogined|isAdmin|csrf'), function()
 {
     Route::post('/user', array('as' => 'user.post','uses' =>
