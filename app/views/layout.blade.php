@@ -190,11 +190,12 @@
                 events: '{{URL::route("workroom.list")}}',
                 eventMouseover: function(calEvent, jsEvent, view) { 
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
-                        var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd");
+                        var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
                         layer.tips(
                         '<div>事件:'+calEvent.title+'</div><div>开始时间:'
                         +calstart+'</div><div>结束时间:'
-                        +calend+'</div><div>申请人:'
+                        +calend+'</div><div>申请部门:'
+                        +'</div><div>申请人:'
                         +'</div><div>手机:'
                         +calEvent.phone+'</div>', 
                         this , 
@@ -679,6 +680,21 @@ $.fn.iVaryVal=function(iSet,CallBack){
     };
     laydate(start);
     laydate(end);
+</script>
+
+<script>
+
+/*$(function(){
+    $('#testbtn').bind('onmouseover',function(){
+        layer.tips(text,'#testbtn',{maxWidth:'300px', guide: 1,style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],});
+    })
+})
+function btnmouseover(text,btnid){
+    layer.tips(text,'#testbtn',{maxWidth:'300px', guide: 1,style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],});
+}
+function btnmouseout(){
+    layer.closeTips();
+}*/
 </script>
 
 </body>
