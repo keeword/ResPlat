@@ -118,15 +118,6 @@ class ApplicationController extends BaseController {
                     'error' => 'Can not save!'));
             }
 
-/*
-            $mat = Material::lists('lent_number', 'id');
-            foreach ($materials as $material)
-            {
-                Material::where('id', $material['material_id'])
-                        ->update(array('lent_number' =>
-                            $material['number']+$mat[$material['material_id']] ));
-            }
-*/
             return Response::json(array('success' => true));
 
 
@@ -195,7 +186,7 @@ class ApplicationController extends BaseController {
                                            ->where('application_id', $id)
                                            ->get();
 
-            $categorys = Category::lists('name', 'id');
+            $categories = Category::lists('name', 'id');
         }
 
         catch (\Exception $e)
@@ -205,7 +196,7 @@ class ApplicationController extends BaseController {
 
         return View::make('application.detail')
                    ->with('application', $application)
-                   ->with('categorys', $categorys)
+                   ->with('categories', $categories)
                    ->with('app_mats', $app_mats);
     }
 

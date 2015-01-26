@@ -16,14 +16,14 @@ class CategoryController extends BaseController {
     {
         try
         {
-            $names = Category::lists('name');
+            $categories = Category::with('material')->get();
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('category')->with('names', $names);
+        return View::make('category.index')->with('categories', $categories);
 
     }
 

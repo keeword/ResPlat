@@ -72,11 +72,9 @@
     <!-- layer javascript -->
     <!--<script src="/js/plugins/layer/layim/layim.js"></script>-->
     <script src="/js/plugins/layer/layer.min.js"></script>
-<!--
     <script>
         layer.use('extend/layer.ext.js'); //载入layer拓展模块
     </script>
--->
 <!--
     <script src="/js/demo/layer-demo.js"></script>
 -->
@@ -386,7 +384,6 @@ function applicationcreate(varapply){       //application.blade   submit
 function addMaterial(){
     iframeset("{{ URL::route('material.create') }}")
 }
-
 
 function delUser(id){
     layer.prompt({

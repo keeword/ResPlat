@@ -6,9 +6,8 @@ class Category extends \Eloquent {
     protected $fillable = array('category');
 
 
-    public function hasManyMaterial()
+    public function material()
     {
-        return $this->hasMany('Material', 'material_category', 
-                              'material_id', 'category_id');
+        return $this->hasMany('Material', 'category_id', 'id');
     }
 }
