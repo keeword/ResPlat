@@ -23,7 +23,7 @@ class ApplicationController extends BaseController {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('application')->with('materials', $materials);
+        return View::make('application.index')->with('materials', $materials);
     }
 
     /**
@@ -79,7 +79,7 @@ class ApplicationController extends BaseController {
         }
         else
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => 'Missing input' ));
         }
 
@@ -96,7 +96,7 @@ class ApplicationController extends BaseController {
 
             if ( ! $application->save() )
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => 'Can not save!'));
             }
 
@@ -114,7 +114,7 @@ class ApplicationController extends BaseController {
 
             if ( ! ApplicationMaterial::insert($materials) )
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => 'Can not save!'));
             }
 
@@ -123,7 +123,7 @@ class ApplicationController extends BaseController {
             foreach ($materials as $material)
             {
                 Material::where('id', $material['material_id'])
-                        ->update(array('lent_number' => 
+                        ->update(array('lent_number' =>
                             $material['number']+$mat[$material['material_id']] ));
             }
             return Response::json(array('success' => true));
@@ -158,7 +158,7 @@ class ApplicationController extends BaseController {
 
             else
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => $result.'unknown error'));
             }
 */
@@ -167,7 +167,7 @@ class ApplicationController extends BaseController {
 
         catch (\Exception $e)
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => $e->getMessage()));
         }
     }
@@ -186,7 +186,7 @@ class ApplicationController extends BaseController {
 
             if ( ! ($application = Application::with('user')->find($id)) )
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => 'Can not find application id!'));
             }
 
@@ -240,7 +240,7 @@ class ApplicationController extends BaseController {
 
         else
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => 'Missing input' ));
         }
 
@@ -254,7 +254,7 @@ class ApplicationController extends BaseController {
 
             if ( ! $application->save())
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => 'Can not save!' ));
             }
 
@@ -274,12 +274,12 @@ class ApplicationController extends BaseController {
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => $e->getMessage()));
         }
         catch (\Exception $e)
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => $e->getMessage()));
         }
     }

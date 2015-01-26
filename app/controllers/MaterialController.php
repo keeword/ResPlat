@@ -39,9 +39,9 @@ class MaterialController extends BaseController {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('material')
+        return View::make('material.index')
                    ->with('materials', $materials)
-                   ->with('isAdmin', (Session::get('group') ? true : false))
+                   ->with('isAdmin', (Session::get('group')==='admin' ? true : false))
                    ->with('users', $users)
                    ->with('app_mats', $app_mets)
                    ->with('applications', $applications);
@@ -56,7 +56,7 @@ class MaterialController extends BaseController {
     public function getMaterialCreate()
     {
         try
-        {   
+        {
             $category = Category::lists('name', 'id');
 
             return View::make('material.create')->with('category', $category);
@@ -84,7 +84,7 @@ class MaterialController extends BaseController {
 
         else
         {
-            return Response::json(array('success' => false, 
+            return Response::json(array('success' => false,
                 'error' => 'Missing input' ));
         }
 
@@ -100,7 +100,7 @@ class MaterialController extends BaseController {
 
             if ( ! $material->save() )
             {
-                return Response::json(array('success' => false, 
+                return Response::json(array('success' => false,
                     'error' => 'Can not save!'));
             }
 
@@ -151,15 +151,25 @@ class MaterialController extends BaseController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除物资
      * DELETE /material/{id}
      *
-     * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function delMaterial()
     {
-        //
+        try
+        {
+            Material::destroy(Request::segment(2));
+
+            return Response::json(array('success' => true));
+        }
+
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
+        }
     }
 
 }

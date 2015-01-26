@@ -34,7 +34,7 @@ class AuthController extends BaseController {
     {
         $credentials    = array(
             'username' => Input::get('username'),
-            'password' => Input::get('password')
+            'password' => Input::get('password'),
         );
         $remember       = Input::get('remember');
 
