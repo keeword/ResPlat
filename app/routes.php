@@ -41,7 +41,7 @@ Route::group(array('before' => 'isLogined'), function()
     );
 });
 
-Route::group(array('before' => 'isAdmin'), function()
+Route::group(array('before' => 'isLogined|isAdmin'), function()
 {
     Route::get('/user/create', array('as' => 'user.create', 'uses' =>
         'App\Controllers\UserController@getUserCreate')
@@ -66,7 +66,7 @@ Route::group(array('before' => 'isAdmin'), function()
 });
 
 
-Route::group(array('before' => 'isChecker'), function()
+Route::group(array('before' => 'isLogined|isChecker'), function()
 {
     Route::get('/application/update', array('as' => 'application.update', 'uses' =>
         'App\Controllers\ApplicationController@getApplicationUpdate')
@@ -84,7 +84,7 @@ Route::group(array('before' => 'isLogined|csrf'), function()
     );
 });
 
-Route::group(array('before' => 'isAdmin|csrf'), function()
+Route::group(array('before' => 'isLogined|isAdmin|csrf'), function()
 {
     Route::post('/user', array('as' => 'user.post','uses' =>
         'App\Controllers\UserController@postUserCreate')

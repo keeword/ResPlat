@@ -1,89 +1,102 @@
 <?php
 namespace App\Controllers;
 
-use View;
+namespace App\Controllers;
+
+use User, Application, ApplicationMaterial, Material, Category;
+use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
 
 class WorkroomController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /workroom
-	 *
-	 * @return Response
-	 */
-	public function getWorkroom()
-	{
-	        return View::make('workroom');
-	}
+    /**
+     * 工作室列表
+     * GET /workroom
+     *
+     * @return view
+     */
+    public function getWorkroom()
+    {
+        return View::make('workroom');
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /workroom/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    public function postWorkroomList()
+    {
+        Response::json(array('data' => array(array(
+            'id' => '1',
+            'title' => 'test',
+            'start' => '2015-01-25 00:00:00',
+            'end' => '2015-01-26 00:00:00',
+            ))));
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /workroom
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+    /**
+     * Show the form for creating a new resource.
+     * GET /workroom/create
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
 
-	/**
-	 * Display the specified resource.
-	 * GET /workroom/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * 
+     * POST /workroom
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /workroom/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     * GET /workroom/{id}
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /workroom/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     * GET /workroom/{id}/edit
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /workroom/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     * PUT /workroom/{id}
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /workroom/{id}
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 }
