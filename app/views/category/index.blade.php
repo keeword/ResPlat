@@ -60,7 +60,7 @@
                 {{ $mat->name . ',' }}
             @endforeach
             </td>
-            <td><a href="#" class="btn btn-warning btn-circle" type="button"><i class="fa fa-times"></i></a></td>
+            <td><a href="#" class="btn btn-warning btn-circle" type="button" onClick="delCategory({{ $category->id }})"><i class="fa fa-times"></i></a></td>
         </tr>
         @endforeach
         </tbody>

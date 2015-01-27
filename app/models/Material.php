@@ -6,7 +6,7 @@ class Material extends \Eloquent {
     protected $fillable = array('name', 'description', 'total_number', 'lent_number');
 
     /**
-     * 物资分类
+     * 与分类是多对一关系
      */
     public function category()
     {
@@ -14,7 +14,7 @@ class Material extends \Eloquent {
     }
 
     /**
-     * 借出数量
+     * 与中间表是一对多关系
      */
     public function application_material()
     {
@@ -22,7 +22,7 @@ class Material extends \Eloquent {
     }
 
     /**
-     * 借出的表单
+     * 与申请是多对多关系
      */
     public function application()
     {

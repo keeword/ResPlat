@@ -20,7 +20,8 @@
     
         <div class="form-group">
         {{ Form::label('number', '总数量' ,array('class'=>'control-label')) }}
-        {{ Form::text('number', '', array('class' => 'form-control',
+        {{ Form::text('number', '', array('class' => 'form-control','onkeyup' => 'value=value.replace(/[^\d]/g,"")', 
+            'onbeforepaste' => 'clipboardData.setData("text",clipboardData.getData("text").replace(/[^\d]/g,""))',
             'placeholder' => '总数量', 'require' => '', 'type' => 'number')) }}
         </div>
     

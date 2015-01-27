@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use Material, Application, ApplicationMaterial, Category;
+use Material, Application, ApplicationMaterial, Category, User;
 use BaseController, View, Input, Redirect, Response, Lang, Session, Request;
 
 class ApplicationController extends BaseController {
@@ -16,14 +16,32 @@ class ApplicationController extends BaseController {
     {
         try
         {
-            $materials = Material::with('category')->get();
+            $today            = date("Y-m-d H:i:s");
+            if ($applications = Application::where('borrow_time', '<', $today)
+                                           ->where('return_time', '>', $today)
+                                           ->lists('user_id', 'id'))
+            {
+                $app_mets     = ApplicationMaterial::whereIn('application_id',
+                                                        array_keys($applications))
+                                                   ->get();
+            }
+            else
+            {
+                $app_mets     = ApplicationMaterial::where('id', 0)->get();
+            }
+            $materials        = Material::with('category')->get();
+            $users            = User::lists('nickname', 'id');
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('application.index')->with('materials', $materials);
+        return View::make('application.index')
+                   ->with('materials', $materials)
+                   ->with('users', $users)
+                   ->with('app_mats', $app_mets)
+                   ->with('applications', $applications);
     }
 
     /**
@@ -211,7 +229,11 @@ class ApplicationController extends BaseController {
         $applications = Application::with('user')
                                    ->where('status', 'wating')
                                    ->get();
-        return View::make('application.update')->with('applications', $applications);
+        $apps = Application::orderBy('id', 'desc')->paginate(15);
+        return View::make('application.update')
+                   ->with('apps', $apps)
+                   ->with('applications', $applications);
+
     }
 
     /**
@@ -250,15 +272,13 @@ class ApplicationController extends BaseController {
                     'error' => 'Can not save!' ));
             }
 
-            $mat = Material::lists('lent_number', 'id');
             foreach ($app_mats as $id => $number)
             {
                 $material = ApplicationMaterial::find($id);
                 $material->number = $number;
                 $material->save();
                 Material::where('id', $material['material_id'])
-                        ->update(array('lent_number' =>
-                            $number+$mat[$material['material_id']] ));
+                        ->increment('lent_number', $mat[$material['material_id']]);
             }
 
             return Response::json(array('success' => true));

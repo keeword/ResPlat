@@ -315,7 +315,6 @@ $(document).ready(function () {
                             2000);
                     
             }else{
-                    //alert();
                     layer.msg(json.error,2,2);
             }
             },
@@ -470,6 +469,35 @@ function addCategory(id){
 }
 
 
+function delCategory(id){
+    $.layer({
+        title: '确认删除',
+        closeBtn: false,
+        dialog: {
+            type: -1,
+            msg: '删除后将无法恢复，是否继续?',
+            btns: 2, 
+            btn: ['确定', '取消']
+        },
+        yes: function(index){
+            $.post(
+                "{{ URL::route('category') }}" + '/' + id,
+                {
+                    _method : 'delete', 
+                },
+                function (json){
+                    if(json.success == true){
+                        layer.msg('删除成功!',2,function(){
+                            location.reload();
+                        });
+                    }else{
+                        layer.msg(json.error,2,2);
+                    }
+            });
+        }
+    });
+}
+
 function iframeset(srcurl){
     var pageii = $.layer({
         type: 2,
@@ -488,58 +516,43 @@ function iframeset(srcurl){
         //layer.load(1);
 }
 
-/*function ajaxSubmit(frm, fn) {
+    //将form转为AJAX提交
+function ajaxSubmit(frm, fn) {
     $.ajax({
         url: frm.action,
         type: 'post',
         data: $('form#creatematerialform').serialize(),
-        dataType:'json',
-        success: fn
+        success: fn,
+        beforeSend:function(){
+            if ($('input[name=name]').val().length == 0) {
+                layer.load('请输入物资名称',1);
+                return false;
+            }if (!($('input[name=number]').val().match(/^[0-9]*[1-9][0-9]*$/))) {
+                layer.load('数量应为正整数',1);
+                return false;
+            }else {
+                return true;
+            }
+        },
     });
 }
 
-$(document).ready(function(){
+(function(){                    // mterial/create.blade.php's applicationForm submit
+    //alert();
     $('#creatematerialform').bind('submit', function(){
         ajaxSubmit(this, function(json){
-            alert();
             if(json.success == true){
-                    layer.msg('添加成功!',2,function(){
-                        location.reload();
-                    });
+                layer.load('添加成功!', 2);
+                setTimeout(
+                            function(){parent.location.reload();}
+                            ,1500);
             }else{
-                    layer.msg(json.error,2,2);
+                layer.msg(json.error,2,2);
             }
         });
         return false;
     });
-});*/
-
-    //将form转为AJAX提交
-    function ajaxSubmit(frm, fn) {
-        $.ajax({
-            url: frm.action,
-            type: 'post',
-            data: $('form#creatematerialform').serialize(),
-            success: fn,
-        });
-    }
-    
-(function(){                    //application.blade.php's applicationForm submit
-        //alert();
-        $('#creatematerialform').bind('submit', function(){
-            ajaxSubmit(this, function(json){
-                if(json.success == true){
-                    layer.load('添加成功!', 2);
-                    setTimeout(
-                                function(){parent.location.reload();}
-                                ,1500);
-                }else{
-                    layer.msg(json.error,2,2);
-                }
-            });
-            return false;
-        });
-    })();  
+})();  
 </script>
 
 <script>
