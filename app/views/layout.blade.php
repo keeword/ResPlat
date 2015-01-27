@@ -173,11 +173,6 @@
                         var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
                         
                         
-                        $.ajax({ 
-                            url:'{{ URL::route("user") }}' + '/' + dateft, 
-                            type:'GET', 
-                            success: '',  
-                         });
                        workroomapply(dateft);
                 },
                 
@@ -285,6 +280,53 @@ $(document).ready(function () {
         "New row"]);
 }*/
 </script>
+<script> oldObj="";
+var newNode=document.createElement("input");
+newNode.type="text";
+function setEdit(click_td){
+ 
+ var obj;
+ 
+ if(click_td.tagName=="TD"){
+  if(oldObj!=""){
+ //  oldObj.removeChild(eval("tmpText"));
+   if(newNode.vlaue=="") oldObj.innerText="&nbsp;";
+   else oldObj.innerText=newNode.value;
+  }
+  
+  obj=click_td;
+  oldObj=obj;
+ // newNode.width=obj.offsetWidth;
+  //newNode.height=obj.offsetHeight;
+  newNode.id="tmpText";
+  newNode.value=obj.innerText;
+  obj.innerText="";
+  obj.appendChild(newNode);
+  newNode.focus();
+  newNode.onblur=function(){
+   obj.innerText=this.value;
+  };
+  newNode.onchange=function(){
+      
+      var row = $(this).parent("td").parent("tr");   //获取列表的row（行） 
+      var uid=$("#listtr",row).html();  //id值    
+      var tdstr= $(this).parent("td"); //获取列表的单元格
+      var tdattr=tdstr.attr("id");//实体中的属性名
+      var udata=this.value; //更改后的值
+//通过Ajax把值传到后台进行修改处理
+       $.ajax( {
+  type : "post",
+  dataType : "html",
+  data:{aid:uid,atr:tdattr,adata:udata},
+  url : "securityGrade!ajaxupdate.action" 
+ })
+        
+  };
+ }
+ 
+ 
+}</script>
+
 
 <script>                        //view/application/create.blade.php
     function ajaxformsubmit(frm,fn,beforefn,formid,formtype){
@@ -372,7 +414,7 @@ $(document).ready(function () {
 <script>                            //iframe's javascript 
 
 function workroomapply(dateft){     //workroom.blade.php 点击日历提交工作室申请
-    iframeset('{{ URL::route("user") }}' + '/' + dateft);
+    iframeset('{{ URL::route("workroom.create") }}' + '?date=' + dateft);
 }
 
 function addUser(){                 //user.blade.php 新增帐号

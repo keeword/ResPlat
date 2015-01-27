@@ -42,6 +42,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/application/create', array('as' => 'application.create', 'uses' =>
         'App\Controllers\ApplicationController@getApplicationCreate')
     );
+    Route::get('/workroom/create', array('as' => 'workroom.create', 'uses' =>
+        'App\Controllers\WorkroomController@getWorkroomCreate')
+    );
 });
 
 Route::group(array('before' => 'isLogined|isAdmin'), function()

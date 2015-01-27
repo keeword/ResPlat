@@ -37,7 +37,7 @@
                     <li><a href="{{ URL::route('material') }}">物资一览</a></li>
                     @endif
                     <li><a href="{{ URL::route('application') }}">物资申请</a></li>
-                    @if (Session::get('group') === 'admin')
+                    @if (Session::get('group') === 'admin' or Session::get('group') === 'checker')
                     <li><a href="{{ URL::route('application.update') }}">物资审核</a></li>
                     @endif
                 </ul>
@@ -53,11 +53,13 @@
                 </ul>
             </li>
 
+            @if (Session::get('group') === 'admin')
             <li @yield('userManagement')>
                 <a href="{{ URL::route('user') }}"><i class="fa fa-cog"></i>
                 <span class="nav-label">账号管理</span>
                 </a>
             </li>
+            @endif
 
         </ul>
     </div>
