@@ -346,8 +346,15 @@ function setEdit(click_td){
                 if(json.success == true){
 
                     layer.load('提交申请成功!',2);
+                    setTimeout(
+                            function(){
+                                var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+                                parent.layer.close(index);
+                                location.reload(); 
+                                },
+                            2000);
+                    
             }else{
-                    //alert();
                     layer.msg(json.error,2,2);
             }
             },
@@ -501,6 +508,7 @@ function addCategory(id){
     });
 }
 
+
 function delCategory(id){
     $.layer({
         title: '确认删除',
@@ -529,6 +537,7 @@ function delCategory(id){
         }
     });
 }
+
 function iframeset(srcurl){
     var pageii = $.layer({
         type: 2,
@@ -541,36 +550,49 @@ function iframeset(srcurl){
         border: [0],
         iframe: {
             src: srcurl,
-            scrolling: 'auto'
-            }
+            scrolling: 'auto',
+            },
         });
         //layer.load(1);
 }
 
+    //将form转为AJAX提交
 function ajaxSubmit(frm, fn) {
     $.ajax({
         url: frm.action,
-        type: frm.method,
+        type: 'post',
         data: $('form#creatematerialform').serialize(),
-        dataType:'json',
-        success: fn
+        success: fn,
+        beforeSend:function(){
+            if ($('input[name=name]').val().length == 0) {
+                layer.load('请输入物资名称',1);
+                return false;
+            }if (!($('input[name=number]').val().match(/^[0-9]*[1-9][0-9]*$/))) {
+                layer.load('数量应为正整数',1);
+                return false;
+            }else {
+                return true;
+            }
+        },
     });
 }
 
-$(document).ready(function(){
+(function(){                    // mterial/create.blade.php's applicationForm submit
+    //alert();
     $('#creatematerialform').bind('submit', function(){
         ajaxSubmit(this, function(json){
-            if(json.success==true){
-                    layer.msg('添加成功!',2,function(){
-                        location.reload();
-                    });
+            if(json.success == true){
+                layer.load('添加成功!', 2);
+                setTimeout(
+                            function(){parent.location.reload();}
+                            ,1500);
             }else{
-                    layer.msg(json.error,2,2);
+                layer.msg(json.error,2,2);
             }
         });
         return false;
     });
-});
+})();  
 </script>
 
 <script>
