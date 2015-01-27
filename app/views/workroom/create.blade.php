@@ -25,10 +25,10 @@
     <small>{{ $date }}</small>
     {{ Form::hidden('date', $date) }}
     <div>
-    {{ Form::number('btime', '6', array('placeholder' => '借出日期', 'type' => 'date',
+    {{ Form::number('btime', '6', array('placeholder' => '借出时间', 'type' => 'date', 'id'=>'btime',
         'class' => 'form-control layer-date', 'require' => '',
         'min' => 6, 'max' => 24, 'step' => 1)) }}
-    {{ Form::number('rtime', '6', array('placeholder' => '归还日期', 'type' => 'date',
+    {{ Form::number('rtime', '6', array('placeholder' => '归还时间', 'type' => 'date', 'id'=>'etime',
         'class' => 'form-control layer-date', 'require' => '',
         'min' => 6, 'max' => 24, 'step' => 1)) }}
     </div>

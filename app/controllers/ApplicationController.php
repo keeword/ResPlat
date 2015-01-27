@@ -263,7 +263,7 @@ class ApplicationController extends BaseController {
         try
         {
             $application = Application::find($id);
-
+            
             $application->status     = $status;
             $application->response   = $response;
             $application->checker_id = $checker_id;
@@ -274,13 +274,16 @@ class ApplicationController extends BaseController {
                     'error' => 'Can not save!' ));
             }
 
-            foreach ($app_mats as $id => $number)
+            if ($status === 'pass')
             {
-                $material = ApplicationMaterial::find($id);
-                $material->number = $number;
-                $material->save();
-                Material::where('id', $material['material_id'])
-                        ->increment('lent_number', $mat[$material['material_id']]);
+                foreach ($app_mats as $id => $number)
+                {
+                    $material = ApplicationMaterial::find($id);
+                    $material->number = $number;
+                    $material->save();
+                    Material::where('id', $material['material_id'])
+                            ->increment('lent_number', $number);
+                }
             }
 
             return Response::json(array('success' => true));
