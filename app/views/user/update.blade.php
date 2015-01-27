@@ -110,7 +110,11 @@
 
                 if(json.success==true){
                         layer.load('帐号创建成功!!', 1);
-                        //window.location.href="{{ URL::route('home') }}";
+                        setTimeout(
+                            function(){
+                                 parent.location.reload();
+                                },
+                            2000);
                 }else{
                         layer.load(json.error, 1);
 

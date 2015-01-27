@@ -10,8 +10,7 @@
     <div class="ibox float-e-margins"> 
 
     <div class="ibox-content"> 
-    {{ Form::open(array('url' => 'material', 'class' => 'm-t text-left', 
-        'id' => 'creatematerialform')) }}
+    {{ Form::open(array('url' => 'material', 'class' => 'm-t text-left', 'id' => 'creatematerialform')) }}
 
         <div class="form-group">
         {{ Form::label('name', '物资名称', array('class'=>'control-label')) }}

@@ -306,6 +306,14 @@ $(document).ready(function () {
                 if(json.success == true){
 
                     layer.load('提交申请成功!',2);
+                    setTimeout(
+                            function(){
+                                var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+                                parent.layer.close(index);
+                                location.reload(); 
+                                },
+                            2000);
+                    
             }else{
                     //alert();
                     layer.msg(json.error,2,2);
@@ -461,6 +469,7 @@ function addCategory(id){
     });
 }
 
+
 function iframeset(srcurl){
     var pageii = $.layer({
         type: 2,
@@ -473,16 +482,16 @@ function iframeset(srcurl){
         border: [0],
         iframe: {
             src: srcurl,
-            scrolling: 'auto'
-            }
+            scrolling: 'auto',
+            },
         });
         //layer.load(1);
 }
 
-function ajaxSubmit(frm, fn) {
+/*function ajaxSubmit(frm, fn) {
     $.ajax({
         url: frm.action,
-        type: frm.method,
+        type: 'post',
         data: $('form#creatematerialform').serialize(),
         dataType:'json',
         success: fn
@@ -492,7 +501,8 @@ function ajaxSubmit(frm, fn) {
 $(document).ready(function(){
     $('#creatematerialform').bind('submit', function(){
         ajaxSubmit(this, function(json){
-            if(json.success==true){
+            alert();
+            if(json.success == true){
                     layer.msg('添加成功!',2,function(){
                         location.reload();
                     });
@@ -502,7 +512,34 @@ $(document).ready(function(){
         });
         return false;
     });
-});
+});*/
+
+    //将form转为AJAX提交
+    function ajaxSubmit(frm, fn) {
+        $.ajax({
+            url: frm.action,
+            type: 'post',
+            data: $('form#creatematerialform').serialize(),
+            success: fn,
+        });
+    }
+    
+(function(){                    //application.blade.php's applicationForm submit
+        //alert();
+        $('#creatematerialform').bind('submit', function(){
+            ajaxSubmit(this, function(json){
+                if(json.success == true){
+                    layer.load('添加成功!', 2);
+                    setTimeout(
+                                function(){parent.location.reload();}
+                                ,1500);
+                }else{
+                    layer.msg(json.error,2,2);
+                }
+            });
+            return false;
+        });
+    })();  
 </script>
 
 <script>
