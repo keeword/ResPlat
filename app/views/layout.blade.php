@@ -247,8 +247,11 @@ $(document).ready(function () {
 
     /* Init DataTables */
     var oTable = $('.edit-table').dataTable();
+    
     /* Apply the jEditable handlers to the table */
-    oTable.$('.edit-td').editable('{{ URL::route("material") }}', {
+    oTable.$('.edit-td;').editable('{{ URL::route("material") }}', {
+    	var getid =	$("material")val();
+    	//alert(getid);
         "callback":   function (value, setings) {
             var aPos = oTable.fnGetPosition(this);
             oTable.fnUpdate(sValue, aPos[0], aPos[1]);
