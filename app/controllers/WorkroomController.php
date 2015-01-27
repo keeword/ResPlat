@@ -59,7 +59,6 @@ class WorkroomController extends \BaseController {
         }
 
         return Response::json($result);
-
     }
 
     /**
@@ -129,15 +128,22 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * GET /workroom/{id}
+     * 审核页面
+     * GET /workroom/update
      *
-     * @param  int  $id
-     * @return Response
+     * @return View
      */
-    public function show($id)
+    public function getWorkroomUpdate()
     {
-        //
+        $workrooms = Workroom::with('user')
+                             ->where('status', 'wating')
+                             ->get();
+        $works = Workroom::orderBy('id', 'desc')
+                         ->whereIn('status', array('pass','refuse'))
+                         ->paginate(15);
+        return View::make('workroom.update')
+                   ->with('works', $works)
+                   ->with('workrooms', $workrooms);
     }
 
     /**
@@ -153,15 +159,47 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
+     * 审核申请
      * PUT /workroom/{id}
      *
-     * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function putWorkroomUpdate()
     {
-        //
+        if ( ($id      = Request::segment(2))  &&
+             ($status  = Input::get('status')) &&
+             ($checker = Session::get('userid'))
+        )
+        {
+            $response  = Input::get('response');
+        }
+        else
+        {
+            return Response::json(array('success' => false,
+                'error' => 'Missing input' ));
+        }
+
+        try
+        {
+            $workroom = Workroom::find($id);
+
+            $workroom->status     = $status;
+            $workroom->checker_id = $checker;
+            $workroom->response   = $response;
+
+            if ( ! $workroom->save())
+            {
+                return Response::json(array('success' => false,
+                    'error' => 'Can not save!' ));
+            }
+
+            return Response::json(array('success' => true));
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage()));
+        }
     }
 
     /**

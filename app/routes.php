@@ -87,9 +87,13 @@ Route::group(array('before' => 'isLogined|isChecker'), function()
         'App\Controllers\ApplicationController@getApplicationDetail')
     )
     ->where('id', '[0-9]+');
-    Route::get('/workroom/update', array('as' => 'workroom.update', 'use' =>
+    Route::get('/workroom/update', array('as' => 'workroom.update', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroomUpdate')
     );
+    Route::put('/workroom/{id}', array('as' => 'workroom.put', 'uses' =>
+        'App\Controllers\WorkroomController@putWorkroomUpdate')
+    )
+    ->where('id', '[0-9]+');
 });
 
 Route::group(array('before' => 'isLogined|csrf'), function()

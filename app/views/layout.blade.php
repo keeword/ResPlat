@@ -136,7 +136,7 @@
                 timeFormat: 'H:mm',
                 axisFormat:'H:mm',
                 firstHour:9,
-                firstDay:new Date().getDay() - 3,
+                firstDay:new Date().getDay() - 1,
                 minTime:6,
                 maxTime:24,
                 //allDay:0
@@ -538,6 +538,49 @@ function delCategory(id){
     });
 }
 
+function passWorkroom(id){
+    $.post(
+        "{{ URL::route('workroom') }}" + '/' + id,
+        {
+            _method : 'put',
+            status : 'pass',
+        },
+        function(json){
+            if (json.success == true){
+                layer.msg('审核成功!',2,function(){
+                    location.reload();
+                });
+            }else{
+                layer.msg(json.error,2,2);
+            }
+    });
+}
+
+function refuseWorkroom(id){
+    layer.prompt({
+        top: 'auto',
+        type : 0,
+        title: '请输入拒绝原因'
+    }, function(val){
+        $.post(
+            "{{ URL::route('workroom') }}" + '/' + id,
+            {
+                _method : 'put', 
+                status : 'refuse',
+                response : val,
+            },
+            function (json){
+                if(json.success == true){
+                    layer.msg('审核成功!',2,function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(json.error,2,2);
+                }
+        });
+    });
+}
+
 function iframeset(srcurl){
     var pageii = $.layer({
         type: 2,
@@ -803,6 +846,8 @@ function refusesubmitFun(){
         }); 
 }
 </script>
+
+
 
 </body>
 </html>
