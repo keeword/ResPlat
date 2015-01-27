@@ -17,6 +17,17 @@ class WorkroomController extends \BaseController {
         return View::make('workroom.index');
     }
 
+    /**
+     * 会议室列表
+     * GET /meetingroom
+     *
+     * @return View
+     */
+    public function getMeetingroom()
+    {
+        return View::make('workroom.meetingroom');
+    }
+
     /** 工作室列表
      * GET /workroom/list
      *
@@ -61,6 +72,50 @@ class WorkroomController extends \BaseController {
         return Response::json($result);
     }
 
+    /** 会议室列表
+     * GET /meetingroom/list
+     *
+     * @return Response
+     */
+    public function getMeetingroomList()
+    {
+        try 
+        {
+            $start     = date('Y-m-d H:i:s', Input::get('start'));
+            $end       = date('Y-m-d H:i:s', Input::get('end'));
+            $workrooms = Workroom::with('user')
+                                 ->where('status', 'pass')
+                                 ->where('name', 'meetingroom')
+                                 ->whereBetween('borrow_time', array($start, $end))
+                                 ->get();
+
+            $result = array();
+            $i = 1;
+            foreach ($workrooms as $workroom)
+            {
+
+                $result[] = array('id'     => $i,
+                                  'start'  => $workroom->borrow_time,
+                                  'end'    => $workroom->return_time,
+                                  'user'   => $workroom->user->nickname,
+                                  'person' => $workroom->person,
+                                  'phone'  => $workroom->phone,
+                                  'allDay' => false,
+                            );
+
+                $i = $i+1;
+            }
+        }
+
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage()));
+        }
+
+        return Response::json($result);
+    }
+
     /**
      * 申请工作室页面
      * GET /workroom/create
@@ -71,6 +126,18 @@ class WorkroomController extends \BaseController {
     {
         $date = Input::get('date');
         return View::make('workroom.create')->with('date', $date);
+    }
+
+    /**
+     * 申请会议室页面
+     * GET /meetingroom/create
+     *
+     * @return View
+     */
+    public function getMeetingroomCreate()
+    {
+        $date = Input::get('date');
+        return View::make('workroom.meetingroomcreate')->with('date', $date);
     }
 
     /**

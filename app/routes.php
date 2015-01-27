@@ -32,6 +32,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/workroom', array('as' => 'workroom', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroom')
     );
+    Route::get('/meetingroom', array('as' => 'meetingroom', 'uses' =>
+        'App\Controllers\WorkroomController@getMeetingroom')
+    );
     Route::get('/workroom/list', array('as' => 'workroom.list', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroomList')
     );
@@ -43,6 +46,9 @@ Route::group(array('before' => 'isLogined'), function()
     );
     Route::get('/workroom/create', array('as' => 'workroom.create', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroomCreate')
+    );
+    Route::get('/meetingroom/create', array('as' => 'meetingroom.create', 'uses' =>
+        'App\Controllers\WorkroomController@getMeetingroomCreate')
     );
 });
 

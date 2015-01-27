@@ -48,7 +48,7 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{ URL::route('workroom') }}">工作室申请</a></li>
-                    <li><a href="graph_flot.html">会议室申请</a></li>
+                    <li><a href="{{ URL::route('meetingroom') }}">会议室申请</a></li>
                     @if (Session::get('group') === 'checker')
                     <li><a href="{{ URL::route('workroom.update') }}">审核</a></li>
                     @endif
