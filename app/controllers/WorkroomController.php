@@ -1,8 +1,6 @@
 <?php
 namespace App\Controllers;
 
-namespace App\Controllers;
-
 use User, Application, ApplicationMaterial, Material, Category;
 use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
 
@@ -16,7 +14,7 @@ class WorkroomController extends \BaseController {
      */
     public function getWorkroom()
     {
-        return View::make('workroom');
+        return View::make('workroom.index');
     }
 
     public function getWorkroomList()
@@ -58,14 +56,15 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 申请工作室
      * GET /workroom/create
      *
-     * @return Response
+     * @return View
      */
-    public function create()
+    public function getWorkroomCreate()
     {
-        //
+        $date = Input::get('date');
+        return View::make('workroom.create')->with('date', $date);
     }
 
     /**

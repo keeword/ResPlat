@@ -101,7 +101,15 @@
                 {{ $material->name.',' }}
             @endforeach
             </td>
-            <td><a class="btn btn-danger btn-rounded" href="">已拒绝</a></td>
+            <td><button  class="btn btn-rounded 
+                @if ($application->status === 'wating') 
+                    {{ 'btn-warning' }} 
+                @elseif ($application->status === 'refuse')
+                    {{ 'btn-danger' }} 
+                @elseif ($application->status === 'pass')
+                    {{ 'btn-primary' }} 
+                @endif" 
+                >{{ $application->status }}</button></td> 
         </tr>
         @endforeach
         </tbody>

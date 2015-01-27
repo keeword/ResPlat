@@ -107,7 +107,7 @@
                 @elseif ($app->status === 'pass')
                     {{ 'btn-primary' }} 
                 @endif" 
-                href="">{{ $app->status }}</button></td> 
+                >{{ $app->status }}</button></td> 
         </tr> 
         @endforeach
         </tbody> 
