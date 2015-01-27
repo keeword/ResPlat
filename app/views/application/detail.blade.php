@@ -93,8 +93,7 @@
                 'placeholder' => '审核原因', 'require' => '', 'rows' => 2)) }}
         </div>
         <div>
-        {{ Form::hidden('status', 'pass')}}
-        {{ Form::submit('提交')}}
+        {{ Form::submit('通过')}}
         </div>
     </div>
 </div>

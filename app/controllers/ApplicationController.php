@@ -229,7 +229,9 @@ class ApplicationController extends BaseController {
         $applications = Application::with('user')
                                    ->where('status', 'wating')
                                    ->get();
-        $apps = Application::orderBy('id', 'desc')->paginate(15);
+        $apps = Application::orderBy('id', 'desc')
+                           ->whereIn('status', array('pass', 'refuse'))
+                           ->paginate(15);
         return View::make('application.update')
                    ->with('apps', $apps)
                    ->with('applications', $applications);

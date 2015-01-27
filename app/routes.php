@@ -15,7 +15,6 @@ Route::get('/login', array('as' => 'login','uses' =>
     'App\Controllers\AuthController@getLogin')
 );
 
-
 Route::group(array('before' => 'isLogined'), function()
 {
     Route::get('/', array('as' => 'home', 'uses' =>
@@ -79,7 +78,6 @@ Route::group(array('before' => 'isLogined|isAdmin'), function()
     ->where('id', '[0-9]+');
 });
 
-
 Route::group(array('before' => 'isLogined|isChecker'), function()
 {
     Route::get('/application/update', array('as' => 'application.update', 'uses' =>
@@ -89,12 +87,18 @@ Route::group(array('before' => 'isLogined|isChecker'), function()
         'App\Controllers\ApplicationController@getApplicationDetail')
     )
     ->where('id', '[0-9]+');
+    Route::get('/workroom/update', array('as' => 'workroom.update', 'use' =>
+        'App\Controllers\WorkroomController@getWorkroomUpdate')
+    );
 });
 
 Route::group(array('before' => 'isLogined|csrf'), function()
 {
     Route::post('/application', array('as' => 'application', 'uses' =>
         'App\Controllers\ApplicationController@postApplication')
+    );
+    Route::post('/workroom', array('as' => 'workroom', 'uses' =>
+        'App\Controllers\WorkroomController@postWorkroom')
     );
 });
 

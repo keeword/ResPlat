@@ -37,7 +37,7 @@
                     <li><a href="{{ URL::route('material') }}">物资一览</a></li>
                     @endif
                     <li><a href="{{ URL::route('application') }}">物资申请</a></li>
-                    @if (Session::get('group') === 'admin' or Session::get('group') === 'checker')
+                    @if (Session::get('group') === 'checker')
                     <li><a href="{{ URL::route('application.update') }}">物资审核</a></li>
                     @endif
                 </ul>
@@ -49,6 +49,9 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{ URL::route('workroom') }}">工作室申请</a></li>
+                    @if (Session::get('group') === 'checker')
+                    <li><a href="{{ URL::route('workroom.update') }}">工作室审核</a></li>
+                    @endif
                     <li><a href="graph_flot.html">会议室申请</a></li>
                 </ul>
             </li>

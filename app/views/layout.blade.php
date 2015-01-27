@@ -187,12 +187,10 @@
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
                         layer.tips(
-                        '<div>事件:'+calEvent.title+'</div><div>开始时间:'
-                        +calstart+'</div><div>结束时间:'
-                        +calend+'</div><div>申请部门:'
-                        +'</div><div>申请人:'
-                        +'</div><div>手机:'
-                        +calEvent.phone+'</div>', 
+                        '<div>申请部门:'+calEvent.user
+                        +'</div><div>申请人:'+calEvent.person
+                        +'</div><div>手机:'+calEvent.phone
+                        +'</div>', 
                         this , 
                         {
                             style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],
