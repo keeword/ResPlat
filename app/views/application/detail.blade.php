@@ -30,8 +30,9 @@
 <div class="row">
 <div class="col-lg-12">
 
-{{ Form::open(array('url' => 'application'.'/'.$application->id, 'method' => 'PUT'))}}
-
+@if ($application->status != 'refuse' && $application->status != 'pass')
+{{ Form::open(array('url' => 'application'.'/'.$application->id, 'name'=>'passorrefuse', 'id'=>'passorrefuse', 'method' => 'PUT'))}}
+@endif
 <div class="ibox float-e-margins">
 
     <div class="ibox-title">
@@ -62,7 +63,11 @@
             @if ($app_mat->material)
             <td>{{ $app_mat->material->name }}</td>
             <td>{{ $categories[$app_mat->material->category_id] }}</td>
+            @if ($application->status != 'refuse' && $application->status != 'pass')
             <td>{{ Form::number("data[$app_mat->id]", $app_mat->number) }}</td>
+            @else
+            <td>{{ $app_mat->number }}</td>
+            @endif
             @else
             <td>物品不存在</td>
             <td>物品不存在</td>
@@ -84,9 +89,14 @@
 
 <div class="ibox float-e-margins">
     <div class="ibox-title">
+        @if ($application->status != 'refuse' && $application->status != 'pass')
         <h5>审核</h5>
+        @else
+        <h5>审核结果</h5>
+        @endif
     </div>
     <div class="ibox-content">
+        @if ($application->status != 'refuse' && $application->status != 'pass')
         <div>
             {{ Form::label('response', '审核原因' ,array('class'=>'control-label')) }}
             {{ Form::textarea('response', '', array('class' => 'form-control',
@@ -94,13 +104,20 @@
         </div>
         <div>
         {{ Form::hidden('status', 'pass')}}
-        {{ Form::submit('提交')}}
+        <input type="button" id="passbtn" onclick="passubmitFun()" value="通过">
+        <input type="button" id="refusebtn" onclick="refusesubmitFun()" value="拒绝">
         </div>
+        @else
+        <div>
+            {{ $application->response }}
+        </div>
+        @endif
+        
     </div>
 </div>
-
+@if ($application->status != 'refuse' && $application->status != 'pass')
 {{ Form::close() }}
-
+@endif
 </div>
 </div>
 </div>

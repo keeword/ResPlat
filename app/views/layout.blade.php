@@ -136,6 +136,7 @@
                 timeFormat: 'H:mm',
                 axisFormat:'H:mm',
                 firstHour:9,
+                firstDay:new Date().getDay() - 3,
                 minTime:6,
                 maxTime:24,
                 //allDay:0
@@ -170,10 +171,9 @@
 
                 },
                 dayClick: function(date, allDay, jsEvent, view) {
-                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
-                        
-                        
-                       workroomapply(dateft);
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm"); 
+                        //alert(dateft);
+                        workroomapply(dateft);
                 },
                 
 
@@ -717,8 +717,24 @@ $.fn.iVaryVal=function(iSet,CallBack){
                     //因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
     // event: 'focus' //响应事件。如果没有传入event，则按照默认的click
     // });
-
+    function timeselector(tid,tformat,tistime,){
+        elem: '#id', //需显示日期的元素选择器
+        event: 'click', //触发事件
+        format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        istime: false, //是否开启时间选择
+        isclear: true, //是否显示清空
+        istoday: true, //是否显示今天
+        issure: true, 是否显示确认
+        festival: true //是否显示节日
+        min: '1900-01-01 00:00:00', //最小日期
+        max: '2099-12-31 23:59:59', //最大日期
+        start: '2014-6-15 23:00:00',    //开始日期
+        fixed: false, //是否固定在可视区域
+        zIndex: 99999999, //css z-index
+        choose: function(dates){ //选择好日期的回调
+    }
      //日期范围限制
+    }
     var start = {
         elem: '#start',
         format: 'YYYY-MM-DD',
@@ -747,18 +763,47 @@ $.fn.iVaryVal=function(iSet,CallBack){
 </script>
 
 <script>
-
-/*$(function(){
-    $('#testbtn').bind('onmouseover',function(){
-        layer.tips(text,'#testbtn',{maxWidth:'300px', guide: 1,style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],});
-    })
-})
-function btnmouseover(text,btnid){
-    layer.tips(text,'#testbtn',{maxWidth:'300px', guide: 1,style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],});
+function passubmitFun()
+{
+    passorrefuse.status.value = 'pass';
+    $.ajax({
+             url:$('form#passorrefuse').action,
+             data:$('form#passorrefuse').serialize(),
+             type:"post",
+             success:function(data){
+                if(data.success == true){
+                    layer.load('审核通过',2);
+                    setTimeout(
+                            function(){
+                                window.location.href = "{{URL::route('application.update')}}";
+                            }
+                            ,1500);
+                }else{
+                    layer.load(data.error,1);
+                }
+             }
+        }); 
 }
-function btnmouseout(){
-    layer.closeTips();
-}*/
+function refusesubmitFun(){
+    passorrefuse.status.value = 'refuse';
+    $.ajax({
+             url:$('form#passorrefuse').action,
+             data:$('form#passorrefuse').serialize(),
+             type:"post",
+             success:function(data){
+                if(data.success == true){
+                    layer.load('拒绝申请',2);
+                    setTimeout(
+                            function(){
+                                window.location.href = "{{URL::route('application.update')}}";
+                            }
+                            ,1500);
+                }else{
+                    layer.load(data.error,1);
+                }
+             }
+        }); 
+}
 </script>
 
 </body>
