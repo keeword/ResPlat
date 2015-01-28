@@ -30,7 +30,7 @@
     <link href="/css/animate.css" rel="stylesheet">
 -->
     <link href="/css/style.css?v=1.6" rel="stylesheet">
-    <!-- layer layim 
+    <!-- layer layim
     <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
 </head>
 
@@ -60,7 +60,7 @@
     <!-- jQuery Validation plugin javascript-->
     <script src="/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="/js/plugins/validate/messages_zh.min.js"></script>
-    
+
     <script src="/js/hplus.js?v=1.6"></script>
 <!--
     <script src="/js/plugins/pace/pace.min.js"></script>
@@ -68,7 +68,7 @@
 <!--
     <script src="/js/jquery.pjax.js"></script>
 -->
-    
+
     <!-- layer javascript -->
     <!--<script src="/js/plugins/layer/layim/layim.js"></script>-->
     <script src="/js/plugins/layer/layer.min.js"></script>
@@ -140,7 +140,7 @@
                 minTime:6,
                 maxTime:24,
                 //allDay:0
-                
+
                 theme:false,
                 aspectRatio:2.1,
                 handleWindowResize:true,
@@ -171,31 +171,31 @@
 
                 },
                 dayClick: function(date, allDay, jsEvent, view) {
-                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm"); 
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm");
                         //alert(dateft);
                         workroomapply(dateft);
                 },
-                
+
 
                /* eventMouseover:function(calEvent, jsEvent, view){
                     alert();
                 },*/
-            
-                
+
+
                 events: '{{URL::route("workroom.list")}}',
-                eventMouseover: function(calEvent, jsEvent, view) { 
+                eventMouseover: function(calEvent, jsEvent, view) {
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
                         layer.tips(
                         '<div>申请部门:'+calEvent.user
                         +'</div><div>申请人:'+calEvent.person
                         +'</div><div>手机:'+calEvent.phone
-                        +'</div>', 
-                        this , 
+                        +'</div>',
+                        this ,
                         {
                             style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],
                             });
-                        
+
                     } ,
                 eventMouseout:function(calEvent, jsEvent, view){
                     layer.closeTips();
@@ -204,7 +204,7 @@
             });
 
         });
-      
+
 </script>
 
 <script>                                        //退出功能
@@ -220,11 +220,11 @@ function logout(){
         time: 3,
         dialog: {
             msg: 'Are You Sure to Quit?',
-            btns: 2, 
+            btns: 2,
             type: 4,
             btn: ['Yes','No'],
             yes: function(){
-                $.post("{{ URL::route('logout') }}", 
+                $.post("{{ URL::route('logout') }}",
                 {
                     _method: 'delete'
                 },
@@ -233,38 +233,95 @@ function logout(){
                         window.location.href="{{ URL::route('login') }}";
                     }
                 })
-            }, 
+            },
             no: function(){
             }
         }
-    });     
+    });
 }
 </script>
 
 <script>
+function findid(i){
+    var table = document.getElementById('materialTab');
+    var id = table.rows[i].cells[0].childNodes[1].value;
+    return id;
+}
+
+function findname(i, j){
+    var table = document.getElementById('materialTab');
+    var name = table.rows[i].cells[j].revert;
+    return name;
+}
+
 $(document).ready(function () {
     $('.dataTables-example').dataTable();
-
     /* Init DataTables */
     var oTable = $('.edit-table').dataTable();
-    
     /* Apply the jEditable handlers to the table */
-    oTable.$('.edit-td;').editable('{{ URL::route("material") }}', {
-    	var getid =	$("material")val();
-    	//alert(getid);
-        "callback":   function (value, setings) {
-            var aPos = oTable.fnGetPosition(this);
-            oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-        },
-        "submitdata": function (value, settings) {
-            return {
-                "row_id": this.parentNode.getAttribute('id'),
-                "column": oTable.fnGetPosition(this)[2],
-                "_method": 'put'
-            };
-        },
+    oTable.$('.edit-td').editable(function(value, settings){
+            aPos = oTable.fnGetPosition(this);
+            ovalue = findname(aPos[0]+1,aPos[1]);
+            $.post(
+                '{{ URL::route("material") }}',
+                {
+                    'mid': findid(aPos[0]+1),
+                    'col': oTable.fnGetPosition(this)[1],
+                    'value': value,
+                    '_method': "put",
+                },
+                function (json){
+                    if(json.success == true){
+                        layer.msg('修改成功',1, function(){
+                            // oTable.fnUpdate(rvalue, aPos[0], aPos[1]);
+                            location.reload();
+                        });
+                        rvalue = json.value;
+                        // window.getvalues = this.value;
+                        //ert(getvalues);
+                    }else{
+                        layer.msg(json.error,1, function(){
+                            // oTable.fnUpdate(ovalue, aPos[0], aPos[1]);
+                            location.reload();
+                        });
+                    }
+            });
+        },{
         "width": "80%",
-        "height": "80%"
+        "height": "70%"
+    });
+
+    oTable.$('.edit-se').editable(function(value, settings){
+            aPos = oTable.fnGetPosition(this);
+            ovalue = findname(aPos[0]+1,aPos[1]);
+            $.post(
+                '{{ URL::route("material") }}',
+                {
+                    'mid': findid(aPos[0]+1),
+                    'col': oTable.fnGetPosition(this)[1],
+                    'value': value,
+                    '_method': "put",
+                },
+                function (json){
+                    if(json.success == true){
+                        layer.msg('修改成功',1, function(){
+                            // oTable.fnUpdate(rvalue, aPos[0], aPos[1]);
+                            location.reload();
+                        });
+                        rvalue = json.value;
+                    }else{
+                        layer.msg(json.error,1, function(){
+                            // oTable.fnUpdate(ovalue, aPos[0], aPos[1]);
+                            location.reload();
+                        });
+                    }
+            });
+        },{
+        'loadurl' : '{{ URL::route("category.list") }}',
+        'type': 'select',
+        'submit': 'OK',
+        "width": "80%",
+        "height": "70%"
     });
 });
 
@@ -281,16 +338,16 @@ $(document).ready(function () {
 var newNode=document.createElement("input");
 newNode.type="text";
 function setEdit(click_td){
- 
+
  var obj;
- 
+
  if(click_td.tagName=="TD"){
   if(oldObj!=""){
  //  oldObj.removeChild(eval("tmpText"));
    if(newNode.vlaue=="") oldObj.innerText="&nbsp;";
    else oldObj.innerText=newNode.value;
   }
-  
+
   obj=click_td;
   oldObj=obj;
  // newNode.width=obj.offsetWidth;
@@ -304,9 +361,9 @@ function setEdit(click_td){
    obj.innerText=this.value;
   };
   newNode.onchange=function(){
-      
-      var row = $(this).parent("td").parent("tr");   //获取列表的row（行） 
-      var uid=$("#listtr",row).html();  //id值    
+
+      var row = $(this).parent("td").parent("tr");   //获取列表的row（行）
+      var uid=$("#listtr",row).html();  //id值
       var tdstr= $(this).parent("td"); //获取列表的单元格
       var tdattr=tdstr.attr("id");//实体中的属性名
       var udata=this.value; //更改后的值
@@ -315,13 +372,13 @@ function setEdit(click_td){
   type : "post",
   dataType : "html",
   data:{aid:uid,atr:tdattr,adata:udata},
-  url : "securityGrade!ajaxupdate.action" 
+  url : "securityGrade!ajaxupdate.action"
  })
-        
+
   };
  }
- 
- 
+
+
 }</script>
 
 
@@ -338,8 +395,8 @@ function setEdit(click_td){
 
     }
 
-    (function(){                    
-        
+    (function(){
+
         $('#createappform').bind('submit', function(){
             ajaxformsubmit(this, function(json){
                 if(json.success == true){
@@ -349,10 +406,10 @@ function setEdit(click_td){
                             function(){
                                 var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
                                 parent.layer.close(index);
-                                location.reload(); 
+                                location.reload();
                                 },
                             2000);
-                    
+
             }else{
                     layer.msg(json.error,2,2);
             }
@@ -364,7 +421,7 @@ function setEdit(click_td){
             'post');
             return false;
         });
-    })();  
+    })();
 </script>
 
 
@@ -387,28 +444,108 @@ function setEdit(click_td){
             data: $('form#applicationForm').serialize(),
             success: fn,
             beforeSend:function(){
-    
+
                 applicationcreate(formchange);
                 return false;
-             
+
             }
         });
     }
-    
-(function(){                    //application.blade.php's applicationForm submit
+
+(function(){                    
         //alert();
-        $('#applicationForm').bind('submit', function(){
+        $('#applicationForm').bind('submit', function(){        //application.blade.php's applicationForm submit
             //alert();
             ajaxSubmit1(this, function(json){
 
             });
             return false;
         });
-    })();  
+    })();
+</script>
+<script>
+    function ajaxSubmituser(frm, fn) {
+    $.ajax({
+        url: frm.action,
+        type: 'post',
+        data: $('form#createuserform').serialize(),
+        success: fn,
+        beforeSend:function(){
+            if (!($('input[name=username]').val().match(/^\w+$/))) {
+                layer.load('请输入由英文、数字或下划线组成的用户名',1);
+                return false;
+            }if ($('input[name=nickname]').val().length == 0) {
+                layer.load('请输入部门名称',1);
+                return false;
+            }if (!($('input[name=password]').val().match(/.{6,32}/))) {
+                layer.load('请输入6位以上密码',1);
+                return false;
+            }if ($('input[name=repasswd]').val().length == 0) {
+                layer.load('请确认密码',1);
+                return false;
+            }if ($('input[name=repasswd]').val() != $('input[name=password]').val()) {
+                layer.load('密码不一致',1);
+                return false;
+            }else {
+                return true;
+            }
+        },
+    });
+}
+
+(function(){                    // mterial/create.blade.php's applicationForm submit
+    //alert();
+    $('#createuserform').bind('submit', function(){
+        ajaxSubmituser(this, function(json){
+            if(json.success == true){
+                layer.load('新增账号成功!', 2);
+                setTimeout(
+                            function(){parent.location.reload();}
+                            ,1500);
+            }else{
+                layer.msg(json.error,2,2);
+            }
+        });
+        return false;
+    });
+})();
+
+function ajaxSubmitalteruser(frm, fn) {
+    $.ajax({
+        url: frm.action,
+        type: 'post',
+        data: $('form#updateuserform').serialize(),
+        success: fn,
+        beforeSend:function(){
+            if ($('input[name=nickname]').val().length == 0) {
+                layer.load('请输入部门名称',1);
+                return false;
+            }else {
+                return true;
+            }
+        },
+    });
+}
+
+(function(){                    // mterial/create.blade.php's applicationForm submit
+    //alert();
+    $('#updateuserform').bind('submit', function(){
+        ajaxSubmitalteruser(this, function(json){
+            if(json.success == true){
+                layer.load('修改账号成功!', 1);
+                setTimeout(
+                            function(){parent.location.reload();}
+                            ,1500);
+            }else{
+                layer.msg(json.error,2,2);
+            }
+        });
+        return false;
+    });
+})();
 </script>
 
-
-<script>                            //iframe's javascript 
+<script>                            //iframe's javascript
 
 function workroomapply(dateft){     //workroom.blade.php 点击日历提交工作室申请
     iframeset('{{ URL::route("workroom.create") }}' + '?date=' + dateft);
@@ -441,7 +578,7 @@ function delUser(id){
         $.post(
             "{{ URL::route('user') }}" + '/' + id,
             {
-                _method : 'delete', 
+                _method : 'delete',
                 password : val
             },
             function (json){
@@ -463,14 +600,14 @@ function delMaterial(id){
         dialog: {
             type: -1,
             msg: '删除后将无法恢复，是否继续?',
-            btns: 2, 
+            btns: 2,
             btn: ['确定', '取消']
         },
         yes: function(index){
             $.post(
                 "{{ URL::route('material') }}" + '/' + id,
                 {
-                    _method : 'delete', 
+                    _method : 'delete',
                 },
                 function (json){
                     if(json.success == true){
@@ -515,14 +652,14 @@ function delCategory(id){
         dialog: {
             type: -1,
             msg: '删除后将无法恢复，是否继续?',
-            btns: 2, 
+            btns: 2,
             btn: ['确定', '取消']
         },
         yes: function(index){
             $.post(
                 "{{ URL::route('category') }}" + '/' + id,
                 {
-                    _method : 'delete', 
+                    _method : 'delete',
                 },
                 function (json){
                     if(json.success == true){
@@ -564,7 +701,7 @@ function refuseWorkroom(id){
         $.post(
             "{{ URL::route('workroom') }}" + '/' + id,
             {
-                _method : 'put', 
+                _method : 'put',
                 status : 'refuse',
                 response : val,
             },
@@ -634,7 +771,7 @@ function ajaxSubmit(frm, fn) {
         });
         return false;
     });
-})();  
+})();
 </script>
 
 <script>
@@ -741,11 +878,11 @@ $.fn.iVaryVal=function(iSet,CallBack){
 }
 //调用
 (function(){
-        
+
         $('.i_box').iVaryVal({},function(value,index){
-               
+
         });
-        
+
 });
 
 </script>
@@ -757,24 +894,7 @@ $.fn.iVaryVal=function(iSet,CallBack){
                     //因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
     // event: 'focus' //响应事件。如果没有传入event，则按照默认的click
     // });
-    function timeselector(tid,tformat,tistime,){
-        elem: '#id', //需显示日期的元素选择器
-        event: 'click', //触发事件
-        format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-        istime: false, //是否开启时间选择
-        isclear: true, //是否显示清空
-        istoday: true, //是否显示今天
-        issure: true, 是否显示确认
-        festival: true //是否显示节日
-        min: '1900-01-01 00:00:00', //最小日期
-        max: '2099-12-31 23:59:59', //最大日期
-        start: '2014-6-15 23:00:00',    //开始日期
-        fixed: false, //是否固定在可视区域
-        zIndex: 99999999, //css z-index
-        choose: function(dates){ //选择好日期的回调
-    }
      //日期范围限制
-    }
     var start = {
         elem: '#start',
         format: 'YYYY-MM-DD',
@@ -822,7 +942,7 @@ function passubmitFun()
                     layer.load(data.error,1);
                 }
              }
-        }); 
+        });
 }
 function refusesubmitFun(){
     passorrefuse.status.value = 'refuse';
@@ -842,7 +962,7 @@ function refusesubmitFun(){
                     layer.load(data.error,1);
                 }
              }
-        }); 
+        });
 }
 </script>
 

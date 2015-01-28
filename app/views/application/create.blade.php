@@ -46,10 +46,17 @@
 
     <div class="form-group">
     {{ Form::label('time', '申请时间', array('class' => 'control-label')) }}
-    {{ Form::text('btime', '', array('placeholder' => '借出日期', 
+        
+        <div>   
+        {{ Form::text('btime', '', array('placeholder' => '借出日期', 
         'class' => 'form-control layer-date', 'id' => 'start', 'require' => '')) }}
-    {{ Form::text('rtime', '', array('placeholder' => '归还日期', 
+        </div>
+
+        <div> 
+         {{ Form::text('rtime', '', array('placeholder' => '归还日期', 
         'class' => 'form-control layer-date', 'id' => 'end', 'require' => '')) }}
+        </div>
+
     </div>
 
     <div class="form-group">

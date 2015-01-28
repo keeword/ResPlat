@@ -51,7 +51,7 @@
 
         <div class="ibox-content">
             @if ($isAdmin)
-            <table class="table table-striped table-bordered table-hover edit-table">
+            <table id="materialTab" class="table table-striped table-bordered table-hover edit-table">
                 <span>
                 <a href="javascript:;" class="btn btn-outline btn-primary">批量添加</a>
                 </span>
@@ -62,7 +62,7 @@
                 <a href="javascript:;" class="btn btn-outline btn-primary">批量删除</a>
                 </span>
             @else
-            <table class="table table-striped table-bordered table-hover dataTables-example">
+            <table id="materialTab" class="table table-striped table-bordered table-hover dataTables-example">
             @endif
             <thead>
             <tr>
@@ -87,9 +87,9 @@
                 <td> {{ Form::checkbox('material', $material->id) }}</td>
                 @endif
                 <td @if($isAdmin) class="edit-td" @endif>{{ $material->name }}</td>      
-                <td @if($isAdmin) class="edit-td" @endif>{{ $material->category->name }}</td>
+                <td @if($isAdmin) class="edit-se" @endif>{{ $material->category->name }}</td>
                 <td @if($isAdmin) class="edit-td" @endif>{{ $material->lent_number }}</td>
-                <td @if($isAdmin) class="edit-td" @endif>{{ $material->total_number - $material->lent_number }}</td>
+                <td>{{ $material->total_number - $material->lent_number }}</td>
                 <td @if($isAdmin) class="edit-td" @endif>{{ $material->total_number }}</td>
                 <td><button type="button" class="btn btn-default"
                     data-toggle="tooltip" data-placement="top" title="@foreach($app_mats as $app_mat)@if($app_mat->material_id === $material->id){{ $users[$applications[$app_mat->application_id]].'借出'.$app_mat->number }}@endif @endforeach">借出详情

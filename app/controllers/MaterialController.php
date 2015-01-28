@@ -139,15 +139,66 @@ class MaterialController extends BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
+     * 更改物资
      * PUT /material/{id}
      *
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function putMaterialUpdate()
     {
-        //
+        if ( ($id    = Input::get('mid')) &&
+             ($value = Input::get('value')) &&
+             ($col   = Input::get('col'))
+        )
+        {
+            $type = array('name', 'category_id', 'lent_number', 'total_number');
+        }
+        else
+        {
+            return Response::json(array('success' => false,
+                'error' => 'Missing input' ));
+        }
+
+        try
+        {
+            $material = Material::find($id);
+
+            switch ($col)
+            {
+            case '1':
+                $material->name = $value;
+                break;
+            case '2':
+                $material->category_id = $value;
+                $value = Category::find($value)->name;
+                break;
+            case '3':
+                $material->lent_number = $value;
+                break;
+            case '5':
+                $material->total_number = $value;
+            }
+
+            if ( ! $material->save())
+            {
+                return Response::json(array('success' => false,
+                    'error' => 'Can not save!'));
+            }
+
+            return Response::json(array('success' => true,
+                'value' => $value));
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
+        }
+        catch (\Exception $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
+        }
     }
 
     /**

@@ -68,21 +68,31 @@ class CategoryController extends BaseController {
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
-            return Response::make('Not Found', 404);
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
         }
-
     }
 
     /**
-     * Display the specified resource.
-     * GET /category/{id}
+     * 品类数据
+     * GET /category/list
      *
-     * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function getCategoryList()
     {
-        //
+        try
+        {
+            $category = Category::lists('name', 'id');
+
+            return Response::json($category);
+        }
+
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage() ));
+        }
     }
 
     /**
