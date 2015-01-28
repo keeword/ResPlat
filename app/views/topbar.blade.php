@@ -10,7 +10,7 @@
         <li>
             <span class="m-r-sm text-muted welcome-message"><a href="{{ URL::route('home') }}" title="返回首页"><i class="fa fa-home"></i></a>物资管理系统</span>
         </li>
-
+<!--
         <li class="dropdown">
             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="index.html#">
                 <i class="fa fa-bell"></i><span class="label label-primary">8</span>
@@ -26,7 +26,7 @@
                 </li>
             </ul>
         </li>
-
+-->
         <li >
             <a id="logoutlayer"  onClick="logout()">
                 <i class="fa fa-sign-out" ></i>退出
