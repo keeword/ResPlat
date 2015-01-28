@@ -500,6 +500,33 @@
     <script>
         //application.blade.php
         formchange = '';
+        function mcreateminus(id){
+            addvalue = parseInt(document.getElementById('applicationForm'+id).value) - 1;
+            if (addvalue < 0)
+            {
+                addvalue = 0;
+            }
+        }
+
+        function mcreateadd(id,max){
+            addvalue = parseInt(document.getElementById('applicationForm'+id).value) + 1;
+            if (addvalue > parseInt(max))
+            {
+                addvalue = max;
+                document.getElementById('applicationForm'+id).value=max-1;
+                layer.load('剩余数量不足,应少于'+max,1);
+            }
+        }
+
+        function mcreateinput(id,max){
+            inputvalue = parseInt(document.getElementById('applicationForm'+id).value);
+            if (inputvalue > parseInt(max))
+            {
+                inputvalue = max;
+                document.getElementById('applicationForm'+id).value=max;
+                layer.load('剩余数量不足,应少于'+max,1);
+            }
+        }
 
         function forminputadd(id, max) {
 
@@ -529,6 +556,7 @@
             inputvalue = parseInt(document.getElementById('applicationForm'+id).value);
             if (inputvalue > parseInt(max))
             {
+                inputvalue = max;
                 document.getElementById('applicationForm'+id).value=max;
                 layer.load('剩余数量不足,应少于'+max,1);
             }
@@ -547,7 +575,11 @@
                 beforeSend: function () {*/
 
         function submitapplication(){
-            applicationcreate(formchange);
+            if(formchange == ""){
+                layer.load('请选择物资!!',1);
+            }else{
+                applicationcreate(formchange);
+            }
         }
         /*            return false;
 

@@ -63,9 +63,7 @@ class ApplicationController extends BaseController {
 
         try
         {
-            if ( ! $materials = Material::select('id',    'name')
-                                        ->whereIn('id', array_keys($material))
-                                        ->get())
+            if ( ! $materials = Material::whereIn('id', array_keys($material))->get())
             {
                 throw new \Exception('User infomation was not updated.');
             }

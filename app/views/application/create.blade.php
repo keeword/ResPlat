@@ -29,9 +29,9 @@
       <tr class="gradeX"> 
         <td>{{ $m->name }}</td> 
         <td><span>
-            <a href="javascript:;" class="J_minus" style="padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
-            {{ Form::text($m->id, $material[$m->id], array('class' => 'J_input', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
-            <a href="javascript:;" class="J_add" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
+            <a href="javascript:;" class="J_minus" onclick="mcreateminus({{$m->id}})" style="padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
+            {{ Form::text($m->id, $material[$m->id], array('class' => 'J_input', 'onblur'=>"forminput($m->id,$m->total_number - $m->lent_number)", 'id' => "applicationForm".$m->id, 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
+            <a href="javascript:;" class="J_add" onclick="mcreateadd({{$m->id}},{{$m->total_number - $m->lent_number}})" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
         </span></td>
       </tr> 
     @endforeach 

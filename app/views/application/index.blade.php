@@ -62,7 +62,7 @@
             <td><span>
                 {{ Form::hidden('id', $material->id) }}
                 <a href="javascript:;" class="J_minus" onclick="forminputminus({{ $material->id }})" style="width:4px;padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
-                {{ Form::text($material->id, '0', array('class' => 'J_input', 'onblur'=>"forminput($material->id,$material->total_number - $material->lent_number)", 'id' => "applicationForm".$material->id, '', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
+                {{ Form::text($material->id, '0', array('class' => 'J_input', 'onblur'=>"forminput($material->id,$material->total_number - $material->lent_number)", 'id' => "applicationForm".$material->id, 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
                 <a href="javascript:;" class="J_add" onclick="forminputadd({{ $material->id }}, {{ $material->total_number - $material->lent_number }})" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
             </span></td>
         </tr>
