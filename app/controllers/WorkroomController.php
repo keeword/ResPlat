@@ -17,6 +17,17 @@ class WorkroomController extends \BaseController {
         return View::make('workroom.index');
     }
 
+    /**
+     * 会议室列表
+     * GET /meetingroom
+     *
+     * @return View
+     */
+    public function getMeetingroom()
+    {
+        return View::make('workroom.meetingroom');
+    }
+
     /** 工作室列表
      * GET /workroom/list
      *
@@ -59,7 +70,50 @@ class WorkroomController extends \BaseController {
         }
 
         return Response::json($result);
+    }
 
+    /** 会议室列表
+     * GET /meetingroom/list
+     *
+     * @return Response
+     */
+    public function getMeetingroomList()
+    {
+        try 
+        {
+            $start     = date('Y-m-d H:i:s', Input::get('start'));
+            $end       = date('Y-m-d H:i:s', Input::get('end'));
+            $workrooms = Workroom::with('user')
+                                 ->where('status', 'pass')
+                                 ->where('name', 'meetingroom')
+                                 ->whereBetween('borrow_time', array($start, $end))
+                                 ->get();
+
+            $result = array();
+            $i = 1;
+            foreach ($workrooms as $workroom)
+            {
+
+                $result[] = array('id'     => $i,
+                                  'start'  => $workroom->borrow_time,
+                                  'end'    => $workroom->return_time,
+                                  'user'   => $workroom->user->nickname,
+                                  'person' => $workroom->person,
+                                  'phone'  => $workroom->phone,
+                                  'allDay' => false,
+                            );
+
+                $i = $i+1;
+            }
+        }
+
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage()));
+        }
+
+        return Response::json($result);
     }
 
     /**
@@ -72,6 +126,18 @@ class WorkroomController extends \BaseController {
     {
         $date = Input::get('date');
         return View::make('workroom.create')->with('date', $date);
+    }
+
+    /**
+     * 申请会议室页面
+     * GET /meetingroom/create
+     *
+     * @return View
+     */
+    public function getMeetingroomCreate()
+    {
+        $date = Input::get('date');
+        return View::make('workroom.meetingroomcreate')->with('date', $date);
     }
 
     /**
@@ -129,15 +195,22 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * Display the specified resource.
-     * GET /workroom/{id}
+     * 审核页面
+     * GET /workroom/update
      *
-     * @param  int  $id
-     * @return Response
+     * @return View
      */
-    public function show($id)
+    public function getWorkroomUpdate()
     {
-        //
+        $workrooms = Workroom::with('user')
+                             ->where('status', 'wating')
+                             ->get();
+        $works = Workroom::orderBy('id', 'desc')
+                         ->whereIn('status', array('pass','refuse'))
+                         ->paginate(15);
+        return View::make('workroom.update')
+                   ->with('works', $works)
+                   ->with('workrooms', $workrooms);
     }
 
     /**
@@ -153,15 +226,47 @@ class WorkroomController extends \BaseController {
     }
 
     /**
-     * Update the specified resource in storage.
+     * 审核申请
      * PUT /workroom/{id}
      *
-     * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function putWorkroomUpdate()
     {
-        //
+        if ( ($id      = Request::segment(2))  &&
+             ($status  = Input::get('status')) &&
+             ($checker = Session::get('userid'))
+        )
+        {
+            $response  = Input::get('response');
+        }
+        else
+        {
+            return Response::json(array('success' => false,
+                'error' => 'Missing input' ));
+        }
+
+        try
+        {
+            $workroom = Workroom::find($id);
+
+            $workroom->status     = $status;
+            $workroom->checker_id = $checker;
+            $workroom->response   = $response;
+
+            if ( ! $workroom->save())
+            {
+                return Response::json(array('success' => false,
+                    'error' => 'Can not save!' ));
+            }
+
+            return Response::json(array('success' => true));
+        }
+        catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+        {
+            return Response::json(array('success' => false,
+                'error' => $e->getMessage()));
+        }
     }
 
     /**

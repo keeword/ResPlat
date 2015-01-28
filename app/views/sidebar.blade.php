@@ -9,22 +9,21 @@
                     <span>
                     <img alt="image" class="img-circle img-responsive" src="/img/logo.png" style="height:80px;width:80px;" />
                     </span>
-<!--
-                    <span class="clear">
--->
                     <span class="block m-t-xs">
                         <strong class="font-bold">{{ Session::get('nickname') }}</strong>
                     </span>
                     <span class="text-muted text-xs block">{{ Session::get('usergroup') }}</span>
-<!--
-                    </span>
--->
                 </div>
             </li>
 
             <div class="logo-element">
             😄
             </div>
+            <li>
+                <a href="{{ URL::route('home') }}"><i class="fa fa-dashboard"></i>
+                <span class="nav-label">主页</span>
+                </a>
+            </li>
             <li @yield('materialManagement')>
                 <a href="#"><i class="fa fa-th-large"></i>
                 <span class="nav-label">物资管理</span><span class="fa arrow"></span>
@@ -49,10 +48,10 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{ URL::route('workroom') }}">工作室申请</a></li>
+                    <li><a href="{{ URL::route('meetingroom') }}">会议室申请</a></li>
                     @if (Session::get('group') === 'checker')
-                    <li><a href="{{ URL::route('workroom.update') }}">工作室审核</a></li>
+                    <li><a href="{{ URL::route('workroom.update') }}">审核</a></li>
                     @endif
-                    <li><a href="graph_flot.html">会议室申请</a></li>
                 </ul>
             </li>
 

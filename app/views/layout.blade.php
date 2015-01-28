@@ -206,10 +206,6 @@
 
             });
 
-        
-            
-            
-
         });
       
 </script>
@@ -248,50 +244,7 @@ function logout(){
 }
 </script>
 
-<script>
-/*function findelememts(row,col){
-     var a = document.getElementById('tbodyid').tagName;
-     var b = a.childNodes;
-     var c = b.item(col);
-     alert(a);            
-}*/
-$(document).ready(function () {
-    $('.dataTables-example').dataTable();
-    /* Init DataTables */
-    var oTable = $('.edit-table').dataTable();
-    /* Apply the jEditable handlers to the table */
-    oTable.$('.edit-td').editable('{{ URL::route("material") }}', {
-        callback:   function (value, setings) {
-            var aPos = oTable.fnGetPosition(this);
-            oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-        },
-        submitdata: function (value, settings) {
-            var row =oTable.fnGetPosition(this)[0];
-            var col =oTable.fnGetPosition(this)[1]; 
-            var a = document.getElementById('tbodyid');
-            //findelememts(row,col);
-            //alert(a); 
-            //alert((document.getElementsById('tbodyid')[row])[col]);
-            return {
-                "row_id": this.parentNode.getAttribute('id'),
-                "column": oTable.fnGetPosition(this)[2],
-                "_method": 'post'
-            };
-        },
-        "width": "80%",
-        "height": "80%"
-    });
-});
 
-/*function fnClickAddRow() {
-    $('#editable').dataTable().fnAddData([
-        "Custom row",
-        "New row",
-        "New row",
-        "New row",
-        "New row"]);
-}*/
-</script>
 <script> oldObj="";
 var newNode=document.createElement("input");
 newNode.type="text";
@@ -549,6 +502,49 @@ function delCategory(id){
                     }
             });
         }
+    });
+}
+
+function passWorkroom(id){
+    $.post(
+        "{{ URL::route('workroom') }}" + '/' + id,
+        {
+            _method : 'put',
+            status : 'pass',
+        },
+        function(json){
+            if (json.success == true){
+                layer.msg('审核成功!',2,function(){
+                    location.reload();
+                });
+            }else{
+                layer.msg(json.error,2,2);
+            }
+    });
+}
+
+function refuseWorkroom(id){
+    layer.prompt({
+        top: 'auto',
+        type : 0,
+        title: '请输入拒绝原因'
+    }, function(val){
+        $.post(
+            "{{ URL::route('workroom') }}" + '/' + id,
+            {
+                _method : 'put', 
+                status : 'refuse',
+                response : val,
+            },
+            function (json){
+                if(json.success == true){
+                    layer.msg('审核成功!',2,function(){
+                        location.reload();
+                    });
+                }else{
+                    layer.msg(json.error,2,2);
+                }
+        });
     });
 }
 
@@ -867,6 +863,8 @@ function refusesubmitFun(){
         }); 
 }
 </script>
+
+
 
 </body>
 </html>

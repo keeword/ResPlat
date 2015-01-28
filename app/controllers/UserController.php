@@ -178,6 +178,11 @@ class UserController extends BaseController {
 
             if ( $groupname = Input::get('group'))
             {
+                if (! $user->removeGroup(Sentry::findGroupByName(Session::get('group'))))
+                {
+                    throw new \Exception('Group was not removed');
+                }
+
                 if ( ! $user->addGroup(Sentry::findGroupByName($groupname)) )
                 {
                     throw new \Exception('Group was not assigned.');
