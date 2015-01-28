@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use Material, Application;
+use Material, Application, Workroom;
 use BaseController, View, Input, Redirect, Response, Session, Lang;
 use Sentry;
 
@@ -19,14 +19,20 @@ class HomeController extends BaseController
         {
             $applications = Application::with('material')
                                        ->where('user_id', Session::get('userid'))
+                                       ->orderBy('id', 'desc')
                                        ->get();
+            $workrooms    = Workroom::where('user_id', Session::get('userid'))
+                                    ->orderBy('id', 'desc')
+                                    ->get();
         }
         catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
         {
             return Response::make('Not Found', 404);
         }
 
-        return View::make('home')->with('applications', $applications);
+        return View::make('home')
+                   ->with('workrooms', $workrooms)
+                   ->with('applications', $applications);
     }
 
 }
