@@ -32,6 +32,8 @@
     <link href="/css/style.css?v=1.6" rel="stylesheet">
     <!-- layer layim 
     <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
+    <!-- datetimepicker-->
+    <link rel="stylesheet" href="/js/jquery.datetimepicker.css"/ >
 </head>
 
 <body>
@@ -86,7 +88,8 @@
 
     <!-- Full Calendar -->
     <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-
+    <!-- datetimepicker -->
+    <script src="/js/jquery.datetimepicker.js"></script>
 
 <script>                                    //工作室管理,日历事件等
         $(function () {
@@ -136,7 +139,7 @@
                 timeFormat: 'H:mm',
                 axisFormat:'H:mm',
                 firstHour:9,
-                firstDay:new Date().getDay() - 3,
+                firstDay:new Date().getDay() - 1,
                 minTime:6,
                 maxTime:24,
                 //allDay:0
@@ -246,22 +249,33 @@ function logout(){
 </script>
 
 <script>
+/*function findelememts(row,col){
+     var a = document.getElementById('tbodyid').tagName;
+     var b = a.childNodes;
+     var c = b.item(col);
+     alert(a);            
+}*/
 $(document).ready(function () {
     $('.dataTables-example').dataTable();
-
     /* Init DataTables */
     var oTable = $('.edit-table').dataTable();
     /* Apply the jEditable handlers to the table */
     oTable.$('.edit-td').editable('{{ URL::route("material") }}', {
-        "callback":   function (value, setings) {
+        callback:   function (value, setings) {
             var aPos = oTable.fnGetPosition(this);
             oTable.fnUpdate(sValue, aPos[0], aPos[1]);
         },
-        "submitdata": function (value, settings) {
+        submitdata: function (value, settings) {
+            var row =oTable.fnGetPosition(this)[0];
+            var col =oTable.fnGetPosition(this)[1]; 
+            var a = document.getElementById('tbodyid');
+            //findelememts(row,col);
+            //alert(a); 
+            //alert((document.getElementsById('tbodyid')[row])[col]);
             return {
                 "row_id": this.parentNode.getAttribute('id'),
                 "column": oTable.fnGetPosition(this)[2],
-                "_method": 'put'
+                "_method": 'post'
             };
         },
         "width": "80%",
@@ -715,24 +729,74 @@ $.fn.iVaryVal=function(iSet,CallBack){
                     //因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
     // event: 'focus' //响应事件。如果没有传入event，则按照默认的click
     // });
-    function timeselector(tid,tformat,tistime,){
+    /*function timeselector(tid,tformat,tistime,){
         elem: '#id', //需显示日期的元素选择器
         event: 'click', //触发事件
-        format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        format: 'hh:mm:ss', //日期格式
         istime: false, //是否开启时间选择
         isclear: true, //是否显示清空
         istoday: true, //是否显示今天
         issure: true, 是否显示确认
-        festival: true //是否显示节日
+        festival: false //是否显示节日
         min: '1900-01-01 00:00:00', //最小日期
         max: '2099-12-31 23:59:59', //最大日期
         start: '2014-6-15 23:00:00',    //开始日期
         fixed: false, //是否固定在可视区域
         zIndex: 99999999, //css z-index
         choose: function(dates){ //选择好日期的回调
-    }
+    }*/
      //日期范围限制
-    }
+    //}
+
+    (function(){
+        $('#btime').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            step:30,
+            //minTime:'6:00',
+            onShow:function(){
+                this.setOptions({
+                    maxTime:jQuery('#etime').val()?jQuery('#etime').val():false});
+            },
+            onClose:function() {},
+        });
+        $('#etime').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            //maxTime:'23:30',
+            onShow:function(){
+                this.setOptions({
+                    minTime:jQuery('#btime').val()?jQuery('#btime').val():false});
+            },
+            
+            step:30
+        });
+       /* var endmin = '1900-01-01';
+        var startmax = '+2100-01-01';*/
+        /*$('#btime').datetimepicker({
+            
+            format:'Y/m/d',
+            onShow:function( ct ){
+                this.setOptions({
+                maxDate:jQuery('#etime').val()?jQuery('#etime').val():false
+            })
+            },
+            timepicker:false
+        });
+        $('#etime').datetimepicker({
+             
+            format:'Y/m/d',
+            onShow:function( ct ){
+                this.setOptions({
+                minDate:jQuery('#btime').val()?jQuery('#btime').val():false
+            })
+            },
+            timepicker:false
+        });*/
+
+    })();
+       // WdatePicker({dateFmt:"HH:mm:ss"});
+    
     var start = {
         elem: '#start',
         format: 'YYYY-MM-DD',
