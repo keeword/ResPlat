@@ -38,6 +38,9 @@ Route::group(array('before' => 'isLogined'), function()
     Route::get('/meetingroom', array('as' => 'meetingroom', 'uses' =>
         'App\Controllers\WorkroomController@getMeetingroom')
     );
+    Route::get('/meetingroom/list', array('as' => 'meetingroom.list', 'uses' =>
+        'App\Controllers\WorkroomController@getMeetingroomList')
+    );
     Route::get('/workroom/list', array('as' => 'workroom.list', 'uses' =>
         'App\Controllers\WorkroomController@getWorkroomList')
     );
