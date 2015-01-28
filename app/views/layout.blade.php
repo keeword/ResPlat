@@ -163,8 +163,12 @@
                     },
                     dayClick: function (date, allDay, jsEvent, view) {
                         var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
-                        //alert(dateft);
-                        workroomapply(dateft);
+                        var today = $.fullCalendar.formatDate(new Date(),"yyyy-MM-dd");
+                        if(today.replace(/\-/g, "")>dateft.replace(/\-/g, "")){
+                            layer.load('日期已过时',1);
+                        }else{
+                            workroomapply(dateft);
+                        }
                     },
                 events: '{{URL::route("workroom.list")}}',
                 eventMouseover: function (calEvent, jsEvent, view) {
@@ -215,8 +219,12 @@
                     },
                     dayClick: function (date, allDay, jsEvent, view) {
                         var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
-                        //alert(dateft);
-                        meetingroomapply(dateft);
+                        var today = $.fullCalendar.formatDate(new Date(),"yyyy-MM-dd");
+                        if(today.replace(/\-/g, "")>dateft.replace(/\-/g, "")){
+                            layer.load('日期已过时',1);
+                        }else{
+                             meetingroomapply(dateft);
+                        }
                     },
                     events: '{{URL::route("meetingroom.list")}}',
                     eventMouseover: function (calEvent, jsEvent, view) {
@@ -515,8 +523,6 @@
             }
             addid = document.getElementById('applicationForm'+id).name;
             formchange = formchange + addid + '=' + addvalue + '&';
-            
-            alert(formchange);
         }
 
         function forminput(id,max){
