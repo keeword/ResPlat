@@ -19,16 +19,19 @@
     
         <div class="form-group">
         {{ Form::label('nickname', '部门',array('class'=>'control-label','id'=>'labelusername')) }}
+        <small>(选填)</small>
         {{ Form::text('nickname', $user->nickname, array('class' => 'form-control')) }}
         </div>
     
         <div class="form-group">
         {{ Form::label('password', '密码',array('class'=>'control-label','id'=>'labelusername')) }}
+        <small>(选填)</small>
         {{ Form::password('password', array('class' => 'form-control', 'placeholder' => '密码')) }}
         </div>
     
         <div class="form-group">
         {{ Form::label('repasswd', '确认密码',array('class'=>'control-label','id'=>'labelusername')) }}
+        <small>(选填)</small>
         {{ Form::password('repasswd', array('class' => 'form-control', 'placeholder' => '确认密码')) }}
         </div>
     

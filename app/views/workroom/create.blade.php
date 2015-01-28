@@ -40,6 +40,7 @@
 
     <div class="form-group">
     {{ Form::label('phone', '联系方式' ,array('class'=>'control-label')) }}
+    <small>(选填)</small>
     {{ Form::text('phone', '', array('class' => 'form-control',
         'placeholder' => '联系方式')) }}
     </div>
