@@ -628,6 +628,9 @@
                     if ($('input[name=nickname]').val().length == 0) {
                         layer.load('请输入部门名称', 1);
                         return false;
+                    }if (!($('input[name=password]').val() == $('input[name=repasswd]').val())) {
+                        layer.load('密码不一致', 1);
+                        return false;
                     } else {
                         return true;
                     }
