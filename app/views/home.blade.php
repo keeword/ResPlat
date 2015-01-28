@@ -29,7 +29,7 @@
             <thead>
             <tr>
                 <th>用户帐号</th>
-                <th>用户名</th>
+                <th>部门</th>
                 <th>用户角色</th>
             </tr>
             </thead>

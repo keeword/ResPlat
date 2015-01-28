@@ -5,13 +5,13 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateWorkroomTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
         Schema::create('workroom', function(Blueprint $table)
         {
             $table->increments('id');
@@ -28,16 +28,16 @@ class CreateWorkroomTable extends Migration {
             $table->timestamp('return_time');
             $table->timestamps();
         });
-	}
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::drop('workroom');
-	}
+    }
 
 }
