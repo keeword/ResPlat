@@ -493,32 +493,63 @@
         //application.blade.php
         formchange = '';
 
-        function forminputadd() {
-            formchange = formchange + $('form#applicationForm').serialize();
-            formchange = formchange.replace('DataTables_Table_0_length=10', '')
-                .replace('DataTables_Table_0_length=20', '')
-                .replace('DataTables_Table_0_length=50', '')
-                .replace('DataTables_Table_0_length=100', '');
+        function forminputadd(id, max) {
+        
+            addvalue = parseInt(document.getElementById('applicationForm'+id).value) + 1;
+            if (addvalue > parseInt(max))
+            {
+                addvalue = max;
+                document.getElementById('applicationForm'+id).value=max-1;
+                layer.load('剩余数量不足,应少于'+max,1);
+            }
+            addid = document.getElementById('applicationForm'+id).name;
+            formchange = formchange + addid + '=' + addvalue + '&';
+        }
+
+        function forminputminus(id) {
+        
+            addvalue = parseInt(document.getElementById('applicationForm'+id).value) - 1;
+            if (addvalue < 0)
+            {
+                addvalue = 0;
+            }
+            addid = document.getElementById('applicationForm'+id).name;
+            formchange = formchange + addid + '=' + addvalue + '&';
+            
+            alert(formchange);
+        }
+
+        function forminput(id,max){
+            inputvalue = parseInt(document.getElementById('applicationForm'+id).value);
+            if (inputvalue > parseInt(max))
+            {
+                document.getElementById('applicationForm'+id).value=max;
+                layer.load('剩余数量不足,应少于'+max,1);
+            }
+            addid = document.getElementById('applicationForm'+id).name;
+            formchange = formchange + addid + '=' + inputvalue + '&';
             //alert(formchange);
         }
 
          //将form转为AJAX提交
-        function ajaxSubmit1(frm, fn) {
+        /*function ajaxSubmit1(frm, fn) {
             $.ajax({
                 url: frm.action,
                 type: 'get',
-                data: $('form#applicationForm').serialize(),
+                data: formchange,
                 success: fn,
-                beforeSend: function () {
+                beforeSend: function () {*/
 
-                    applicationcreate(formchange);
-                    return false;
+        function submitapplication(){
+            applicationcreate(formchange);
+        }
+        /*            return false;
 
                 }
             });
         }
-
-        (function () {
+*/
+        /*(function () {
             //alert();
             $('#applicationForm').bind('submit', function () { //application.blade.php's applicationForm submit
                 //alert();
@@ -527,7 +558,7 @@
                 });
                 return false;
             });
-        })();
+        })();*/
     </script>
     <script>
         function ajaxSubmituser(frm, fn) {
@@ -563,7 +594,7 @@
             });
         }
 
-        (function () { // mterial/create.blade.php's applicationForm submit
+        (function () { 
             //alert();
             $('#createuserform').bind('submit', function () {
                 ajaxSubmituser(this, function (json) {
@@ -598,7 +629,7 @@
             });
         }
 
-        (function () { // mterial/create.blade.php's applicationForm submit
+        (function () {
             //alert();
             $('#updateuserform').bind('submit', function () {
                 ajaxSubmitalteruser(this, function (json) {
@@ -828,7 +859,7 @@
             });
         }
 
-        (function () { // mterial/create.blade.php's applicationForm submit
+        (function () { // mterial/create.blade.php's 
             //alert();
             $('#creatematerialform').bind('submit', function () {
                 ajaxSubmit(this, function (json) {
@@ -854,7 +885,7 @@
          * @2011.12.09
          * @可自由转载及使用,但请注明版权归属
          *******************************/
-        $.fn.iVaryVal = function (iSet, CallBack) {
+        $.fn.iVaryVal = function (iSet, CallBack, max) {
                 /*
                  * Minus:点击元素--减小
                  * Add:点击元素--增加
@@ -867,7 +898,7 @@
                     Add: $('.J_add'),
                     Input: $('.J_input'),
                     Min: 0,
-                    Max: 2000
+                    Max: max
                 }, iSet);
                 var C = null,
                     O = null;
@@ -959,7 +990,7 @@
             //调用
             (function () {
 
-                $('.i_box').iVaryVal({}, function (value, index) {
+                $('.i_box').iVaryVal({}, function (value, index, max) {
 
                 });
 
