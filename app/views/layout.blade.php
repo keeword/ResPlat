@@ -32,6 +32,8 @@
     <link href="/css/style.css?v=1.6" rel="stylesheet">
     <!-- layer layim
     <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
+    <!-- datetimepicker-->
+    <link rel="stylesheet" href="/js/jquery.datetimepicker.css"/ >
 </head>
 
 <body>
@@ -86,7 +88,8 @@
 
     <!-- Full Calendar -->
     <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-
+    <!-- datetimepicker -->
+    <script src="/js/jquery.datetimepicker.js"></script>
 
 <script>                                    //工作室管理,日历事件等
         $(function () {
@@ -171,7 +174,7 @@
 
                 },
                 dayClick: function(date, allDay, jsEvent, view) {
-                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm");
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
                         //alert(dateft);
                         workroomapply(dateft);
                 },
@@ -325,15 +328,6 @@ $(document).ready(function () {
     });
 });
 
-/*function fnClickAddRow() {
-    $('#editable').dataTable().fnAddData([
-        "Custom row",
-        "New row",
-        "New row",
-        "New row",
-        "New row"]);
-}*/
-</script>
 <script> oldObj="";
 var newNode=document.createElement("input");
 newNode.type="text";
@@ -888,13 +882,32 @@ $.fn.iVaryVal=function(iSet,CallBack){
 </script>
 
 <script>
-    //外部js调用
-    // laydate({
-    // elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，
-                    //因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
-    // event: 'focus' //响应事件。如果没有传入event，则按照默认的click
-    // });
-     //日期范围限制
+    (function(){
+        $('#btime').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            step:30,
+            //minTime:'6:00',
+            onShow:function(){
+                this.setOptions({
+                    maxTime:jQuery('#etime').val()?jQuery('#etime').val():false});
+            },
+            onClose:function() {},
+        });
+        $('#etime').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            //maxTime:'23:30',
+            onShow:function(){
+                this.setOptions({
+                    minTime:jQuery('#btime').val()?jQuery('#btime').val():false});
+            },
+            
+            step:30
+        });
+
+    })();
+    
     var start = {
         elem: '#start',
         format: 'YYYY-MM-DD',
