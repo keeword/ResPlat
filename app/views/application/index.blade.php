@@ -53,19 +53,17 @@
         <tbody>
         @foreach ($materials as $material)
         <tr class="gradeX">
-            <td>{{ $material->name }}</td>
-            <td>{{ $material->category->name }}</td>
+            <td>@if ($material->name) {{ $material->name }} @else {{ '物资不存在'}} @endif </td>
+            <td>@if ($material->category){{ $material->category->name }}@else {{ '物资没有品类' }} @endif </td>
             <td>{{ $material->total_number - $material->lent_number }}</td>
             <td><button type="button" class="btn btn-default"
                 data-toggle="tooltip" data-placement="top" title="@foreach($app_mats as $app_mat)@if($app_mat->material_id === $material->id){{ $users[$applications[$app_mat->application_id]].'借出'.$app_mat->number }}@endif @endforeach">借出详情
             </button></td>
             <td><span>
-                <!-- <form id={{ "applicationForm".$material->id }}> -->
                 {{ Form::hidden('id', $material->id) }}
                 <a href="javascript:;" class="J_minus" onclick="forminputminus({{ $material->id }})" style="width:4px;padding:2px 7px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">-</a>
                 {{ Form::text($material->id, '0', array('class' => 'J_input', 'onblur'=>"forminput($material->id,$material->total_number - $material->lent_number)", 'id' => "applicationForm".$material->id, '', 'style' => 'width:40px;height:28px;margin:0 8px;padding:2px;border:1px solid #ccc;text-align:center;line-height:16px')) }}
                 <a href="javascript:;" class="J_add" onclick="forminputadd({{ $material->id }}, {{ $material->total_number - $material->lent_number }})" style="padding:2px 5px;background-color:#e9e9e9;border:1px solid #ccc;text-decoration:none;color:#585858;line-height:20px">+</a>
-               <!--  </form> -->
             </span></td>
         </tr>
         @endforeach
@@ -80,7 +78,6 @@
         </tr>
         </tfoot>
         </table>
-        <!-- <input type="button" value="添加" onclick="forminputadd()"> -->
         <input type="button" onclick = "submitapplication()" value="提交">
     </div>
 

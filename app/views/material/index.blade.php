@@ -86,8 +86,8 @@
                 @if ($isAdmin) 
                 <td> {{ Form::checkbox('material', $material->id) }}</td>
                 @endif
-                <td @if($isAdmin) class="edit-td" @endif>{{ $material->name }}</td>      
-                <td @if($isAdmin) class="edit-se" @endif>{{ $material->category->name }}</td>
+                <td @if($isAdmin) class="edit-td" @endif>@if ($material->name){{ $material->name }}@else {{ '物资不存在' }} @endif </td>      
+                <td @if($isAdmin) class="edit-se" @endif>@if ($material->category){{ $material->category->name }}@else {{ '物资没有品类' }} @endif </td>
                 <td @if($isAdmin) class="edit-td" @endif>{{ $material->lent_number }}</td>
                 <td>{{ $material->total_number - $material->lent_number }}</td>
                 <td @if($isAdmin) class="edit-td" @endif>{{ $material->total_number }}</td>
