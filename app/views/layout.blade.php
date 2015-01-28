@@ -166,7 +166,7 @@
                         //alert(dateft);
                         workroomapply(dateft);
                     },
-                    events: '{{URL::route("meetingroom.list")}}',
+                    events: '{{URL::route("workroom.list")}}',
                 eventMouseover: function (calEvent, jsEvent, view) {
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
@@ -214,7 +214,7 @@
 
                     },
                     dayClick: function (date, allDay, jsEvent, view) {
-                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm");
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
                         //alert(dateft);
                         workroomapply(dateft);
                     },
