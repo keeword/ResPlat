@@ -140,7 +140,7 @@
                 defaultView: 'agendaWeek',
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
-                firstHour: 9,
+                firstHour: 12,
                 firstDay: new Date().getDay() - 1,
                 minTime: 6,
                 maxTime: 24,
@@ -166,7 +166,7 @@
                         //alert(dateft);
                         workroomapply(dateft);
                     },
-                    events: '{{URL::route("workroom.list")}}',
+                events: '{{URL::route("workroom.list")}}',
                 eventMouseover: function (calEvent, jsEvent, view) {
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
@@ -192,7 +192,7 @@
                 defaultView: 'agendaWeek',
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
-                firstHour: 9,
+                firstHour: 12,
                 firstDay: new Date().getDay() - 1,
                 minTime: 6,
                 maxTime: 24,
@@ -216,10 +216,10 @@
                     dayClick: function (date, allDay, jsEvent, view) {
                         var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd");
                         //alert(dateft);
-                        workroomapply(dateft);
+                        meetingroomapply(dateft);
                     },
                     events: '{{URL::route("meetingroom.list")}}',
-                eventMouseover: function (calEvent, jsEvent, view) {
+                    eventMouseover: function (calEvent, jsEvent, view) {
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
                         layer.tips(
@@ -442,6 +442,50 @@
                 return false;
             });
         })();
+
+        (function () {
+
+            $('#createworkroomform').bind('submit', function () {
+                ajaxformsubmit(this, function (json) {
+                        if (json.success == true) {
+
+                            layer.load('提交申请成功!', 2);
+                            setTimeout(
+                                function () {
+                                    var index = parent.layer.getFrameIndex(window.name); //获取当前窗体索引
+                                    parent.layer.close(index);
+                                    //location.reload();
+                                },
+                                2000);
+
+                        } else {
+                            layer.msg(json.error, 2, 2);
+                        }
+                    },
+                    function () {
+                        if ($('textarea[name=reason]').val().length == 0) {
+                            layer.load('请输入申请原因', 1);
+                            return false;
+                        }if ($('input[name=btime]').val().length == 0) {
+                            layer.load('请输入开始时间  ', 1);
+                            return false;
+                        }if ($('input[name=rtime]').val().length == 0) {
+                            layer.load('请输入结束时间', 1);
+                            return false;
+                        }if ($('input[name=person]').val().length == 0) {
+                            layer.load('请输入申请人', 1);
+                            return false;
+                        }else{
+                            return true;
+                        }
+                    },
+                    'createworkroomform',
+                    'post');
+                return false;
+            });
+        })();
+
+
     </script>
 
 
@@ -578,6 +622,10 @@
 
         function workroomapply(dateft) { //workroom.blade.php 点击日历提交工作室申请
             iframeset('{{ URL::route("workroom.create") }}' + '?date=' + dateft);
+        }
+
+        function meetingroomapply(dateft) { //workroom.blade.php 点击日历提交工作室申请
+            iframeset('{{ URL::route("meetingroom.create") }}' + '?date=' + dateft);
         }
 
         function addUser() { //user.blade.php 新增帐号
@@ -924,7 +972,7 @@
                 datepicker: false,
                 format: 'H:i',
                 step: 30,
-                //minTime:'6:00',
+                minTime:'6:00',
                 onShow: function () {
                         this.setOptions({
                             maxTime: jQuery('#etime').val() ? jQuery('#etime').val() : false
