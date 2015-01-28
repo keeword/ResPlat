@@ -51,7 +51,7 @@
       <thead> 
        <tr> 
         <th>用户帐号</th> 
-        <th>用户名</th> 
+        <th>部门</th> 
         <th>用户角色</th> 
         <th>操作</th> 
        </tr> 
@@ -73,7 +73,7 @@
       <tfoot> 
        <tr> 
         <th>用户帐号</th> 
-        <th>用户名</th> 
+        <th>部门</th> 
         <th>用户角色</th> 
         <th>操作</th> 
        </tr> 
