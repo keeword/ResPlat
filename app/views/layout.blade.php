@@ -129,7 +129,7 @@
             var m = date.getMonth();
             var y = date.getFullYear();
             //eventtipstime = true;
-            $('#calendar').fullCalendar({
+            $('#calendar').fullCalendar({                       //workroom
                 header: {
                     left: 'prev,next',
                     center: 'title',
@@ -147,28 +147,14 @@
                 theme:false,
                 aspectRatio:2.1,
                 handleWindowResize:true,
-                droppable: true, // this allows things to be dropped onto the calendar !!!
-                drop: function (date, allDay) { // this function is called when something is dropped
-
-                    // retrieve the dropped element's stored Event Object
+                droppable: true, 
+                drop: function (date, allDay) { 
                     var originalEventObject = $(this).data('eventObject');
-
-                    // we need to copy it, so that multiple events don't have a reference to the same object
                     var copiedEventObject = $.extend({}, originalEventObject);
-
-                    // assign it the date that was reported
                     copiedEventObject.start = date;
                     copiedEventObject.allDay = allDay;
-
-                    // render the event on the calendar
-                    // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                     $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-
-
-                    // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
-                        // if so, remove the element from the "Draggable Events" list
                         $(this).remove();
                     }
 
@@ -177,15 +163,63 @@
                         var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm"); 
                         //alert(dateft);
                         workroomapply(dateft);
-                },
-                
+                },             
+                events: '{{URL::route("meetingroom.list")}}',
+                eventMouseover: function(calEvent, jsEvent, view) { 
+                        var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
+                        var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
+                        layer.tips(
+                        '<div>申请部门:'+calEvent.user
+                        +'</div><div>申请人:'+calEvent.person
+                        +'</div><div>手机:'+calEvent.phone
+                        +'</div>', 
+                        this , 
+                        {
+                            style: ['background-color:#FDFDBD; color:#000', '#FDFDBD'],
+                            });
+                        
+                    } ,
+                eventMouseout:function(calEvent, jsEvent, view){
+                    layer.closeTips();
+               }
 
-               /* eventMouseover:function(calEvent, jsEvent, view){
-                    alert();
-                },*/
-            
+            });
+               $('#meetingroom').fullCalendar({                       //workroom
+                header: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'month, agendaWeek, agendaDay'
+                },
+                defaultView:'agendaWeek',
+                timeFormat: 'H:mm',
+                axisFormat:'H:mm',
+                firstHour:9,
+                firstDay:new Date().getDay() - 1,
+                minTime:6,
+                maxTime:24,
+                //allDay:0
                 
-                events: '{{URL::route("workroom.list")}}',
+                theme:false,
+                aspectRatio:2.1,
+                handleWindowResize:true,
+                droppable: true, 
+                drop: function (date, allDay) { 
+                    var originalEventObject = $(this).data('eventObject');
+                    var copiedEventObject = $.extend({}, originalEventObject);
+                    copiedEventObject.start = date;
+                    copiedEventObject.allDay = allDay;
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                    if ($('#drop-remove').is(':checked')) {
+                        $(this).remove();
+                    }
+
+                },
+                dayClick: function(date, allDay, jsEvent, view) {
+                        var dateft = $.fullCalendar.formatDate(date, "yyyy-MM-dd H:mm"); 
+                        //alert(dateft);
+                        workroomapply(dateft);
+                },             
+                events: '{{URL::route("meetingroom.list")}}',
                 eventMouseover: function(calEvent, jsEvent, view) { 
                         var calstart = $.fullCalendar.formatDate(calEvent.start, "yyyy-MM-dd H:mm");
                         var calend = $.fullCalendar.formatDate(calEvent.end, "yyyy-MM-dd H:mm");
