@@ -494,7 +494,7 @@
         formchange = '';
 
         function forminputadd(id, max) {
-        
+
             addvalue = parseInt(document.getElementById('applicationForm'+id).value) + 1;
             if (addvalue > parseInt(max))
             {
@@ -507,7 +507,7 @@
         }
 
         function forminputminus(id) {
-        
+
             addvalue = parseInt(document.getElementById('applicationForm'+id).value) - 1;
             if (addvalue < 0)
             {
@@ -515,8 +515,6 @@
             }
             addid = document.getElementById('applicationForm'+id).name;
             formchange = formchange + addid + '=' + addvalue + '&';
-            
-            alert(formchange);
         }
 
         function forminput(id,max){
@@ -594,7 +592,7 @@
             });
         }
 
-        (function () { 
+        (function () {
             //alert();
             $('#createuserform').bind('submit', function () {
                 ajaxSubmituser(this, function (json) {
@@ -859,7 +857,7 @@
             });
         }
 
-        (function () { // mterial/create.blade.php's 
+        (function () { // mterial/create.blade.php's
             //alert();
             $('#creatematerialform').bind('submit', function () {
                 ajaxSubmit(this, function (json) {
