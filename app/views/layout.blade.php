@@ -259,7 +259,7 @@
                 closeBtn: [1, false],
                 time: 3,
                 dialog: {
-                    msg: 'Are You Sure to Quit?',
+                    msg: '确定要退出?',
                     btns: 2,
                     type: 4,
                     btn: ['Yes', 'No'],
