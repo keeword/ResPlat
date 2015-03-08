@@ -62,7 +62,7 @@
         <tr class="gradeX">
             @if ($app_mat->material)
             <td>{{ $app_mat->material->name }}</td>
-            <td>{{ $categories[$app_mat->material->category_id] }}</td>
+            <td>{{ $categories[$app_mat->material->category_id] or '品类已删除' }}</td>
             @if ($application->status != 'refuse' && $application->status != 'pass')
             <td>{{ Form::number("data[$app_mat->id]", $app_mat->number) }}</td>
             @else
