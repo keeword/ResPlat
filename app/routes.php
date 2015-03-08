@@ -91,10 +91,6 @@ Route::group(array('before' => 'isLogined|isAdmin'), function()
         'App\Controllers\CategoryController@delCategory')
     )
     ->where('id', '[0-9]+');
-});
-
-Route::group(array('before' => 'isLogined|isChecker'), function()
-{
     Route::get('/application/update', array('as' => 'application.update', 'uses' =>
         'App\Controllers\ApplicationController@getApplicationUpdate')
     );
@@ -111,6 +107,10 @@ Route::group(array('before' => 'isLogined|isChecker'), function()
     ->where('id', '[0-9]+');
 });
 
+Route::group(array('before' => 'isLogined|isChecker'), function()
+{
+});
+
 Route::group(array('before' => 'isLogined|csrf'), function()
 {
     Route::post('/application', array('as' => 'application', 'uses' =>
@@ -123,12 +123,12 @@ Route::group(array('before' => 'isLogined|csrf'), function()
 
 Route::group(array('before' => 'isLogined|isChecker|csrf'), function()
 {
-    Route::put('/application/{id}', array('uses' =>
-        'App\Controllers\ApplicationController@postApplicationUpdate')
-    );
 });
 Route::group(array('before' => 'isLogined|isAdmin|csrf'), function()
 {
+    Route::put('/application/{id}', array('uses' =>
+        'App\Controllers\ApplicationController@postApplicationUpdate')
+    );
     Route::post('/user', array('as' => 'user.post','uses' =>
         'App\Controllers\UserController@postUserCreate')
     );

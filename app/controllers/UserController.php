@@ -59,14 +59,14 @@ class UserController extends BaseController {
             }
             return View::make('user.create')->with('groups', $groups);
         }
-//        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
-//        {
-//            return Response::make('Not Found', 404);
-//        }
-//        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
-//        {
-//            return Response::make('Not Found', 404);
-//        }
+        catch  (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
+        catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+        {
+            return Response::make('Not Found', 404);
+        }
         catch (\Exception $e)
         {
             return Response::make('Not Found', 404);

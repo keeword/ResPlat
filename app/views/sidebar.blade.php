@@ -17,7 +17,6 @@
             </li>
 
             <div class="logo-element">
-            😄
             </div>
             <li>
                 <a href="{{ URL::route('home') }}"><i class="fa fa-dashboard"></i>
@@ -36,7 +35,7 @@
                     <li><a href="{{ URL::route('material') }}">物资一览</a></li>
                     @endif
                     <li><a href="{{ URL::route('application') }}">物资申请</a></li>
-                    @if (Session::get('group') === 'checker')
+                    @if (Session::get('group') === 'admin')
                     <li><a href="{{ URL::route('application.update') }}">物资审核</a></li>
                     @endif
                 </ul>
@@ -49,7 +48,7 @@
                 <ul class="nav nav-second-level">
                     <li><a href="{{ URL::route('workroom') }}">工作室申请</a></li>
                     <li><a href="{{ URL::route('meetingroom') }}">会议室申请</a></li>
-                    @if (Session::get('group') === 'checker')
+                    @if (Session::get('group') === 'admin')
                     <li><a href="{{ URL::route('workroom.update') }}">审核</a></li>
                     @endif
                 </ul>

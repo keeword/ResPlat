@@ -54,7 +54,11 @@
         @foreach ($applications as $application)
         <tr>
             <td>{{ $application->created_at }}</td> 
+            @if ($application->user)
             <td>{{ $application->user->nickname }}</td> 
+            @else
+            <td></td>
+            @endif
             <td><a href="{{ URL::route('application').'/'.$application->id }}">详情</a></td> 
             <td><button  class="btn btn-rounded 
                 @if ($application->status === 'wating') 

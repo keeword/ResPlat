@@ -56,7 +56,11 @@
         @foreach ($workrooms as $workroom)
         <tr>
             <td>{{ $workroom->created_at }}</td> 
+            @if ($workroom->user)
             <td>{{ $workroom->user->nickname }}</td> 
+            @else
+            <td></td>
+            @endif
             <td>{{ Lang::get('msg.'.$workroom->name) }}</td>
             <td>{{ $workroom->borrow_time }}</td> 
             <td>{{ $workroom->return_time }}</td> 
@@ -106,7 +110,11 @@
         @foreach ($works as $work)
         <tr>
             <td>{{ $work->created_at }}</td> 
+            @if ($work->user)
             <td>{{ $work->user->nickname }}</td> 
+            @else
+            <td></td>
+            @endif
             <td>{{ Lang::get('msg.'.$work->name) }}</td>
             <td>{{ $work->borrow_time }}</td> 
             <td>{{ $work->return_time }}</td> 
