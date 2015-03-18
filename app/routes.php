@@ -74,6 +74,9 @@ Route::group(array('before' => 'isLogined|isAdmin'), function()
     Route::get('/material/create', array('as' => 'material.create', 'uses' =>
         'App\Controllers\MaterialController@getMaterialCreate')
     );
+    Route::post('/material/batch', array('as' => 'material.batch', 'uses' =>
+        'App\Controllers\MaterialController@postMaterialBatch')
+    );
     Route::delete('/material/{id}', array('as' => 'material.delete', 'uses' =>
         'App\Controllers\MaterialController@delMaterial')
     )

@@ -35,6 +35,25 @@
     <link  href="/js/plugins/layer/layim/layim.css" rel="stylesheet" type="text/css"> 贤心-->
     <!-- datetimepicker-->
     <link rel="stylesheet" href="/js/jquery.datetimepicker.css" />
+
+<!-- Fine Uploader -->
+<link href="/css/fine-uploader.min.css" rel="stylesheet">
+
+<style>
+  /* For the bootstrapped demos */
+  li.alert-success {
+      background-color: #DFF0D8;
+  }
+
+  li.alert-error {
+      background-color: #F2DEDE;
+  }
+
+  .alert-error .qq-upload-failed-text {
+      display: inline;
+  }
+</style>
+
 </head>
 
 <body>
@@ -91,6 +110,8 @@
     <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
     <!-- datetimepicker -->
     <script src="/js/jquery.datetimepicker.js"></script>
+    <!-- Fine Upload -->
+    <script src="/js/fine-uploader.min.js"></script>
 
     <script>
         //工作室管理,日历事件等
@@ -1135,6 +1156,53 @@
             });
         }
     </script>
+
+    <script>
+        function patchCreate() {
+            var uploader = new qq.FineUploader({
+                element: document.getElementById('batchCreate'),
+                request: {
+                    endpoint: '{{ URL::route('material.batch')}}'
+                },
+                callbacks: {
+                    onUpload: function (id, name) {
+                    },
+                    onSubmitted: function (id, name) {
+                    }
+                }
+            });
+        }
+
+        window.onload = patchCreate;
+    </script>
+
+<script type="text/template" id="qq-template">
+  <div class="qq-uploader-selector qq-uploader">
+    <div class="btn btn-outline btn-primary qq-upload-button-selector qq-upload-button">
+      批量添加
+    </div>
+    <span class="qq-drop-processing-selector qq-drop-processing">
+      <span>Processing dropped files...</span>
+      <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+    </span>
+    <ul class="qq-upload-list-selector qq-upload-list">
+      <li>
+        <div class="qq-progress-bar-container-selector">
+          <div class="qq-progress-bar-selector qq-progress-bar"></div>
+        </div>
+        <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+        <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
+        <span class="qq-upload-file-selector qq-upload-file"></span>
+        <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+        <span class="qq-upload-size-selector qq-upload-size"></span>
+        <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">取消</a>
+        <a class="qq-upload-retry-selector qq-upload-retry" href="#">重试</a>
+        <a class="qq-upload-delete-selector qq-upload-delete" href="#">删除</a>
+        <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+      </li>
+    </ul>
+  </div>
+</script>
 
 </body>
 

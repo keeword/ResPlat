@@ -52,8 +52,8 @@
         <div class="ibox-content">
             @if ($isAdmin)
             <table id="materialTab" class="table table-striped table-bordered table-hover edit-table">
-                <span>
-                <a href="javascript:;" class="btn btn-outline btn-primary">批量添加</a>
+                <span id="batchCreate">
+                <a href="javascript:;" class="btn btn-outline btn-primary" onclick="patchCreate()">批量添加</a>
                 </span>
                 <span>
                 <a href="javascript:;" class="btn btn-outline btn-primary" onClick="addMaterial()">单个添加</a>

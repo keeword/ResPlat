@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use User, Application, ApplicationMaterial, Material, Category;
 use BaseController, View, Input, Redirect, Response, Request, Session, Lang;
+use Excel;
 
 class MaterialController extends BaseController {
 
@@ -114,6 +115,43 @@ class MaterialController extends BaseController {
 
     }
 
+    /**
+     * 批量添加物资
+     * POST /material
+     *
+     * @return Response
+     */
+    public function postMaterialBatch()
+    {
+        $result = Excel::selectSheetsByIndex(0)->load(Input::file('qqfile'), function($reader) {
+            $reader->each(function($sheet) {
+                $sheet->each(function($row) {
+                    try
+                    {
+                        $material = new Material;
+
+                        $material->name = $row->name;
+                        $material->total_number = $row->sum;
+                        $material->lent_number  = $row->lent;
+                        $material->category_id  = 3;
+                        $material->comment      = $row->comment;
+
+                        if (! $material->save())
+                        {
+                            return false;
+                        }
+                    }
+                    catch (Illuminate\Database\Eloquent\ModelNotFoundException $e)
+                    {
+                        return Response::make('Not Found', 404);
+                    }
+
+                });
+            });
+            return true;
+        });
+        return Response::json($result);
+    }
     /**
      * Display the specified resource.
      * GET /material/{id}

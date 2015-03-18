@@ -125,6 +125,7 @@ return array(
         'Cartalyst\Sentry\SentryServiceProvider',
 #        'Anbu\ProfilerServiceProvider',
         'Turbo\Provider\Laravel\TurboServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
     ),
 
@@ -193,6 +194,7 @@ return array(
         'Validator'         => 'Illuminate\Support\Facades\Validator',
         'View'              => 'Illuminate\Support\Facades\View',
         'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 #        'Anbu'              => 'Anbu\Facades\Anbu',
 
     ),
