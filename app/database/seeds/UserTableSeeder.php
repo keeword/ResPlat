@@ -27,16 +27,6 @@ class UserTableSeeder extends Seeder {
         $adminUser->addGroup($adminGroup);
 
         Sentry::createUser(array(
-          'username'   => 'checker',
-          'nickname'   => '审核员',
-          'password'   => '123456789',
-          'activated'  => true,
-        ));
-        $checkerUser  = Sentry::getUserProvider()->findByLogin('checker');
-        $checkerGroup = Sentry::getGroupProvider()->findByName('checker');
-        $checkerUser->addGroup($checkerGroup);
-
-        Sentry::createUser(array(
           'username'   => 'user',
           'nickname'   => '用户',
           'password'   => '123456789',

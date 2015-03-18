@@ -726,7 +726,7 @@
         }
 
         function alterbtn(id) { //user.blade.php 修改按钮
-            iframeset("{{ URL::route('user') }}" + '/' + id);
+            iframeset("{{ URL::route('user.index') }}" + '/' + id);
         }
 
 
@@ -746,7 +746,7 @@
                 title: '输入密码以确认删除!!'
             }, function (val) {
                 $.post(
-                    "{{ URL::route('user') }}" + '/' + id, {
+                    "{{ URL::route('user.index') }}" + '/' + id, {
                         _method: 'delete',
                         password: val
                     },

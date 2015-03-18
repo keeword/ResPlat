@@ -23,8 +23,8 @@ Route::group(array('before' => 'isLogined'), function()
     Route::delete('/login', array('as' => 'logout','uses' =>
         'App\Controllers\AuthController@delLogin')
     );
-    Route::get('/user', array('as' => 'user', 'uses' =>
-        'App\Controllers\UserController@getUser')
+    Route::get('/user', array('as' => 'user.index', 'uses' =>
+        'App\Controllers\User\UserController@getIndex')
     );
     Route::get('/material', array('as' => 'material', 'uses' =>
         'App\Controllers\MaterialController@getMaterial')
@@ -61,14 +61,14 @@ Route::group(array('before' => 'isLogined'), function()
 Route::group(array('before' => 'isLogined|isAdmin'), function()
 {
     Route::get('/user/create', array('as' => 'user.create', 'uses' =>
-        'App\Controllers\UserController@getUserCreate')
+        'App\Controllers\User\UserController@getCreate')
     );
-    Route::get('/user/{id}', array('as' => 'user.update', 'uses' =>
-        'App\Controllers\UserController@getUserUpdate')
+    Route::get('/user/{id}/edit', array('as' => 'user.edit', 'uses' =>
+        'App\Controllers\User\UserController@getEdit')
     )
     ->where('id', '[0-9]+');
     Route::delete('/user/{id}', array('as' => 'user.delete', 'uses' =>
-        'App\Controllers\UserController@delUser')
+        'App\Controllers\User\UserController@deleteUser')
     )
     ->where('id', '[0-9]+');
     Route::get('/material/create', array('as' => 'material.create', 'uses' =>
@@ -132,11 +132,11 @@ Route::group(array('before' => 'isLogined|isAdmin|csrf'), function()
     Route::put('/application/{id}', array('uses' =>
         'App\Controllers\ApplicationController@postApplicationUpdate')
     );
-    Route::post('/user', array('as' => 'user.post','uses' =>
-        'App\Controllers\UserController@postUserCreate')
+    Route::post('/user', array('as' => 'user.store','uses' =>
+        'App\Controllers\User\UserController@postStore')
     );
-    Route::put('/user/{id}', array('as' => 'user.put','uses' =>
-        'App\Controllers\UserController@putUserUpdate')
+    Route::put('/user/{id}', array('as' => 'user.update','uses' =>
+        'App\Controllers\User\UserController@putUpdate')
     )
     ->where('id', '[0-9]+');
     Route::post('/material', array('as' => 'material.post','uses' =>

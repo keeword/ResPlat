@@ -1,4 +1,4 @@
-@extends('master') 
+@extends('admin.master', array('title' => '用户列表'))
 
 @section('content') 
 
@@ -61,10 +61,10 @@
        <tr class="gradeX"> 
         <td>{{ $user->username }}</td> 
         <td>{{ $user->nickname }}</td> 
-        <td>{{ Lang::get('user.'.$user->groups->first()->name) }}</td> 
+        <td>{{ $user->group->first()->zhname }}</td> 
         <td>
-            <a class="btn btn-info btn-rounded" id="btn-alter" href="#" onClick="alterbtn({{ $user->id }})"><i class="fa fa-paste"></i>修改</a>
-            <a class="btn btn-warning btn-rounded" id="btn-deluser" href="#" onClick="delUser({{ $user->id }})"><i class="fa fa-warning"></i>删除</a>
+            <a class="btn btn-info btn-rounded" id="btn-alter" href="#" onClick="updateUser({{ $user->id }})"><i class="fa fa-paste"></i> 修改</a>
+            <a class="btn btn-warning btn-rounded" id="btn-deluser" href="#" onClick="delUser({{ $user->id }})"><i class="fa fa-warning"></i> 删除</a>
         </td>
        </tr> 
        @endforeach 
@@ -91,5 +91,64 @@
 
 </div> 
 
-
 @stop 
+
+@section('script')
+@parent
+<script>
+    // iframe层
+    function iframeset(srcurl) {
+        var pageii = $.layer({
+            type: 2,
+            // offset: ['70px', ''],
+            //shade: [0],
+            closeBtn: [0, true],
+            shadeClose: true,
+            area: ['450px', '470px'],
+            title: false,
+            border: [0],
+            iframe: {
+                src: srcurl,
+                scrolling: 'auto',
+            },
+        });
+        //layer.load(1);
+    }
+
+    // 修改用户
+    function updateUser(id) { 
+        iframeset("{{ URL::route('user.index') }}" + '/' + id + '/edit');
+    }
+
+    // 新增用户
+    function addUser() { 
+        iframeset('{{ URL::route("user.create") }}');
+    }
+
+    // 删除用户
+    function delUser(id) {
+        layer.prompt({
+            top: 'auto',
+            type: 1,
+            title: '输入密码以确认删除!!'
+        }, function (val) {
+            $.post(
+                "{{ URL::route('user.index') }}" + '/' + id, {
+                    _method: 'delete',
+                    password: val
+                },
+                function (json) {
+                    if (json.success == true) {
+                        layer.msg('删除成功!', 2, 1);
+                        setTimeout(
+                            function() {
+                                parent.location.reload();
+                            }, 1500);
+                    } else {
+                        layer.msg(json.error, 2, 2);
+                    }
+                });
+        });
+    }
+</script>
+@stop

@@ -9,8 +9,8 @@ return array(
     'login_error'       => '帐号或密码错误',
 
     'permission_denied' => '没有权限',
-    'username_required' => '需要用户名',
-    'password_required' => '需要密码',
+    'username_required' => '请输入用户名',
+    'password_required' => '密码不匹配',
     'password_not_match'=> '密码错误',
     'user_exists'       => '用户已存在',
     'user_not_found'    => '找不到用户',

@@ -121,11 +121,13 @@ return array(
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Way\Generators\GeneratorsServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
+        'Bllim\Datatables\DatatablesServiceProvider',
         'Cartalyst\Sentry\SentryServiceProvider',
-#        'Anbu\ProfilerServiceProvider',
+        'Former\FormerServiceProvider',
         'Turbo\Provider\Laravel\TurboServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Way\Generators\GeneratorsServiceProvider',
 
     ),
 
@@ -193,9 +195,10 @@ return array(
         'URL'               => 'Illuminate\Support\Facades\URL',
         'Validator'         => 'Illuminate\Support\Facades\Validator',
         'View'              => 'Illuminate\Support\Facades\View',
-        'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Former'            => 'Former\Facades\Former',
+        'Datatables'        => 'Bllim\Datatables\Facade\Datatables',
         'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
-#        'Anbu'              => 'Anbu\Facades\Anbu',
+        'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 
     ),
 );

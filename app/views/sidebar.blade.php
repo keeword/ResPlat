@@ -56,7 +56,7 @@
 
             @if (Session::get('group') === 'admin')
             <li @yield('userManagement')>
-                <a href="{{ URL::route('user') }}"><i class="fa fa-cog"></i>
+                <a href="{{ URL::route('user.index') }}"><i class="fa fa-cog"></i>
                 <span class="nav-label">账号管理</span>
                 </a>
             </li>
